@@ -80,8 +80,15 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 }
 .card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--navy2))}
 .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(11,23,48,.12);border-color:#d9d4c8}
-.card.card-highlight{animation:cardHighlight 2.4s ease}
-@keyframes cardHighlight{0%{box-shadow:0 0 0 0 rgba(197,154,74,.65),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold)}55%{box-shadow:0 0 0 8px rgba(197,154,74,0),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold)}100%{box-shadow:0 4px 16px rgba(11,23,48,.045);border-color:var(--line)}}
+.card.card-highlight{animation:cardHighlight 6s ease;outline:3px solid var(--gold);outline-offset:2px}
+@keyframes cardHighlight{
+ 0%{box-shadow:0 0 0 0 rgba(197,154,74,.85),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold);background:#fff8e8}
+ 8%{box-shadow:0 0 0 10px rgba(197,154,74,0),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold);background:#fff8e8}
+ 16%{box-shadow:0 0 0 0 rgba(197,154,74,.85),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold);background:#fff8e8}
+ 24%{box-shadow:0 0 0 10px rgba(197,154,74,0),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold);background:#fff8e8}
+ 80%{border-color:var(--gold);background:#fff8e8;box-shadow:0 8px 26px rgba(197,154,74,.35)}
+ 100%{box-shadow:0 4px 16px rgba(11,23,48,.045);border-color:var(--line);background:var(--card)}
+}
 .card-body{padding:14px 18px 13px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0}
 .card-top{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-bottom:5pxgap:30px;margin-bottom:5px}
 .card-identity{display:flex;align-items:center;gap:31px;min-width:0}
@@ -387,7 +394,7 @@ function goToCard(id){
    el.scrollIntoView({behavior:"smooth",block:"center"});
    el.classList.remove("card-highlight");void el.offsetWidth;
    el.classList.add("card-highlight");
-   setTimeout(()=>el.classList.remove("card-highlight"),2500);
+   setTimeout(()=>el.classList.remove("card-highlight"),6000);
  }
 }
 function renderPublic(){
@@ -632,7 +639,16 @@ if(!SpeechRecognitionAPI){
  };
 }
 
-loadRecords().then(refreshPublicView);
+if(adminToken){
+ publicView.style.display="none";adminView.style.display="block";
+ openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;
+ loadRecords().then(renderAdminTable).catch(()=>{
+   // token খারাপ/মেয়াদোত্তীর্ণ হলে normal home page এ ফিরিয়ে দাও
+   logout();
+ });
+}else{
+ loadRecords().then(refreshPublicView);
+}
 </script>
 </body>
 </html>

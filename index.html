@@ -237,7 +237,40 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 <script>
 const API_BASE="https://visiondatabox-worker.dreamsicreation.workers.dev";
 let records=[],editingId=null,adminToken=localStorage.getItem("adminToken")||null;
-function matches(r,q){if(!q)return true;const t=q.trim().toLowerCase().split(/\s+/).filter(Boolean),h=[r.institute,r.level,r.department,r.year,r.session,r.description].join(" ").toLowerCase();return t.every(x=>h.includes(x))}
+// Edit distance (Levenshtein) - measures how many letters differ between two words (typo tolerance)
+function levenshtein(a,b){
+ if(a===b)return 0;
+ if(!a.length)return b.length;
+ if(!b.length)return a.length;
+ const dp=new Array(b.length+1);
+ for(let j=0;j<=b.length;j++)dp[j]=j;
+ for(let i=1;i<=a.length;i++){
+   let prev=dp[0];dp[0]=i;
+   for(let j=1;j<=b.length;j++){
+     const temp=dp[j];
+     dp[j]=a[i-1]===b[j-1]?prev:1+Math.min(prev,dp[j],dp[j-1]);
+     prev=temp;
+   }
+ }
+ return dp[b.length];
+}
+// how many typo'd letters we allow, scaled with word length (longer word = a bit more tolerance, capped)
+function fuzzyThreshold(len){return Math.min(3,Math.max(1,Math.floor(len/4)))}
+// a query token matches a record if it's an exact substring anywhere (fast path, also covers partial typing like "Acc")
+// OR if it's within edit-distance of some whole word in the record (typo tolerance, e.g. "Accaounting" -> "Accounting")
+function tokenMatches(token,haystack,words){
+ if(haystack.includes(token))return true;
+ if(token.length<3)return false; // too short to fuzzy-match reliably, avoids false positives
+ const thr=fuzzyThreshold(token.length);
+ return words.some(w=>Math.abs(w.length-token.length)<=thr && levenshtein(token,w)<=thr);
+}
+function matches(r,q){
+ if(!q)return true;
+ const t=q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+ const h=[r.institute,r.level,r.department,r.year,r.session,r.description].join(" ").toLowerCase();
+ const words=h.split(/[^a-z0-9\u0980-\u09FF]+/).filter(Boolean);
+ return t.every(x=>tokenMatches(x,h,words));
+}
 function fmtPrice(n){return"৳"+Number(n||0).toLocaleString("en-US")}
 const ACCENTS=["#1F3057","#B8862E","#2E6B52","#7A4F24","#3E5C76"];
 function accentFor(r){const k=(r.institute||"")+(r.level||"");let h=0;for(let i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))>>>0;return ACCENTS[h%ACCENTS.length]}

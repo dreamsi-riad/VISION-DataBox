@@ -44,53 +44,8 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .eyebrow i{width:7px;height:7px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold)}
 .hero h1{font-family:'Source Serif 4',serif;font-size:clamp(2rem,4vw,3.25rem);line-height:1.12;margin:0 0 10px}
 .hero p{margin:0 0 26px;color:#c5ccda;max-width:650px;font-size:1rem}
-.search-box{
-      position:relative;
-      background:linear-gradient(120deg,#07152f,#102955,#0b1d3f,#142f60);
-      background-size:300% 300%;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:18px;
-      box-shadow:0 14px 35px rgba(7,21,47,.22),inset 0 1px 0 rgba(255,255,255,.08);
-      overflow:hidden;
-      animation:searchGradient 7s ease infinite;
-    }
-    .search-box:before{
-      content:"";
-      position:absolute;
-      width:180px;height:180px;
-      top:-115px;left:-45px;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(255,255,255,.20) 0,rgba(255,255,255,0) 68%);
-      animation:searchGlow 5s ease-in-out infinite;
-      pointer-events:none;
-    }
-    .search-box:after{
-      content:"";
-      position:absolute;
-      width:280px;height:2px;
-      left:-280px;bottom:0;
-      background:linear-gradient(90deg,transparent,rgba(255,210,105,.9),transparent);
-      animation:searchSweep 3.8s linear infinite;
-      pointer-events:none;
-    }
-.search-box input{
-      position:relative;
-      z-index:2;
-      width:100%;
-      height:60px;
-      border:0;
-      outline:0;
-      background:transparent;
-      padding:0 22px;
-      font-size:1rem;
-      font-weight:500;
-      color:#fff;
-      caret-color:#f2c66d;
-    }
-    .search-box input::placeholder{
-      color:rgba(255,255,255,.68);
-    }
-    .search-box input::placeholder{color:rgba(255,255,255,.72)}
+.search-box{position:relative;background:#fff;border:1px solid #e2ddd2;border-radius:16px;box-shadow:0 8px 24px rgba(15,29,56,.08);overflow:hidden}
+.search-box input{width:100%;height:58px;border:0;outline:0;background:transparent;padding:0 20px;font-size:1rem;color:var(--navy)}
 .search-btn{min-width:120px;justify-content:center}
 .quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
 .quick span{font-size:.76rem;color:#d3d8e2;border:1px solid rgba(255,255,255,.16);padding:5px 10px;border-radius:999px}
@@ -153,43 +108,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
  .two-col{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;gap:10px;flex-direction:column}
 }
 .card-top .level{order:-1}
-@keyframes searchBgFlow{
-          0%{background-position:0% 50%}
-          50%{background-position:100% 50%}
-          100%{background-position:0% 50%}
-        }
-        .search-box::before{
-          content:"";
-          position:absolute;
-          width:180px;
-          height:180px;
-          left:-90px;
-          top:-100px;
-          border-radius:50%;
-          background:radial-gradient(circle,rgba(255,255,255,.20) 0%,rgba(255,255,255,0) 68%);
-          animation:searchGlow 5s ease-in-out infinite;
-          pointer-events:none;
-        }
-        .search-box::after{
-          content:"";
-          position:absolute;
-          width:220px;
-          height:220px;
-          right:-120px;
-          bottom:-150px;
-          border-radius:50%;
-          background:radial-gradient(circle,rgba(245,193,74,.18) 0%,rgba(245,193,74,0) 70%);
-          animation:searchGlow2 6s ease-in-out infinite;
-          pointer-events:none;
-        }
-        @keyframes searchGlow{
-          0%,100%{transform:translate(0,0);opacity:.55}
-          50%{transform:translate(620px,35px);opacity:.9}
-        }
-        @keyframes searchGlow2{
-          0%,100%{transform:translate(0,0);opacity:.35}
-          50%{transform:translate(-500px,-25px);opacity:.75}
-        }
+</style>
 </head>
 <body>
 

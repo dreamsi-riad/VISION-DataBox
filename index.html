@@ -340,7 +340,14 @@ const FIVE_HOURS=5*60*60*1000;
 function markLocalUpdate(id){try{const m=JSON.parse(localStorage.getItem("localUpdateTs")||"{}");m[id]=Date.now();localStorage.setItem("localUpdateTs",JSON.stringify(m))}catch(e){}}
 function getUpdateTimestamp(r){
  const server=r.updated_at||r.updatedAt||r.modified_at||r.modifiedAt||r.last_updated||r.lastUpdated;
- if(server){const t=new Date(server).getTime();if(!isNaN(t))return t}
+ if(server){
+   // SQLite এর "YYYY-MM-DD HH:MM:SS" ফরম্যাট UTC সময়, কিন্তু টাইমজোন উল্লেখ না থাকায়
+   // JS Date সেটাকে ভুল করে local time ধরে নেয় — তাই স্পষ্টভাবে UTC হিসেবে parse করা হচ্ছে
+   let iso=String(server).trim();
+   if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(iso)) iso=iso.replace(" ","T")+"Z";
+   const t=new Date(iso).getTime();
+   if(!isNaN(t))return t;
+ }
  try{const m=JSON.parse(localStorage.getItem("localUpdateTs")||"{}");return m[r.id]||null}catch(e){return null}
 }
 function loadDismissed(){try{return JSON.parse(localStorage.getItem("dismissedUpdates")||"[]")}catch(e){return[]}}

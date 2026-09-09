@@ -60,25 +60,30 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .results{display:grid;grid-template-columns:1fr;gap:14px}
 .card{
   position:relative;background:var(--card);border:1px solid var(--line);border-radius:17px;overflow:hidden;
-  display:grid;grid-template-columns:1fr 245px;min-height:185px;box-shadow:0 4px 16px rgba(11,23,48,.045);
+  display:grid;grid-template-columns:1fr 220px;min-height:0;box-shadow:0 4px 16px rgba(11,23,48,.045);
   transition:transform .2s,box-shadow .2s,border-color .2s
 }
 .card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--navy2))}
 .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(11,23,48,.12);border-color:#d9d4c8}
-.card-body{padding:23px 26px 21px 29px;display:flex;flex-direction:column;justify-content:center;min-width:0}
-.card-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:10px}
-.institute{font-family:'Source Serif 4',serif;font-size:1.25rem;font-weight:700;color:var(--navy)}
-.level{background:var(--navy);color:#fff;padding:5px 12px;border-radius:8px;font-size:.78rem;font-weight:700;white-space:nowrap}
-.department{font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.card-body{padding:14px 18px 13px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px}
+.institute{font-family:'Source Serif 4',serif;font-size:1.12rem;font-weight:700;color:var(--navy)}
+.level{color:#fff;padding:5px 12px;border-radius:8px;font-size:.76rem;font-weight:700;white-space:nowrap}
+.level-bba{background:linear-gradient(135deg,#0f766e,#115e59);box-shadow:0 4px 10px rgba(15,118,110,.18)}
+.level-mba{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 10px rgba(124,58,237,.18)}
+.level-bbs{background:linear-gradient(135deg,#b45309,#92400e);box-shadow:0 4px 10px rgba(180,83,9,.18)}
+.level-professional{background:linear-gradient(135deg,#be123c,#9f1239);box-shadow:0 4px 10px rgba(190,18,60,.18)}
+.level-default{background:linear-gradient(135deg,#16294e,#0b1730)}
+.department{font-size:1.05rem;font-weight:700;margin-bottom:6px}
 .meta{display:flex;gap:8px;flex-wrap:wrap}
-.meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:5px 10px;border-radius:7px;font-size:.8rem;font-weight:600}
-.desc{color:var(--muted);font-size:.86rem;margin:11px 0 0;line-height:1.5;max-width:680px}
+.meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:3px 8px;border-radius:7px;font-size:.8rem;font-weight:600}
+.desc{color:var(--muted);font-size:.82rem;margin:6px 0 0;line-height:1.5;max-width:680px}
 .price-panel{background:linear-gradient(145deg,#fff9eb,#f5e7c5);border-left:1px solid var(--line);display:grid;grid-template-columns:1fr;align-content:center}
-.price{padding:15px 20px;text-align:center}.price+.price{border-top:1px solid rgba(23,35,61,.10)}
+.price{padding:10px 15px;text-align:center}.price+.price{border-top:1px solid rgba(23,35,61,.10)}
 .price-label{font-size:.69rem;font-weight:700;color:#786331;text-transform:uppercase;letter-spacing:.7px}
-.price-value{font-size:1.42rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.price-value{font-size:1.28rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
 .price.last .price-value{color:var(--red)}
-.saving{font-size:.72rem;color:var(--green);font-weight:700;margin-top:3px}
+.saving{font-size:.68rem;color:var(--green);font-weight:700;margin-top:3px}
 .empty{background:#fff;border:1px dashed #d9d4c8;border-radius:17px;text-align:center;padding:55px 20px;color:var(--muted)}
 .empty-icon{font-size:2rem;margin-bottom:8px}.empty strong{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
 .overlay{position:fixed;inset:0;background:rgba(7,15,31,.66);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
@@ -101,7 +106,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
  main{padding:0 14px 60px}.hero{margin:14px 0 22px;padding:36px 20px 30px;border-radius:19px}.hero h1{font-size:2rem}.hero p{font-size:.9rem}
  .search-box{padding:5px;flex-direction:column;border-radius:13px}.search-box input{padding:12px}.search-btn{width:100%}
  .card{grid-template-columns:1fr}.price-panel{border-left:0;border-top:1px solid var(--line);grid-template-columns:1fr 1fr}.price+.price{border-top:0;border-left:1px solid rgba(23,35,61,.10)}
- .card-body{padding:19px 18px 18px 23px}.department{font-size:1.05rem}.section-head{align-items:flex-start;flex-direction:column;gap:7px}.result-count{white-space:normal}
+ .card-body{padding:13px 15px 12px 20px}.department{font-size:1rem}.section-head{align-items:flex-start;flex-direction:column;gap:7px}.result-count{white-space:normal}
  .two-col{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;gap:10px;flex-direction:column}
 }
 </style>
@@ -135,12 +140,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
       
     </div>
   </section>
-
-  <div class="section-head">
-    <div><h2 class="section-title" id="resultTitle">সকল তথ্য</h2><div class="section-kicker">সর্বশেষ তথ্যগুলো এক নজরে দেখুন</div></div>
-    <div class="result-count" id="resultCount">লোড হচ্ছে...</div>
-  </div>
-  <section class="results" id="publicResults"><div class="loading">তথ্য লোড হচ্ছে...</div></section>
+<section class="results" id="publicResults"><div class="loading">তথ্য লোড হচ্ছে...</div></section>
 </main>
 
 <main id="adminView">
@@ -175,15 +175,21 @@ const ACCENTS=["#1F3057","#B8862E","#2E6B52","#7A4F24","#3E5C76"];
 function accentFor(r){const k=(r.institute||"")+(r.level||"");let h=0;for(let i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))>>>0;return ACCENTS[h%ACCENTS.length]}
 async function apiFetch(path,options={}){const headers=Object.assign({"Content-Type":"application/json"},options.headers||{});if(adminToken)headers.Authorization="Bearer "+adminToken;const res=await fetch(API_BASE+path,{...options,headers});let data=null;try{data=await res.json()}catch(e){}if(!res.ok)throw new Error(data?.error||"একটা সমস্যা হয়েছে।");return data}
 async function loadRecords(){try{records=await apiFetch("/api/records")}catch(e){console.error(e);records=[]}}
+function levelClass(level){
+ const v=(level||"").toLowerCase().replace(/[^a-z0-9]+/g,"");
+ if(v.includes("bba"))return "level-bba";
+ if(v.includes("mba"))return "level-mba";
+ if(v.includes("bbs"))return "level-bbs";
+ if(v.includes("professional"))return "level-professional";
+ return "level-default";
+}
 function renderPublic(){
  const q=document.getElementById("publicSearch").value,list=records.filter(r=>matches(r,q)),wrap=document.getElementById("publicResults");
- document.getElementById("resultTitle").textContent=q?`“${q}” এর ফলাফল`:"সকল তথ্য";
- document.getElementById("resultCount").textContent=q?`${list.length} টি ফলাফল`:`মোট ${records.length} টি তথ্য`;
  if(!list.length){wrap.innerHTML=`<div class="empty"><div class="empty-icon">⌕</div><strong>কোনো তথ্য পাওয়া যায়নি</strong><span>অন্য Institute, Department অথবা Session দিয়ে আবার চেষ্টা করুন।</span></div>`;return}
  wrap.innerHTML=list.map(r=>{const diff=Number(r.asking_price||0)-Number(r.last_price||0);return`
  <article class="card" style="--accent:${accentFor(r)}">
   <div class="card-body">
-   <div class="card-top"><div class="institute">${r.institute||""}</div><span class="level">${r.level||""}</span></div>
+   <div class="card-top"><div class="institute">${r.institute||""}</div><span class="level ${levelClass(r.level)}">${r.level||""}</span></div>
    <div class="department">${r.department||""}</div>
    <div class="meta"><span>${r.year||""}</span><span>Session ${r.session||""}</span></div>
    ${r.description?`<p class="desc">${r.description}</p>`:""}

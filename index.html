@@ -393,33 +393,14 @@
 
 <script>
 /* ==========================================================================
-   NOTE FOR LATER: D1 INTEGRATION
-   এখন সব ডাটা শুধু ব্রাউজারের মেমোরিতে (records অ্যারে) রাখা আছে, তাই পেজ
-   রিফ্রেশ দিলে নতুন যোগ/এডিট/ডিলিট করা তথ্য মুছে যাবে — এটাই প্রত্যাশিত,
-   কারণ এখনো ডাটাবেজ কানেক্ট করা হয়নি। Cloudflare D1 কানেক্ট করার সময়
-   নিচের ৫টা ফাংশন পরিবর্তন করতে হবে যাতে সেগুলো fetch() দিয়ে
-   /api/records এন্ডপয়েন্টে রিকোয়েস্ট পাঠায়:
-     - loadRecords()   -> GET  /api/records
-     - createRecord()  -> POST /api/records
-     - updateRecord()  -> PUT  /api/records/:id
-     - deleteRecord()  -> DELETE /api/records/:id
-     - login()         -> POST /api/login  (সার্ভার সাইডে পাসওয়ার্ড যাচাই)
+   D1 + Worker সংযুক্ত ভার্সন
+   নিচের API_BASE এ আপনার Worker এর URL বসান (Cloudflare Dashboard থেকে কপি করা)
    ========================================================================== */
+const API_BASE = "https://visiondatabox-worker.dreamsicreation.workers.dev"; // Worker URL বসানো হয়েছে
 
-// ---- ডেমো এডমিন ক্রেডেনশিয়াল (শুধু প্রোটোটাইপের জন্য) ----
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin123";
-
-// ---- নমুনা ডাটা (পরে D1 থেকে আসবে) ----
-let records = [
-  { id: 1, institute: "DCU", level: "BBA", department: "Accounting", year: "4th Year", session: "21-22", askingPrice: 7000, lastPrice: 7000, description: "সম্পূর্ণ কোর্স ম্যাটেরিয়াল ও নোটসহ সকল রেকর্ডেড ক্লাস।" },
-  { id: 2, institute: "DCU", level: "BBA", department: "Marketing", year: "3rd Year", session: "20-21", askingPrice: 9000, lastPrice: 8500, description: "মার্কেটিং মেজরের সেশন, দ্রুত যোগাযোগ করুন।" },
-  { id: 3, institute: "NU", level: "MBA", department: "Finance", year: "1st Year", session: "22-23", askingPrice: 22000, lastPrice: 20000, description: "ফাইন্যান্স মেজর, ইভিনিং প্রোগ্রাম।" },
-  { id: 4, institute: "DCU", level: "BBA", department: "Accounting", year: "2nd Year", session: "22-23", askingPrice: 11000, lastPrice: 9000, description: "নতুন সেশন, সব বই সহ।" },
-  { id: 5, institute: "NU", level: "BBA", department: "HRM", year: "4th Year", session: "19-20", askingPrice: 7000, lastPrice: 6000, description: "থিসিস সেমিস্টার বাকি আছে।" }
-];
-let nextId = 6;
+let records = [];
 let editingId = null;
+let adminToken = localStorage.getItem("adminToken") || null;
 
 // ---------- হেল্পার ----------
 function matches(record, query){
@@ -429,7 +410,29 @@ function matches(record, query){
     .join(" ").toLowerCase();
   return tokens.every(t => haystack.includes(t));
 }
-function fmtPrice(n){ return "৳" + Number(n).toLocaleString("en-US"); }
+function fmtPrice(n){ return "৳" + Number(n || 0).toLocaleString("en-US"); }
+
+async function apiFetch(path, options = {}){
+  const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
+  if(adminToken) headers["Authorization"] = "Bearer " + adminToken;
+  const res = await fetch(API_BASE + path, Object.assign({}, options, { headers }));
+  let data = null;
+  try{ data = await res.json(); }catch(e){}
+  if(!res.ok){
+    throw new Error((data && data.error) ? data.error : "একটা সমস্যা হয়েছে।");
+  }
+  return data;
+}
+
+// ---------- ডাটা লোড (D1 থেকে) ----------
+async function loadRecords(){
+  try{
+    records = await apiFetch("/api/records", { method: "GET" });
+  }catch(e){
+    console.error(e);
+    records = [];
+  }
+}
 
 // ---------- পাবলিক ভিউ রেন্ডার ----------
 function renderPublic(){
@@ -453,16 +456,16 @@ function renderPublic(){
           <span class="pill pill-sub">${r.department}</span>
           <span class="pill pill-sub">${r.session}</span>
         </div>
-        <p class="desc">${r.description}</p>
+        <p class="desc">${r.description || ""}</p>
       </div>
       <div class="price-block">
         <div class="half">
           <div class="label">Asking Price</div>
-          <div class="ask">${fmtPrice(r.askingPrice)}</div>
+          <div class="ask">${fmtPrice(r.asking_price)}</div>
         </div>
         <div class="half">
           <div class="label">Last Price</div>
-          <div class="last">${fmtPrice(r.lastPrice)}</div>
+          <div class="last">${fmtPrice(r.last_price)}</div>
         </div>
       </div>
     </div>
@@ -486,9 +489,9 @@ function renderAdminTable(){
       <td>${r.department}</td>
       <td>${r.year}</td>
       <td>${r.session}</td>
-      <td>${fmtPrice(r.askingPrice)}</td>
-      <td>${fmtPrice(r.lastPrice)}</td>
-      <td class="desc-cell">${r.description}</td>
+      <td>${fmtPrice(r.asking_price)}</td>
+      <td>${fmtPrice(r.last_price)}</td>
+      <td class="desc-cell">${r.description || ""}</td>
       <td>
         <div class="row-actions">
           <button class="btn btn-ghost" onclick="openEdit(${r.id})">এডিট</button>
@@ -508,22 +511,33 @@ function openLogin(){
 }
 function closeLogin(){ document.getElementById("loginOverlay").classList.remove("show"); }
 
-function login(){
+async function login(){
   const u = document.getElementById("loginUser").value.trim();
   const p = document.getElementById("loginPass").value;
-  if(u === ADMIN_USERNAME && p === ADMIN_PASSWORD){
+  const errorEl = document.getElementById("loginError");
+  errorEl.textContent = "";
+  try{
+    const data = await apiFetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({ username: u, password: p })
+    });
+    adminToken = data.token;
+    localStorage.setItem("adminToken", adminToken);
     closeLogin();
     document.getElementById("publicView").style.display = "none";
     document.getElementById("adminView").style.display = "block";
+    await loadRecords();
     renderAdminTable();
-  } else {
-    document.getElementById("loginError").textContent = "ইউজারনেম বা পাসওয়ার্ড সঠিক নয়।";
+  }catch(e){
+    errorEl.textContent = e.message || "ইউজারনেম বা পাসওয়ার্ড সঠিক নয়।";
   }
 }
 function logout(){
+  adminToken = null;
+  localStorage.removeItem("adminToken");
   document.getElementById("adminView").style.display = "none";
   document.getElementById("publicView").style.display = "block";
-  renderPublic();
+  loadRecords().then(renderPublic);
 }
 
 // ---------- ট্যাব সুইচ ----------
@@ -534,36 +548,38 @@ function switchTab(tab){
 }
 
 // ---------- নতুন তথ্য যোগ ----------
-function addRecord(){
+async function addRecord(){
   const institute = document.getElementById("add_institute").value.trim();
   const level = document.getElementById("add_level").value.trim();
   const department = document.getElementById("add_department").value.trim();
   const year = document.getElementById("add_year").value.trim();
   const session = document.getElementById("add_session").value.trim();
-  const askingPrice = document.getElementById("add_asking").value;
-  const lastPrice = document.getElementById("add_last").value;
+  const asking_price = document.getElementById("add_asking").value;
+  const last_price = document.getElementById("add_last").value;
   const description = document.getElementById("add_desc").value.trim();
   const errorEl = document.getElementById("addError");
 
-  if(!institute || !level || !department || !year || !session || !askingPrice){
+  if(!institute || !level || !department || !year || !session || !asking_price){
     errorEl.textContent = "Institute, Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
     return;
   }
   errorEl.textContent = "";
 
-  records.push({
-    id: nextId++,
-    institute, level, department, year, session,
-    askingPrice: Number(askingPrice),
-    lastPrice: Number(lastPrice) || 0,
-    description
-  });
+  try{
+    await apiFetch("/api/records", {
+      method: "POST",
+      body: JSON.stringify({ institute, level, department, year, session, asking_price, last_price, description })
+    });
 
-  ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
-    .forEach(id => document.getElementById(id).value = "");
+    ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
+      .forEach(id => document.getElementById(id).value = "");
 
-  renderAdminTable();
-  switchTab("manage");
+    await loadRecords();
+    renderAdminTable();
+    switchTab("manage");
+  }catch(e){
+    errorEl.textContent = e.message;
+  }
 }
 
 // ---------- এডিট ----------
@@ -576,41 +592,53 @@ function openEdit(id){
   document.getElementById("edit_department").value = r.department;
   document.getElementById("edit_year").value = r.year;
   document.getElementById("edit_session").value = r.session;
-  document.getElementById("edit_asking").value = r.askingPrice;
-  document.getElementById("edit_last").value = r.lastPrice;
+  document.getElementById("edit_asking").value = r.asking_price;
+  document.getElementById("edit_last").value = r.last_price;
   document.getElementById("edit_desc").value = r.description;
   document.getElementById("editError").textContent = "";
   document.getElementById("editOverlay").classList.add("show");
 }
 function closeEdit(){ document.getElementById("editOverlay").classList.remove("show"); editingId = null; }
 
-function saveEdit(){
-  const r = records.find(x => x.id === editingId);
-  if(!r) return;
+async function saveEdit(){
   const institute = document.getElementById("edit_institute").value.trim();
   const level = document.getElementById("edit_level").value.trim();
   const department = document.getElementById("edit_department").value.trim();
   const year = document.getElementById("edit_year").value.trim();
   const session = document.getElementById("edit_session").value.trim();
-  const askingPrice = document.getElementById("edit_asking").value;
-  const lastPrice = document.getElementById("edit_last").value;
+  const asking_price = document.getElementById("edit_asking").value;
+  const last_price = document.getElementById("edit_last").value;
   const description = document.getElementById("edit_desc").value.trim();
+  const errorEl = document.getElementById("editError");
 
-  if(!institute || !level || !department || !year || !session || !askingPrice){
-    document.getElementById("editError").textContent = "Institute, Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
+  if(!institute || !level || !department || !year || !session || !asking_price){
+    errorEl.textContent = "Institute, Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
     return;
   }
 
-  Object.assign(r, { institute, level, department, year, session, askingPrice: Number(askingPrice), lastPrice: Number(lastPrice) || 0, description });
-  closeEdit();
-  renderAdminTable();
+  try{
+    await apiFetch(`/api/records/${editingId}`, {
+      method: "PUT",
+      body: JSON.stringify({ institute, level, department, year, session, asking_price, last_price, description })
+    });
+    closeEdit();
+    await loadRecords();
+    renderAdminTable();
+  }catch(e){
+    errorEl.textContent = e.message;
+  }
 }
 
 // ---------- ডিলিট ----------
-function deleteRecord(id){
+async function deleteRecord(id){
   if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?")) return;
-  records = records.filter(r => r.id !== id);
-  renderAdminTable();
+  try{
+    await apiFetch(`/api/records/${id}`, { method: "DELETE" });
+    await loadRecords();
+    renderAdminTable();
+  }catch(e){
+    alert(e.message);
+  }
 }
 
 // ---------- ইভেন্ট বাইন্ডিং ----------
@@ -628,8 +656,8 @@ document.querySelectorAll(".tab-btn").forEach(b => b.addEventListener("click", (
 // এন্টার কী দিয়ে লগইন
 document.getElementById("loginPass").addEventListener("keydown", e => { if(e.key === "Enter") login(); });
 
-// প্রাথমিক রেন্ডার
-renderPublic();
+// প্রাথমিক রেন্ডার (D1 থেকে ডাটা লোড করে)
+loadRecords().then(renderPublic);
 </script>
 </body>
 </html>

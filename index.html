@@ -127,7 +127,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
     </div>
     <div><div class="brand-title">VISION <span>DataBox</span></div><div class="brand-sub">Academic Information Directory</div></div>
   </div>
-  <button class="btn btn-outline" id="openLoginBtn">Logout</button>
+  <button class="btn btn-outline" id="openLoginBtn">Admin Login</button>
 </header>
 
 <main id="publicView">
@@ -147,7 +147,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 </main>
 
 <main id="adminView">
-  <div class="admin-topbar"><h1>এডমিন প্যানেল</h1><button class="btn btn-ghost" id="logoutBtn">Home এ ফিরে যান</button></div>
+  <div class="admin-topbar"><h1>এডমিন প্যানেল</h1><button class="btn btn-ghost" id="logoutBtn">Logout</button></div>
   <div class="tabs"><button class="tab-btn active" data-tab="manage">তথ্য ব্যবস্থাপনা</button><button class="tab-btn" data-tab="add">নতুন তথ্য যোগ করুন</button></div>
   <div class="admin-section active" id="tab-manage">
     <div class="search-box" style="background:#fff;border:1px solid var(--line);box-shadow:none;margin-bottom:16px"><input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন..."></div>
@@ -377,7 +377,7 @@ async function saveEdit(){
  }catch(e){editError.textContent=e.message}
 }
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
-openLoginBtn.onclick=logout;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=goHome;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
 add_level.onchange=()=>updateLevelFields("add");
 edit_level.onchange=()=>updateLevelFields("edit");
 updateLevelFields("add");document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));

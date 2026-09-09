@@ -196,7 +196,7 @@ function renderPublic(){
   </div>
   <div class="price-panel">
    <div class="price"><div class="price-label">Asking Price</div><div class="price-value">${fmtPrice(r.asking_price)}</div></div>
-   <div class="price last"><div class="price-label">Last Price</div><div class="price-value">${Number(r.last_price)>0?fmtPrice(r.last_price):"—"}</div>${diff>0&&Number(r.last_price)>0?`<div class="saving">↓ ${fmtPrice(diff)} lower</div>`:""}</div>
+   <div class="price last"><div class="price-label">Last Price</div><div class="price-value">${Number(r.last_price)>0?fmtPrice(r.last_price):"—"}</div>${diff>0&&Number(r.last_price)>0?``:""}</div>
   </div>
  </article>`}).join("")
 }

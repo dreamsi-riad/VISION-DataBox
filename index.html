@@ -99,8 +99,8 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .icon-badge.round{border-radius:50%}
 .icon-badge svg{width:15px;height:15px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
 .level{color:#fff;padding:6px 14px;border-radius:9px;font-size:.86rem;font-weight:700;white-space:nowrap}
-.level-bba{background:linear-gradient(135deg,#0f766e,#115e59);box-shadow:0 4px 10px rgba(15,118,110,.18)}
-.level-mba{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 10px rgba(124,58,237,.18)}
+.level-bba{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 10px rgba(124,58,237,.18)}
+.level-mba{background:linear-gradient(135deg,#16a34a,#15803d);box-shadow:0 4px 10px rgba(22,163,74,.18)}
 .level-bbs{background:linear-gradient(135deg,#b45309,#92400e);box-shadow:0 4px 10px rgba(180,83,9,.18)}
 .level-professional{background:linear-gradient(135deg,#be123c,#9f1239);box-shadow:0 4px 10px rgba(190,18,60,.18)}
 .level-default{background:linear-gradient(135deg,#16294e,#0b1730)}
@@ -321,8 +321,8 @@ function levelClass(level){
 }
 function levelColor(level){
  const v=(level||"").toLowerCase().replace(/[^a-z0-9]+/g,"");
- if(v.includes("bba"))return "#0f766e";
- if(v.includes("mba"))return "#7c3aed";
+ if(v.includes("bba"))return "#7c3aed";
+ if(v.includes("mba"))return "#16a34a";
  if(v.includes("bbs"))return "#b45309";
  if(v.includes("professional"))return "#be123c";
  return "#16294e";

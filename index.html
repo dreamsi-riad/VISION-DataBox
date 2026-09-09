@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>সেশন ডাটাবক্স</title>
+<title>VISION DataBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
@@ -86,7 +86,7 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .department{font-size:1.12rem;font-weight:700;margin-bottom:6px}
 .meta{display:flex;gap:8px;flex-wrap:wrap}
 .meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:3px 8px;border-radius:7px;font-size:.8rem;font-weight:600}
-.desc{color:var(--muted);font-size:.88rem;margin:6px 0 0;line-height:1.5;max-width:680px}
+.desc{color:var(--ink);font-size:.88rem;margin:6px 0 0;line-height:1.5;max-width:680px}
 .price-panel{background:linear-gradient(145deg,#fff9eb,#f5e7c5);border-left:1px solid var(--line);display:grid;grid-template-columns:1fr;align-content:center}
 .price{padding:10px 15px;text-align:center}.price+.price{border-top:1px solid rgba(23,35,61,.10)}
 .price-label{font-size:.69rem;font-weight:700;color:#786331;text-transform:uppercase;letter-spacing:.7px}
@@ -165,7 +165,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 </main>
 
 <main id="adminView">
-  <div class="admin-topbar"><h1>এডমিন প্যানেল</h1></div>
+  <div class="admin-topbar"><h1>Admin Panel</h1></div>
   <div class="tabs"><button class="tab-btn active" data-tab="manage">তথ্য ব্যবস্থাপনা</button><button class="tab-btn" data-tab="add">নতুন তথ্য যোগ করুন</button></div>
   <div class="admin-section active" id="tab-manage">
     <div class="search-box" style="background:#fff;border:1px solid var(--line);box-shadow:none;margin-bottom:16px"><input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন..."></div>
@@ -210,9 +210,9 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   </div>
 </main>
 
-<div class="overlay" id="loginOverlay"><div class="modal"><h2>এডমিন লগইন</h2><p class="sub">আপনার administrator credentials দিয়ে প্রবেশ করুন</p><div class="field"><label>ইউজারনেম</label><input id="loginUser" autocomplete="username"></div><div class="field"><label>পাসওয়ার্ড</label><input type="password" id="loginPass" autocomplete="current-password"></div><div class="error-text" id="loginError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button><button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button></div></div></div>
+<div class="overlay" id="loginOverlay"><div class="modal"><h2>Admin Login</h2><p class="sub">Username & Password দিয়ে প্রবেশ করুন</p><div class="field"><label>Username</label><input id="loginUser" autocomplete="username"></div><div class="field"><label>Password</label><input type="password" id="loginPass" autocomplete="current-password"></div><div class="error-text" id="loginError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button><button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button></div></div></div>
 
-<div class="overlay" id="editOverlay"><div class="modal wide"><h2>তথ্য সম্পাদনা</h2><p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p>
+<div class="overlay" id="editOverlay"><div class="modal wide"><h2>Data Edit</h2><p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p>
   <div class="field"><label>Level</label>
     <select id="edit_level">
       <option value="">Level নির্বাচন করুন</option>
@@ -242,7 +242,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   <div class="two-col"><div class="field"><label>Year</label><input id="edit_year"></div><div class="field"><label>Session</label><input id="edit_session"></div></div>
   <div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div><div class="field"><label>Last Price</label><input type="number" id="edit_last"></div></div>
   <div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div>
-  <div class="error-text" id="editError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelEditBtn">বাতিল</button><button class="btn btn-navy" id="saveEditBtn">সংরক্ষণ করুন</button></div>
+  <div class="error-text" id="editError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelEditBtn">Cancel</button><button class="btn btn-navy" id="saveEditBtn">Save Data</button></div>
 </div></div>
 <script>
 const API_BASE="https://visiondatabox-worker.dreamsicreation.workers.dev";

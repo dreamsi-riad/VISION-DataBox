@@ -351,14 +351,20 @@ function updateFilterVisibility(){
  if(!needsInstitute)instSel.value="";
  if(!needsDept)deptSel.value="";
 }
+function ciEq(a,b){return (a||"").trim().toLowerCase()===(b||"").trim().toLowerCase()}
 function combinedMatches(r){
  const q=document.getElementById("publicSearch").value;
  if(!matches(r,q))return false;
- const lv=document.getElementById("filterLevel").value; if(lv && r.level!==lv)return false;
- const yr=document.getElementById("filterYear").value; if(yr && r.year!==yr)return false;
- const dep=document.getElementById("filterDept").value; if(dep && r.department!==dep)return false;
- const inst=document.getElementById("filterInstitute").value; if(inst && r.institute!==inst)return false;
+ const lv=document.getElementById("filterLevel").value; if(lv && !ciEq(r.level,lv))return false;
+ const yr=document.getElementById("filterYear").value; if(yr && !ciEq(r.year,yr))return false;
+ const dep=document.getElementById("filterDept").value; if(dep && !ciEq(r.department,dep))return false;
+ const inst=document.getElementById("filterInstitute").value; if(inst && !ciEq(r.institute,inst))return false;
  return true;
+}
+function dedupeCI(arr){
+ const map=new Map();
+ arr.forEach(v=>{const k=(v||"").trim().toLowerCase();if(k && !map.has(k))map.set(k,v.trim())});
+ return [...map.values()].sort((a,b)=>a.localeCompare(b));
 }
 function fillFilterSelect(id,values,placeholder){
  const sel=document.getElementById(id),current=sel.value;
@@ -366,10 +372,10 @@ function fillFilterSelect(id,values,placeholder){
  if(values.includes(current))sel.value=current;
 }
 function populateFilters(){
- fillFilterSelect("filterLevel",[...new Set(records.map(r=>r.level).filter(Boolean))].sort(),"Level");
- fillFilterSelect("filterYear",[...new Set(records.map(r=>r.year).filter(Boolean))].sort(),"Year");
- fillFilterSelect("filterDept",[...new Set(records.map(r=>r.department).filter(Boolean))].sort(),"Department");
- fillFilterSelect("filterInstitute",[...new Set(records.map(r=>r.institute).filter(Boolean))].sort(),"Institute");
+ fillFilterSelect("filterLevel",dedupeCI(records.map(r=>r.level)),"Level");
+ fillFilterSelect("filterYear",dedupeCI(records.map(r=>r.year)),"Year");
+ fillFilterSelect("filterDept",dedupeCI(records.map(r=>r.department)),"Department");
+ fillFilterSelect("filterInstitute",dedupeCI(records.map(r=>r.institute)),"Institute");
 }
 function refreshPublicView(){populateFilters();updateFilterVisibility();renderPublic();renderUpdateNotices()}
 const FIVE_HOURS=5*60*60*1000;

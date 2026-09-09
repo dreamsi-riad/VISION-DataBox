@@ -147,7 +147,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 </main>
 
 <main id="adminView">
-  <div class="admin-topbar"><h1>এডমিন প্যানেল</h1><button class="btn btn-ghost" id="logoutBtn">Logout</button></div>
+  <div class="admin-topbar"><h1>এডমিন প্যানেল</h1></div>
   <div class="tabs"><button class="tab-btn active" data-tab="manage">তথ্য ব্যবস্থাপনা</button><button class="tab-btn" data-tab="add">নতুন তথ্য যোগ করুন</button></div>
   <div class="admin-section active" id="tab-manage">
     <div class="search-box" style="background:#fff;border:1px solid var(--line);box-shadow:none;margin-bottom:16px"><input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন..."></div>
@@ -263,8 +263,8 @@ function renderPublic(){
 function renderAdminTable(){const q=document.getElementById("adminSearch").value,list=records.filter(r=>matches(r,q)),b=document.getElementById("adminTableBody");b.innerHTML=list.length?list.map(r=>`<tr><td>${r.institute}</td><td>${r.level}</td><td>${r.department}</td><td>${r.year}</td><td>${r.session}</td><td>${fmtPrice(r.asking_price)}</td><td>${fmtPrice(r.last_price)}</td><td class="desc-cell">${r.description||""}</td><td><div class="row-actions"><button class="btn btn-ghost" onclick="openEdit(${r.id})">এডিট</button><button class="btn btn-red" onclick="deleteRecord(${r.id})">ডিলিট</button></div></td></tr>`).join(""):`<tr><td colspan="9" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`}
 function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show")}
 function closeLogin(){loginOverlay.classList.remove("show")}
-async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
-function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";loadRecords().then(renderPublic)}
+async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
+function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";openLoginBtn.textContent="Admin Login";openLoginBtn.onclick=openLogin;loadRecords().then(renderPublic)}
 function goHome(){adminView.style.display="none";publicView.style.display="block";loadRecords().then(renderPublic)}
 function switchTab(t){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));document.getElementById("tab-manage").classList.toggle("active",t==="manage");document.getElementById("tab-add").classList.toggle("active",t==="add")}
 function updateLevelFields(prefix){
@@ -377,7 +377,7 @@ async function saveEdit(){
  }catch(e){editError.textContent=e.message}
 }
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
-openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
 add_level.onchange=()=>updateLevelFields("add");
 edit_level.onchange=()=>updateLevelFields("edit");
 updateLevelFields("add");document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));

@@ -80,6 +80,8 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 }
 .card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--navy2))}
 .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(11,23,48,.12);border-color:#d9d4c8}
+.card.card-highlight{animation:cardHighlight 2.4s ease}
+@keyframes cardHighlight{0%{box-shadow:0 0 0 0 rgba(197,154,74,.65),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold)}55%{box-shadow:0 0 0 8px rgba(197,154,74,0),0 18px 40px rgba(11,23,48,.12);border-color:var(--gold)}100%{box-shadow:0 4px 16px rgba(11,23,48,.045);border-color:var(--line)}}
 .card-body{padding:14px 18px 13px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0}
 .card-top{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-bottom:5pxgap:30px;margin-bottom:5px}
 .card-identity{display:flex;align-items:center;gap:31px;min-width:0}
@@ -360,23 +362,39 @@ function renderUpdateNotices(){
  const notices=records.map(r=>{
    const t=getUpdateTimestamp(r);if(!t||now-t>FIVE_HOURS)return null;
    const key=r.id+"_"+t;if(dismissed.includes(key))return null;
-   return{key,label:`Updated: ${r.level||""} - ${r.year||""} - ${r.department||""}`.replace(/\s+-\s+$/,"")};
+   return{key,id:r.id,label:`Updated: ${r.level||""} - ${r.year||""} - ${r.department||""}`.replace(/\s+-\s+$/,"")};
  }).filter(Boolean);
  if(!notices.length){box.classList.remove("show");box.innerHTML="";return}
- box.innerHTML=notices.map(n=>`<span class="update-chip" data-key="${n.key}"><i class="dot"></i>${n.label}<span class="close">&times;</span></span>`).join("");
+ box.innerHTML=notices.map(n=>`<span class="update-chip" data-key="${n.key}" data-id="${n.id}"><i class="dot"></i>${n.label}<span class="close">&times;</span></span>`).join("");
  box.classList.add("show");
  box.querySelectorAll(".update-chip").forEach(el=>el.onclick=()=>{
-   const key=el.getAttribute("data-key"),d=loadDismissed();
+   const key=el.getAttribute("data-key"),id=el.getAttribute("data-id"),d=loadDismissed();
    if(!d.includes(key)){d.push(key);saveDismissed(d)}
    el.remove();
    if(!box.children.length)box.classList.remove("show");
+   goToCard(id);
  });
+}
+function goToCard(id){
+ let el=document.getElementById("card-"+id);
+ if(!el){
+   const ps=document.getElementById("publicSearch");if(ps)ps.value="";
+   ["filterLevel","filterYear","filterDept","filterInstitute"].forEach(fid=>{const f=document.getElementById(fid);if(f)f.value=""});
+   renderPublic();
+   el=document.getElementById("card-"+id);
+ }
+ if(el){
+   el.scrollIntoView({behavior:"smooth",block:"center"});
+   el.classList.remove("card-highlight");void el.offsetWidth;
+   el.classList.add("card-highlight");
+   setTimeout(()=>el.classList.remove("card-highlight"),2500);
+ }
 }
 function renderPublic(){
  const list=records.filter(combinedMatches),wrap=document.getElementById("publicResults");
  if(!list.length){wrap.innerHTML=`<div class="empty"><div class="empty-icon">⌕</div><strong>কোনো তথ্য পাওয়া যায়নি</strong><span>অন্য Institute, Department অথবা Session দিয়ে আবার চেষ্টা করুন।</span></div>`;return}
  wrap.innerHTML=list.map(r=>{const diff=Number(r.asking_price||0)-Number(r.last_price||0);return`
- <article class="card" style="--accent:${accentFor(r)}">
+ <article class="card" id="card-${r.id}" style="--accent:${accentFor(r)}">
   <div class="card-body">
    <div class="card-top"><div class="card-identity"><span class="level ${levelClass(r.level)}">${r.level||""}</span><div class="institute">${r.institute||""}</div></div></div>
    <div class="department">${r.department||""}</div>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>সেশন ডাটাবক্স</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233F;
+    --navy:#1F3057;
+    --navy-deep:#101A30;
+    --gold:#B8862E;
+    --gold-soft:#E7D4AA;
+    --paper:#F6F4EE;
+    --card:#FFFFFF;
+    --line:#E1DDD1;
+    --muted:#5B6472;
+    --green:#2E6B52;
+    --red:#A6362F;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Hind Siliguri', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .serif{ font-family:'Source Serif 4', serif; }
+
+  /* ---------- Header ---------- */
+  header{
+    background:var(--navy-deep);
+    color:#F3EFE4;
+    padding:18px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  header .brand{
+    font-family:'Source Serif 4', serif;
+    font-size:1.35rem;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  header .brand span{ color:var(--gold-soft); }
+  .btn{
+    border:none;
+    cursor:pointer;
+    border-radius:8px;
+    font-family:'Hind Siliguri', sans-serif;
+    font-weight:600;
+    padding:10px 18px;
+    font-size:0.95rem;
+    transition:transform .12s ease, background .15s ease;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-gold{ background:var(--gold); color:#241a05; }
+  .btn-gold:hover{ background:#c6953a; }
+  .btn-outline{
+    background:transparent;
+    border:1px solid rgba(243,239,228,0.4);
+    color:#F3EFE4;
+  }
+  .btn-outline:hover{ background:rgba(243,239,228,0.1); }
+  .btn-navy{ background:var(--navy); color:#fff; }
+  .btn-navy:hover{ background:#2a3f70; }
+  .btn-red{ background:transparent; color:var(--red); border:1px solid var(--red); }
+  .btn-red:hover{ background:rgba(166,54,47,0.08); }
+  .btn-ghost{ background:transparent; color:var(--muted); border:1px solid var(--line); }
+  .btn-ghost:hover{ background:#EFEBE0; }
+
+  main{ max-width:960px; margin:0 auto; padding:0 24px 80px; }
+
+  /* ---------- Public hero / search ---------- */
+  .hero{ padding:56px 0 28px; text-align:center; }
+  .hero h1{ font-size:2rem; margin:0 0 10px; font-weight:600; }
+  .hero p{ color:var(--muted); margin:0 0 28px; font-size:1.02rem; }
+  .search-wrap{
+    display:flex;
+    gap:10px;
+    max-width:560px;
+    margin:0 auto;
+  }
+  .search-wrap input{
+    flex:1;
+    padding:14px 16px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    font-family:'Hind Siliguri', sans-serif;
+    font-size:1rem;
+    background:#fff;
+  }
+  .search-wrap input:focus{ outline:2px solid var(--navy); outline-offset:1px; }
+  .hint{ color:var(--muted); font-size:0.85rem; margin-top:10px; }
+
+  /* ---------- Result cards ---------- */
+  .results{ margin-top:32px; display:flex; flex-direction:column; gap:14px; }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .card .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .tag{
+    font-size:0.78rem;
+    padding:3px 10px;
+    border-radius:20px;
+    background:var(--gold-soft);
+    color:#4a3714;
+    font-weight:600;
+  }
+  .tag.dept{ background:#E4E9F2; color:var(--navy); }
+  .card h3{ margin:0 0 4px; font-size:1.1rem; }
+  .card .meta{ color:var(--muted); font-size:0.88rem; margin-bottom:8px; }
+  .card p.desc{ margin:0; color:#37404E; font-size:0.92rem; line-height:1.55; max-width:520px; }
+  .price-block{ text-align:right; min-width:130px; }
+  .price-block .ask{ font-size:1.25rem; font-weight:700; color:var(--green); }
+  .price-block .last{ font-size:0.82rem; color:var(--muted); text-decoration:line-through; }
+  .empty{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--muted);
+    border:1px dashed var(--line);
+    border-radius:var(--radius);
+  }
+
+  /* ---------- Modal (login / add-edit) ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(16,26,48,0.55);
+    display:none; align-items:center; justify-content:center; padding:20px; z-index:50;
+  }
+  .overlay.show{ display:flex; }
+  .modal{
+    background:#fff; border-radius:12px; padding:28px;
+    width:100%; max-width:420px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal.wide{ max-width:560px; }
+  .modal h2{ margin:0 0 4px; font-size:1.3rem; }
+  .modal .sub{ color:var(--muted); font-size:0.88rem; margin-bottom:20px; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; color:var(--ink); }
+  .field input, .field select, .field textarea{
+    width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px;
+    font-family:'Hind Siliguri', sans-serif; font-size:0.95rem; background:#FCFBF8;
+  }
+  .field textarea{ min-height:80px; resize:vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:2px solid var(--navy); outline-offset:1px; }
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .modal-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top:18px; }
+  .error-text{ color:var(--red); font-size:0.85rem; margin-top:-6px; margin-bottom:12px; min-height:18px; }
+
+  /* ---------- Admin panel ---------- */
+  #adminView{ display:none; }
+  .admin-topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 0 18px; border-bottom:1px solid var(--line); margin-bottom:22px;
+  }
+  .admin-topbar h1{ font-size:1.5rem; margin:0; }
+  .tabs{ display:flex; gap:8px; margin-bottom:22px; }
+  .tab-btn{
+    background:transparent; border:1px solid var(--line); padding:9px 16px;
+    border-radius:8px; cursor:pointer; font-family:'Hind Siliguri', sans-serif;
+    font-weight:600; color:var(--muted); font-size:0.92rem;
+  }
+  .tab-btn.active{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  .admin-section{ display:none; }
+  .admin-section.active{ display:block; }
+
+  table{ width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius); overflow:hidden; }
+  thead th{
+    text-align:left; background:#EDEAE0; color:var(--ink); font-size:0.82rem;
+    padding:10px 12px; font-weight:700; border-bottom:1px solid var(--line);
+  }
+  tbody td{ padding:12px; font-size:0.9rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  .row-actions{ display:flex; gap:6px; white-space:nowrap; }
+  .row-actions button{ padding:6px 12px; font-size:0.82rem; }
+  .desc-cell{ max-width:220px; color:var(--muted); }
+
+  .table-wrap{ border:1px solid var(--line); border-radius:var(--radius); overflow-x:auto; }
+
+  @media (max-width:640px){
+    .card{ flex-direction:column; }
+    .price-block{ text-align:left; }
+    .two-col{ grid-template-columns:1fr; }
+    .search-wrap{ flex-direction:column; }
+    .admin-topbar{ flex-direction:column; align-items:flex-start; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">সেশন <span>ডাটাবক্স</span></div>
+  <button class="btn btn-outline" id="openLoginBtn">এডমিন লগইন</button>
+</header>
+
+<!-- ============ PUBLIC VIEW ============ -->
+<main id="publicView">
+  <section class="hero">
+    <h1>তোমার প্রয়োজনীয় তথ্য খুঁজে নাও</h1>
+    <p>লেভেল, ডিপার্টমেন্ট, ইয়ার বা সেশন লিখে সার্চ করো</p>
+    <div class="search-wrap">
+      <input type="text" id="publicSearch" placeholder="যেমন: BBA, Accounting, 21-22...">
+    </div>
+    <div class="hint" id="resultCount"></div>
+  </section>
+
+  <section class="results" id="publicResults"></section>
+</main>
+
+<!-- ============ ADMIN VIEW ============ -->
+<main id="adminView">
+  <div class="admin-topbar">
+    <h1>এডমিন প্যানেল</h1>
+    <button class="btn btn-ghost" id="logoutBtn">লগ আউট</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="manage">তথ্য ব্যবস্থাপনা</button>
+    <button class="tab-btn" data-tab="add">নতুন তথ্য যোগ করুন</button>
+  </div>
+
+  <!-- Manage tab -->
+  <div class="admin-section active" id="tab-manage">
+    <div class="search-wrap" style="max-width:100%; margin-bottom:18px;">
+      <input type="text" id="adminSearch" placeholder="সার্চ করো: লেভেল, ডিপার্টমেন্ট, সেশন...">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th><th>Department</th><th>Year</th><th>Session</th>
+            <th>Asking</th><th>Last</th><th>Description</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add tab -->
+  <div class="admin-section" id="tab-add">
+    <div style="max-width:560px;">
+      <div class="two-col">
+        <div class="field">
+          <label>Level</label>
+          <input type="text" id="add_level" placeholder="যেমন: BBA">
+        </div>
+        <div class="field">
+          <label>Department</label>
+          <input type="text" id="add_department" placeholder="যেমন: Accounting">
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label>Year</label>
+          <input type="text" id="add_year" placeholder="যেমন: 4th Year">
+        </div>
+        <div class="field">
+          <label>Session</label>
+          <input type="text" id="add_session" placeholder="যেমন: 21-22">
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label>Asking Price</label>
+          <input type="number" id="add_asking" placeholder="যেমন: 15000">
+        </div>
+        <div class="field">
+          <label>Last Price</label>
+          <input type="number" id="add_last" placeholder="যেমন: 12000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="add_desc" placeholder="বিস্তারিত লিখো..."></textarea>
+      </div>
+      <div class="error-text" id="addError"></div>
+      <button class="btn btn-navy" id="addSubmitBtn">তথ্য যোগ করো</button>
+    </div>
+  </div>
+</main>
+
+<!-- ============ LOGIN MODAL ============ -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <h2>এডমিন লগইন</h2>
+    <p class="sub">এডমিন ইউজারনেম ও পাসওয়ার্ড দিয়ে প্রবেশ করো</p>
+    <div class="field">
+      <label>ইউজারনেম</label>
+      <input type="text" id="loginUser" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>পাসওয়ার্ড</label>
+      <input type="password" id="loginPass" autocomplete="current-password">
+    </div>
+    <div class="error-text" id="loginError"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button>
+      <button class="btn btn-navy" id="submitLoginBtn">লগইন করো</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EDIT MODAL ============ -->
+<div class="overlay" id="editOverlay">
+  <div class="modal wide">
+    <h2>তথ্য সম্পাদনা করো</h2>
+    <p class="sub">প্রয়োজনীয় অংশ পরিবর্তন করে সংরক্ষণ করো</p>
+    <div class="two-col">
+      <div class="field"><label>Level</label><input type="text" id="edit_level"></div>
+      <div class="field"><label>Department</label><input type="text" id="edit_department"></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label>Year</label><input type="text" id="edit_year"></div>
+      <div class="field"><label>Session</label><input type="text" id="edit_session"></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div>
+      <div class="field"><label>Last Price</label><input type="number" id="edit_last"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div>
+    <div class="error-text" id="editError"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelEditBtn">বাতিল</button>
+      <button class="btn btn-navy" id="saveEditBtn">সংরক্ষণ করো</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   NOTE FOR LATER: D1 INTEGRATION
+   এখন সব ডাটা শুধু ব্রাউজারের মেমোরিতে (records অ্যারে) রাখা আছে, তাই পেজ
+   রিফ্রেশ দিলে নতুন যোগ/এডিট/ডিলিট করা তথ্য মুছে যাবে — এটাই প্রত্যাশিত,
+   কারণ এখনো ডাটাবেজ কানেক্ট করা হয়নি। Cloudflare D1 কানেক্ট করার সময়
+   নিচের ৫টা ফাংশন পরিবর্তন করতে হবে যাতে সেগুলো fetch() দিয়ে
+   /api/records এন্ডপয়েন্টে রিকোয়েস্ট পাঠায়:
+     - loadRecords()   -> GET  /api/records
+     - createRecord()  -> POST /api/records
+     - updateRecord()  -> PUT  /api/records/:id
+     - deleteRecord()  -> DELETE /api/records/:id
+     - login()         -> POST /api/login  (সার্ভার সাইডে পাসওয়ার্ড যাচাই)
+   ========================================================================== */
+
+// ---- ডেমো এডমিন ক্রেডেনশিয়াল (শুধু প্রোটোটাইপের জন্য) ----
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "admin123";
+
+// ---- নমুনা ডাটা (পরে D1 থেকে আসবে) ----
+let records = [
+  { id: 1, level: "BBA", department: "Accounting", year: "4th Year", session: "21-22", askingPrice: 15000, lastPrice: 12000, description: "সম্পূর্ণ কোর্স ম্যাটেরিয়াল ও নোটসহ, ভালো অবস্থায়।" },
+  { id: 2, level: "BBA", department: "Marketing", year: "3rd Year", session: "20-21", askingPrice: 9000, lastPrice: 8500, description: "মার্কেটিং মেজরের সেশন, দ্রুত যোগাযোগ করুন।" },
+  { id: 3, level: "MBA", department: "Finance", year: "1st Year", session: "22-23", askingPrice: 22000, lastPrice: 20000, description: "ফাইন্যান্স মেজর, ইভিনিং প্রোগ্রাম।" },
+  { id: 4, level: "BBA", department: "Accounting", year: "2nd Year", session: "22-23", askingPrice: 11000, lastPrice: 9000, description: "নতুন সেশন, সব বই সহ।" },
+  { id: 5, level: "BBA", department: "HRM", year: "4th Year", session: "19-20", askingPrice: 7000, lastPrice: 6000, description: "থিসিস সেমিস্টার বাকি আছে।" }
+];
+let nextId = 6;
+let editingId = null;
+
+// ---------- হেল্পার ----------
+function matches(record, query){
+  if(!query) return true;
+  const q = query.trim().toLowerCase();
+  return [record.level, record.department, record.year, record.session, record.description]
+    .some(v => String(v).toLowerCase().includes(q));
+}
+function fmtPrice(n){ return "৳" + Number(n).toLocaleString("en-US"); }
+
+// ---------- পাবলিক ভিউ রেন্ডার ----------
+function renderPublic(){
+  const query = document.getElementById("publicSearch").value;
+  const list = records.filter(r => matches(r, query));
+  const wrap = document.getElementById("publicResults");
+  const countEl = document.getElementById("resultCount");
+  countEl.textContent = query ? `${list.length} টি ফলাফল পাওয়া গেছে` : `মোট ${records.length} টি তথ্য আছে`;
+
+  if(list.length === 0){
+    wrap.innerHTML = `<div class="empty">কোনো তথ্য পাওয়া যায়নি। অন্য শব্দ দিয়ে চেষ্টা করো।</div>`;
+    return;
+  }
+  wrap.innerHTML = list.map(r => `
+    <div class="card">
+      <div>
+        <div class="tags">
+          <span class="tag">${r.level}</span>
+          <span class="tag dept">${r.department}</span>
+          <span class="tag dept">${r.year}</span>
+        </div>
+        <h3>সেশন ${r.session}</h3>
+        <div class="meta">${r.level} · ${r.department} · ${r.year}</div>
+        <p class="desc">${r.description}</p>
+      </div>
+      <div class="price-block">
+        <div class="ask">${fmtPrice(r.askingPrice)}</div>
+        <div class="last">আগের দাম ${fmtPrice(r.lastPrice)}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ---------- এডমিন টেবিল রেন্ডার ----------
+function renderAdminTable(){
+  const query = document.getElementById("adminSearch").value;
+  const list = records.filter(r => matches(r, query));
+  const body = document.getElementById("adminTableBody");
+
+  if(list.length === 0){
+    body.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--muted); padding:24px;">কোনো তথ্য পাওয়া যায়নি</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(r => `
+    <tr>
+      <td>${r.level}</td>
+      <td>${r.department}</td>
+      <td>${r.year}</td>
+      <td>${r.session}</td>
+      <td>${fmtPrice(r.askingPrice)}</td>
+      <td>${fmtPrice(r.lastPrice)}</td>
+      <td class="desc-cell">${r.description}</td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost" onclick="openEdit(${r.id})">এডিট</button>
+          <button class="btn btn-red" onclick="deleteRecord(${r.id})">ডিলিট</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+}
+
+// ---------- লগইন / লগআউট ----------
+function openLogin(){
+  document.getElementById("loginError").textContent = "";
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+  document.getElementById("loginOverlay").classList.add("show");
+}
+function closeLogin(){ document.getElementById("loginOverlay").classList.remove("show"); }
+
+function login(){
+  const u = document.getElementById("loginUser").value.trim();
+  const p = document.getElementById("loginPass").value;
+  if(u === ADMIN_USERNAME && p === ADMIN_PASSWORD){
+    closeLogin();
+    document.getElementById("publicView").style.display = "none";
+    document.getElementById("adminView").style.display = "block";
+    renderAdminTable();
+  } else {
+    document.getElementById("loginError").textContent = "ইউজারনেম বা পাসওয়ার্ড সঠিক নয়।";
+  }
+}
+function logout(){
+  document.getElementById("adminView").style.display = "none";
+  document.getElementById("publicView").style.display = "block";
+  renderPublic();
+}
+
+// ---------- ট্যাব সুইচ ----------
+function switchTab(tab){
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.getElementById("tab-manage").classList.toggle("active", tab === "manage");
+  document.getElementById("tab-add").classList.toggle("active", tab === "add");
+}
+
+// ---------- নতুন তথ্য যোগ ----------
+function addRecord(){
+  const level = document.getElementById("add_level").value.trim();
+  const department = document.getElementById("add_department").value.trim();
+  const year = document.getElementById("add_year").value.trim();
+  const session = document.getElementById("add_session").value.trim();
+  const askingPrice = document.getElementById("add_asking").value;
+  const lastPrice = document.getElementById("add_last").value;
+  const description = document.getElementById("add_desc").value.trim();
+  const errorEl = document.getElementById("addError");
+
+  if(!level || !department || !year || !session || !askingPrice){
+    errorEl.textContent = "Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
+    return;
+  }
+  errorEl.textContent = "";
+
+  records.push({
+    id: nextId++,
+    level, department, year, session,
+    askingPrice: Number(askingPrice),
+    lastPrice: Number(lastPrice) || 0,
+    description
+  });
+
+  ["add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
+    .forEach(id => document.getElementById(id).value = "");
+
+  renderAdminTable();
+  switchTab("manage");
+}
+
+// ---------- এডিট ----------
+function openEdit(id){
+  const r = records.find(x => x.id === id);
+  if(!r) return;
+  editingId = id;
+  document.getElementById("edit_level").value = r.level;
+  document.getElementById("edit_department").value = r.department;
+  document.getElementById("edit_year").value = r.year;
+  document.getElementById("edit_session").value = r.session;
+  document.getElementById("edit_asking").value = r.askingPrice;
+  document.getElementById("edit_last").value = r.lastPrice;
+  document.getElementById("edit_desc").value = r.description;
+  document.getElementById("editError").textContent = "";
+  document.getElementById("editOverlay").classList.add("show");
+}
+function closeEdit(){ document.getElementById("editOverlay").classList.remove("show"); editingId = null; }
+
+function saveEdit(){
+  const r = records.find(x => x.id === editingId);
+  if(!r) return;
+  const level = document.getElementById("edit_level").value.trim();
+  const department = document.getElementById("edit_department").value.trim();
+  const year = document.getElementById("edit_year").value.trim();
+  const session = document.getElementById("edit_session").value.trim();
+  const askingPrice = document.getElementById("edit_asking").value;
+  const lastPrice = document.getElementById("edit_last").value;
+  const description = document.getElementById("edit_desc").value.trim();
+
+  if(!level || !department || !year || !session || !askingPrice){
+    document.getElementById("editError").textContent = "Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
+    return;
+  }
+
+  Object.assign(r, { level, department, year, session, askingPrice: Number(askingPrice), lastPrice: Number(lastPrice) || 0, description });
+  closeEdit();
+  renderAdminTable();
+}
+
+// ---------- ডিলিট ----------
+function deleteRecord(id){
+  if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?")) return;
+  records = records.filter(r => r.id !== id);
+  renderAdminTable();
+}
+
+// ---------- ইভেন্ট বাইন্ডিং ----------
+document.getElementById("openLoginBtn").addEventListener("click", openLogin);
+document.getElementById("cancelLoginBtn").addEventListener("click", closeLogin);
+document.getElementById("submitLoginBtn").addEventListener("click", login);
+document.getElementById("logoutBtn").addEventListener("click", logout);
+document.getElementById("publicSearch").addEventListener("input", renderPublic);
+document.getElementById("adminSearch").addEventListener("input", renderAdminTable);
+document.getElementById("addSubmitBtn").addEventListener("click", addRecord);
+document.getElementById("cancelEditBtn").addEventListener("click", closeEdit);
+document.getElementById("saveEditBtn").addEventListener("click", saveEdit);
+document.querySelectorAll(".tab-btn").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
+
+// এন্টার কী দিয়ে লগইন
+document.getElementById("loginPass").addEventListener("keydown", e => { if(e.key === "Enter") login(); });
+
+// প্রাথমিক রেন্ডার
+renderPublic();
+</script>
+</body>
+</html>

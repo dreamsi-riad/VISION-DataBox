@@ -155,9 +155,36 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   </div>
   <div class="admin-section" id="tab-add">
     <div style="max-width:580px">
-      <div class="two-col"><div class="field"><label>Institute</label><input id="add_institute" placeholder="যেমন: DCU"></div><div class="field"><label>Level</label><input id="add_level" placeholder="যেমন: BBA"></div></div>
-      <div class="two-col"><div class="field"><label>Department</label><input id="add_department" placeholder="যেমন: Accounting"></div><div class="field"><label>Year</label><input id="add_year" placeholder="যেমন: 4th Year"></div></div>
-      <div class="two-col"><div class="field"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div><div></div></div>
+      <div class="field"><label>Level</label>
+        <select id="add_level">
+          <option value="">Level নির্বাচন করুন</option>
+          <option value="HSC">HSC</option>
+          <option value="BBA">BBA</option>
+          <option value="MBA">MBA</option>
+          <option value="BBS">BBS</option>
+          <option value="BBA Professional">BBA Professional</option>
+        </select>
+      </div>
+
+      <div class="field" id="addInstituteField" style="display:none"><label>Institute</label>
+        <select id="add_institute">
+          <option value="">Institute নির্বাচন করুন</option>
+          <option value="Dhaka Central University">Dhaka Central University</option>
+          <option value="National University">National University</option>
+        </select>
+      </div>
+
+      <div class="field" id="addDepartmentField" style="display:none"><label>Department</label>
+        <select id="add_department">
+          <option value="">Department নির্বাচন করুন</option>
+          <option value="Accounting Department">Accounting Department</option>
+          <option value="Management Department">Management Department</option>
+          <option value="Finance Department">Finance Department</option>
+          <option value="Marketing Department">Marketing Department</option>
+        </select>
+      </div>
+
+      <div class="two-col"><div class="field"><label>Year</label><input id="add_year" placeholder="যেমন: 4th Year"></div><div class="field"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div></div>
       <div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="add_asking"></div><div class="field"><label>Last Price</label><input type="number" id="add_last"></div></div>
       <div class="field"><label>Description</label><textarea id="add_desc" placeholder="বিস্তারিত লিখুন..."></textarea></div>
       <div class="error-text" id="addError"></div><button class="btn btn-navy" id="addSubmitBtn">তথ্য যোগ করুন</button>
@@ -167,8 +194,38 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 
 <div class="overlay" id="loginOverlay"><div class="modal"><h2>এডমিন লগইন</h2><p class="sub">আপনার administrator credentials দিয়ে প্রবেশ করুন</p><div class="field"><label>ইউজারনেম</label><input id="loginUser" autocomplete="username"></div><div class="field"><label>পাসওয়ার্ড</label><input type="password" id="loginPass" autocomplete="current-password"></div><div class="error-text" id="loginError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button><button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button></div></div></div>
 
-<div class="overlay" id="editOverlay"><div class="modal wide"><h2>তথ্য সম্পাদনা</h2><p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p><div class="two-col"><div class="field"><label>Institute</label><input id="edit_institute"></div><div class="field"><label>Level</label><input id="edit_level"></div></div><div class="two-col"><div class="field"><label>Department</label><input id="edit_department"></div><div class="field"><label>Year</label><input id="edit_year"></div></div><div class="two-col"><div class="field"><label>Session</label><input id="edit_session"></div><div></div></div><div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div><div class="field"><label>Last Price</label><input type="number" id="edit_last"></div></div><div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div><div class="error-text" id="editError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelEditBtn">বাতিল</button><button class="btn btn-navy" id="saveEditBtn">সংরক্ষণ করুন</button></div></div></div>
-
+<div class="overlay" id="editOverlay"><div class="modal wide"><h2>তথ্য সম্পাদনা</h2><p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p>
+  <div class="field"><label>Level</label>
+    <select id="edit_level">
+      <option value="">Level নির্বাচন করুন</option>
+      <option value="HSC">HSC</option>
+      <option value="BBA">BBA</option>
+      <option value="MBA">MBA</option>
+      <option value="BBS">BBS</option>
+      <option value="BBA Professional">BBA Professional</option>
+    </select>
+  </div>
+  <div class="field" id="editInstituteField" style="display:none"><label>Institute</label>
+    <select id="edit_institute">
+      <option value="">Institute নির্বাচন করুন</option>
+      <option value="Dhaka Central University">Dhaka Central University</option>
+      <option value="National University">National University</option>
+    </select>
+  </div>
+  <div class="field" id="editDepartmentField" style="display:none"><label>Department</label>
+    <select id="edit_department">
+      <option value="">Department নির্বাচন করুন</option>
+      <option value="Accounting Department">Accounting Department</option>
+      <option value="Management Department">Management Department</option>
+      <option value="Finance Department">Finance Department</option>
+      <option value="Marketing Department">Marketing Department</option>
+    </select>
+  </div>
+  <div class="two-col"><div class="field"><label>Year</label><input id="edit_year"></div><div class="field"><label>Session</label><input id="edit_session"></div></div>
+  <div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div><div class="field"><label>Last Price</label><input type="number" id="edit_last"></div></div>
+  <div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div>
+  <div class="error-text" id="editError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelEditBtn">বাতিল</button><button class="btn btn-navy" id="saveEditBtn">সংরক্ষণ করুন</button></div>
+</div></div>
 <script>
 const API_BASE="https://visiondatabox-worker.dreamsicreation.workers.dev";
 let records=[],editingId=null,adminToken=localStorage.getItem("adminToken")||null;
@@ -209,12 +266,120 @@ function closeLogin(){loginOverlay.classList.remove("show")}
 async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
 function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";loadRecords().then(renderPublic)}
 function switchTab(t){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));document.getElementById("tab-manage").classList.toggle("active",t==="manage");document.getElementById("tab-add").classList.toggle("active",t==="add")}
-async function addRecord(){const ids=["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"],v=Object.fromEntries(ids.map(id=>[id,document.getElementById(id).value.trim()])),err=addError;if(!v.add_institute||!v.add_level||!v.add_department||!v.add_year||!v.add_session||!v.add_asking){err.textContent="Institute, Level, Department, Year, Session এবং Asking Price আবশ্যক।";return}err.textContent="";try{await apiFetch("/api/records",{method:"POST",body:JSON.stringify({institute:v.add_institute,level:v.add_level,department:v.add_department,year:v.add_year,session:v.add_session,asking_price:v.add_asking,last_price:v.add_last,description:v.add_desc})});ids.forEach(id=>document.getElementById(id).value="");await loadRecords();renderAdminTable();switchTab("manage")}catch(e){err.textContent=e.message}}
-function openEdit(id){const r=records.find(x=>x.id===id);if(!r)return;editingId=id;edit_institute.value=r.institute;edit_level.value=r.level;edit_department.value=r.department;edit_year.value=r.year;edit_session.value=r.session;edit_asking.value=r.asking_price;edit_last.value=r.last_price;edit_desc.value=r.description||"";editError.textContent="";editOverlay.classList.add("show")}
+function updateLevelFields(prefix){
+ const level=document.getElementById(prefix+"_level").value;
+ const instituteField=document.getElementById(prefix+"InstituteField");
+ const departmentField=document.getElementById(prefix+"DepartmentField");
+ const institute=document.getElementById(prefix+"_institute");
+ const department=document.getElementById(prefix+"_department");
+
+ const needsInstitute=["BBA","MBA","BBS"].includes(level);
+ const needsDepartment=level!=="HSC" && level!=="";
+
+ instituteField.style.display=needsInstitute?"block":"none";
+ departmentField.style.display=needsDepartment?"block":"none";
+
+ if(!needsInstitute) institute.value="";
+ if(!needsDepartment) department.value="";
+}
+
+function setSelectValue(id,value){
+ const select=document.getElementById(id);
+ if(!select)return;
+ const exists=[...select.options].some(o=>o.value===value);
+ if(value && !exists){
+   const option=document.createElement("option");
+   option.value=value; option.textContent=value;
+   option.dataset.existing="true";
+   select.appendChild(option);
+ }
+ select.value=value||"";
+}
+
+async function addRecord(){
+ const level=add_level.value.trim();
+ const institute=add_institute.value.trim();
+ const department=add_department.value.trim();
+ const year=add_year.value.trim();
+ const session=add_session.value.trim();
+ const asking_price=add_asking.value;
+ const last_price=add_last.value;
+ const description=add_desc.value.trim();
+
+ if(!level||!year||!session||!asking_price){
+   addError.textContent="Level, Year, Session এবং Asking Price আবশ্যক।"; return;
+ }
+ if(["BBA","MBA","BBS"].includes(level) && !institute){
+   addError.textContent="এই Level-এর জন্য Institute নির্বাচন করুন।"; return;
+ }
+ if(level!=="HSC" && !department){
+   addError.textContent="Department নির্বাচন করুন।"; return;
+ }
+
+ addError.textContent="";
+ try{
+   await apiFetch("/api/records",{method:"POST",body:JSON.stringify({
+     institute,level,department,year,session,asking_price,last_price,description
+   })});
+   ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
+     .forEach(id=>document.getElementById(id).value="");
+   updateLevelFields("add");
+   await loadRecords(); renderAdminTable(); switchTab("manage");
+ }catch(e){addError.textContent=e.message}
+}
+
+function openEdit(id){
+ const r=records.find(x=>x.id===id); if(!r)return;
+ editingId=id;
+ setSelectValue("edit_level",r.level);
+ setSelectValue("edit_institute",r.institute);
+ setSelectValue("edit_department",r.department);
+ updateLevelFields("edit");
+ setSelectValue("edit_institute",r.institute);
+ setSelectValue("edit_department",r.department);
+ edit_year.value=r.year;
+ edit_session.value=r.session;
+ edit_asking.value=r.asking_price;
+ edit_last.value=r.last_price;
+ edit_desc.value=r.description||"";
+ editError.textContent="";
+ editOverlay.classList.add("show");
+}
+
 function closeEdit(){editOverlay.classList.remove("show");editingId=null}
-async function saveEdit(){const institute=edit_institute.value.trim(),level=edit_level.value.trim(),department=edit_department.value.trim(),year=edit_year.value.trim(),session=edit_session.value.trim(),asking_price=edit_asking.value,last_price=edit_last.value,description=edit_desc.value.trim();if(!institute||!level||!department||!year||!session||!asking_price){editError.textContent="প্রয়োজনীয় তথ্য পূরণ করুন।";return}try{await apiFetch(`/api/records/${editingId}`,{method:"PUT",body:JSON.stringify({institute,level,department,year,session,asking_price,last_price,description})});closeEdit();await loadRecords();renderAdminTable()}catch(e){editError.textContent=e.message}}
+
+async function saveEdit(){
+ const level=edit_level.value.trim();
+ const institute=edit_institute.value.trim();
+ const department=edit_department.value.trim();
+ const year=edit_year.value.trim();
+ const session=edit_session.value.trim();
+ const asking_price=edit_asking.value;
+ const last_price=edit_last.value;
+ const description=edit_desc.value.trim();
+
+ if(!level||!year||!session||!asking_price){
+   editError.textContent="Level, Year, Session এবং Asking Price আবশ্যক।"; return;
+ }
+ if(["BBA","MBA","BBS"].includes(level) && !institute){
+   editError.textContent="এই Level-এর জন্য Institute নির্বাচন করুন।"; return;
+ }
+ if(level!=="HSC" && !department){
+   editError.textContent="Department নির্বাচন করুন।"; return;
+ }
+
+ try{
+   await apiFetch(`/api/records/${editingId}`,{method:"PUT",body:JSON.stringify({
+     institute,level,department,year,session,asking_price,last_price,description
+   })});
+   closeEdit(); await loadRecords(); renderAdminTable();
+ }catch(e){editError.textContent=e.message}
+}
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
-openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+add_level.onchange=()=>updateLevelFields("add");
+edit_level.onchange=()=>updateLevelFields("edit");
+updateLevelFields("add");document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 document.querySelectorAll(".quick span").forEach(s=>s.onclick=()=>{publicSearch.value=s.textContent;renderPublic();document.getElementById("publicResults").scrollIntoView({behavior:"smooth",block:"start"})});
 loginPass.onkeydown=e=>{if(e.key==="Enter")login()};
 loadRecords().then(renderPublic);

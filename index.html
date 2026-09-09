@@ -424,9 +424,10 @@ let editingId = null;
 // ---------- হেল্পার ----------
 function matches(record, query){
   if(!query) return true;
-  const q = query.trim().toLowerCase();
-  return [record.institute, record.level, record.department, record.year, record.session, record.description]
-    .some(v => String(v).toLowerCase().includes(q));
+  const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const haystack = [record.institute, record.level, record.department, record.year, record.session, record.description]
+    .join(" ").toLowerCase();
+  return tokens.every(t => haystack.includes(t));
 }
 function fmtPrice(n){ return "৳" + Number(n).toLocaleString("en-US"); }
 

@@ -102,7 +102,8 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .level-bba{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 10px rgba(124,58,237,.18)}
 .level-mba{background:linear-gradient(135deg,#16a34a,#15803d);box-shadow:0 4px 10px rgba(22,163,74,.18)}
 .level-bbs{background:linear-gradient(135deg,#b45309,#92400e);box-shadow:0 4px 10px rgba(180,83,9,.18)}
-.level-professional{background:linear-gradient(135deg,#be123c,#9f1239);box-shadow:0 4px 10px rgba(190,18,60,.18)}
+.level-professional{background:linear-gradient(135deg,#16294e,#0b1730);box-shadow:0 4px 10px rgba(11,23,48,.22)}
+.level-hsc{background:linear-gradient(135deg,#8b0000,#5c0000);box-shadow:0 4px 10px rgba(139,0,0,.22)}
 .level-default{background:linear-gradient(135deg,#16294e,#0b1730)}
 .meta{display:flex;gap:8px;flex-wrap:wrap}
 .meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:3px 8px;border-radius:7px;font-size:.8rem;font-weight:600}
@@ -313,18 +314,20 @@ async function apiFetch(path,options={}){const headers=Object.assign({"Content-T
 async function loadRecords(){try{records=await apiFetch("/api/records")}catch(e){console.error(e);records=[]}}
 function levelClass(level){
  const v=(level||"").toLowerCase().replace(/[^a-z0-9]+/g,"");
+ if(v.includes("professional"))return "level-professional";
+ if(v.includes("hsc"))return "level-hsc";
  if(v.includes("bba"))return "level-bba";
  if(v.includes("mba"))return "level-mba";
  if(v.includes("bbs"))return "level-bbs";
- if(v.includes("professional"))return "level-professional";
  return "level-default";
 }
 function levelColor(level){
  const v=(level||"").toLowerCase().replace(/[^a-z0-9]+/g,"");
+ if(v.includes("professional"))return "#16294e";
+ if(v.includes("hsc"))return "#8b0000";
  if(v.includes("bba"))return "#7c3aed";
  if(v.includes("mba"))return "#16a34a";
  if(v.includes("bbs"))return "#b45309";
- if(v.includes("professional"))return "#be123c";
  return "#16294e";
 }
 function shade(hex,percent){
@@ -425,8 +428,8 @@ function renderPublic(){
  wrap.innerHTML=list.map(r=>{const diff=Number(r.asking_price||0)-Number(r.last_price||0);return`
  <article class="card" id="card-${r.id}" style="--accent:${accentFor(r)}">
   <div class="card-body">
-   <div class="card-top"><div class="card-identity"><span class="level ${levelClass(r.level)}">${r.level||""}</span><div class="institute">${iconBadge(r.level,INSTITUTE_ICON,false)}${r.institute||""}</div></div></div>
-   <div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}${r.department||""}</div>
+   <div class="card-top"><div class="card-identity"><span class="level ${levelClass(r.level)}">${r.level||""}</span>${r.institute?`<div class="institute">${iconBadge(r.level,INSTITUTE_ICON,false)}${r.institute}</div>`:""}</div></div>
+   ${r.department?`<div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}${r.department}</div>`:""}
    <div class="meta"><span>${r.year||""}</span><span>Session ${r.session||""}</span></div>
    ${r.description?`<p class="desc">${r.description}</p>`:""}
   </div>

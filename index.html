@@ -55,6 +55,9 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .mic-btn.listening{color:#fff;background:var(--red);border-left-color:var(--red);animation:micPulse 1.1s ease-in-out infinite}
 @keyframes micPulse{0%{box-shadow:0 0 0 0 rgba(173,64,56,.45)}70%{box-shadow:0 0 0 10px rgba(173,64,56,0)}100%{box-shadow:0 0 0 0 rgba(173,64,56,0)}}
 .voice-status{font-size:.76rem;color:var(--gold2);margin-top:8px;min-height:16px}
+.filter-bar{display:flex;gap:7px;margin-bottom:9px}
+.filter-bar select{flex:1;min-width:0;height:38px;border:1px solid #e2ddd2;border-radius:9px;background:#fff;color:var(--navy);font-size:.78rem;font-weight:600;padding:0 8px;outline:0;box-shadow:0 4px 12px rgba(15,29,56,.06);appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23687386" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>');background-repeat:no-repeat;background-position:right 6px center;background-size:14px}
+.filter-bar select:focus{border-color:var(--gold)}
 .quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
 .quick span{font-size:.76rem;color:#d3d8e2;border:1px solid rgba(255,255,255,.16);padding:5px 10px;border-radius:999px}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:20px 0 15px}
@@ -111,6 +114,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
  header{height:68px;padding:0 16px}.brand-sub{display:none}.brand-title{font-size:1.05rem}.brand-mark{width:35px;height:35px}
  main{padding:0 14px 60px}.hero{margin:14px 0 22px;padding:36px 20px 30px;border-radius:19px}.hero h1{font-size:2rem}.hero p{font-size:.9rem}
  .search-box{border-radius:13px}.search-box input{padding:0 10px}.search-icon,.mic-btn{width:40px}
+ .filter-bar{gap:5px}.filter-bar select{font-size:.7rem;padding:0 5px;height:36px;background-position:right 3px center;background-size:12px}
  .card{grid-template-columns:1fr}.price-panel{border-left:0;border-top:1px solid var(--line);grid-template-columns:1fr 1fr}.price+.price{border-top:0;border-left:1px solid rgba(23,35,61,.10)}
  .card-body{padding:13px 15px 12px 20px}.department{font-size:1rem}.section-head{align-items:flex-start;flex-direction:column;gap:7px}.result-count{white-space:normal}
  .two-col{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;gap:10px;flex-direction:column}
@@ -138,6 +142,12 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   <section class="hero">
     <div class="hero-content">
       
+      <div class="filter-bar">
+        <select id="filterLevel"><option value="">Level</option></select>
+        <select id="filterYear"><option value="">Year</option></select>
+        <select id="filterDept"><option value="">Department</option></select>
+        <select id="filterInstitute"><option value="">Institute</option></select>
+      </div>
       <div class="search-box">
         <span class="search-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -284,8 +294,39 @@ function levelClass(level){
  if(v.includes("professional"))return "level-professional";
  return "level-default";
 }
+function updateFilterVisibility(){
+ const level=document.getElementById("filterLevel").value;
+ const needsInstitute=level===""||["BBA","MBA","BBS"].includes(level);
+ const needsDept=level===""||level!=="HSC";
+ const instSel=document.getElementById("filterInstitute"),deptSel=document.getElementById("filterDept");
+ instSel.style.display=needsInstitute?"":"none";
+ deptSel.style.display=needsDept?"":"none";
+ if(!needsInstitute)instSel.value="";
+ if(!needsDept)deptSel.value="";
+}
+function combinedMatches(r){
+ const q=document.getElementById("publicSearch").value;
+ if(!matches(r,q))return false;
+ const lv=document.getElementById("filterLevel").value; if(lv && r.level!==lv)return false;
+ const yr=document.getElementById("filterYear").value; if(yr && r.year!==yr)return false;
+ const dep=document.getElementById("filterDept").value; if(dep && r.department!==dep)return false;
+ const inst=document.getElementById("filterInstitute").value; if(inst && r.institute!==inst)return false;
+ return true;
+}
+function fillFilterSelect(id,values,placeholder){
+ const sel=document.getElementById(id),current=sel.value;
+ sel.innerHTML=`<option value="">${placeholder}</option>`+values.map(v=>`<option value="${v}">${v}</option>`).join("");
+ if(values.includes(current))sel.value=current;
+}
+function populateFilters(){
+ fillFilterSelect("filterLevel",[...new Set(records.map(r=>r.level).filter(Boolean))].sort(),"Level");
+ fillFilterSelect("filterYear",[...new Set(records.map(r=>r.year).filter(Boolean))].sort(),"Year");
+ fillFilterSelect("filterDept",[...new Set(records.map(r=>r.department).filter(Boolean))].sort(),"Department");
+ fillFilterSelect("filterInstitute",[...new Set(records.map(r=>r.institute).filter(Boolean))].sort(),"Institute");
+}
+function refreshPublicView(){populateFilters();updateFilterVisibility();renderPublic()}
 function renderPublic(){
- const q=document.getElementById("publicSearch").value,list=records.filter(r=>matches(r,q)),wrap=document.getElementById("publicResults");
+ const list=records.filter(combinedMatches),wrap=document.getElementById("publicResults");
  if(!list.length){wrap.innerHTML=`<div class="empty"><div class="empty-icon">⌕</div><strong>কোনো তথ্য পাওয়া যায়নি</strong><span>অন্য Institute, Department অথবা Session দিয়ে আবার চেষ্টা করুন।</span></div>`;return}
  wrap.innerHTML=list.map(r=>{const diff=Number(r.asking_price||0)-Number(r.last_price||0);return`
  <article class="card" style="--accent:${accentFor(r)}">
@@ -305,8 +346,8 @@ function renderAdminTable(){const q=document.getElementById("adminSearch").value
 function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show")}
 function closeLogin(){loginOverlay.classList.remove("show")}
 async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
-function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";openLoginBtn.textContent="Admin Login";openLoginBtn.onclick=openLogin;loadRecords().then(renderPublic)}
-function goHome(){adminView.style.display="none";publicView.style.display="block";loadRecords().then(renderPublic)}
+function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";openLoginBtn.textContent="Admin Login";openLoginBtn.onclick=openLogin;loadRecords().then(refreshPublicView)}
+function goHome(){adminView.style.display="none";publicView.style.display="block";loadRecords().then(refreshPublicView)}
 function switchTab(t){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));document.getElementById("tab-manage").classList.toggle("active",t==="manage");document.getElementById("tab-add").classList.toggle("active",t==="add")}
 function updateLevelFields(prefix){
  const level=document.getElementById(prefix+"_level").value;
@@ -419,6 +460,8 @@ async function saveEdit(){
 }
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
 openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+document.getElementById("filterLevel").onchange=()=>{updateFilterVisibility();renderPublic()};
+["filterYear","filterDept","filterInstitute"].forEach(id=>document.getElementById(id).onchange=renderPublic);
 add_level.onchange=()=>updateLevelFields("add");
 edit_level.onchange=()=>updateLevelFields("edit");
 updateLevelFields("add");document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
@@ -523,7 +566,7 @@ if(!SpeechRecognitionAPI){
  };
 }
 
-loadRecords().then(renderPublic);
+loadRecords().then(refreshPublicView);
 </script>
 </body>
 </html>

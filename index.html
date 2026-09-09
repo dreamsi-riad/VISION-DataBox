@@ -110,8 +110,14 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 
 <header>
   <div class="brand">
-    <div class="brand-mark">S</div>
-    <div><div class="brand-title">সেশন <span>ডাটাবক্স</span></div><div class="brand-sub">ACADEMIC INFORMATION PLATFORM</div></div>
+    <div class="brand-mark" aria-label="Database">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="12" cy="5" rx="7.5" ry="3.2" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M4.5 5v7c0 1.77 3.36 3.2 7.5 3.2s7.5-1.43 7.5-3.2V5" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M4.5 12v7c0 1.77 3.36 3.2 7.5 3.2s7.5-1.43 7.5-3.2v-7" stroke="currentColor" stroke-width="1.8"/>
+      </svg>
+    </div>
+    <div><div class="brand-title">VISION <span>DataBox</span></div><div class="brand-sub">Academic Information Directory</div></div>
   </div>
   <button class="btn btn-outline" id="openLoginBtn">এডমিন লগইন</button>
 </header>
@@ -119,14 +125,14 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
 <main id="publicView">
   <section class="hero">
     <div class="hero-content">
-      <div class="eyebrow"><i></i> SMART ACADEMIC DATABASE</div>
-      <h1>আপনার প্রয়োজনীয় সেশন তথ্য খুঁজুন</h1>
-      <p>Institute, Level, Department, Year অথবা Session লিখে দ্রুত প্রয়োজনীয় তথ্য খুঁজে নিন।</p>
+      <div class="eyebrow"><i></i> SMART DATABASE</div>
+      <h1>যেকোনো তথ্য লিখে সার্চ করুন</h1>
+      
       <div class="search-box">
         <input id="publicSearch" type="text" placeholder="যেমন: BBA, Accounting, 21-22...">
-        <button class="btn btn-gold search-btn" id="searchBtn">⌕ খুঁজুন</button>
+        
       </div>
-      <div class="quick"><span>BBA</span><span>MBA</span><span>Accounting</span><span>21-22</span><span>4th Year</span></div>
+      
     </div>
   </section>
 
@@ -199,7 +205,7 @@ function openEdit(id){const r=records.find(x=>x.id===id);if(!r)return;editingId=
 function closeEdit(){editOverlay.classList.remove("show");editingId=null}
 async function saveEdit(){const institute=edit_institute.value.trim(),level=edit_level.value.trim(),department=edit_department.value.trim(),year=edit_year.value.trim(),session=edit_session.value.trim(),asking_price=edit_asking.value,last_price=edit_last.value,description=edit_desc.value.trim();if(!institute||!level||!department||!year||!session||!asking_price){editError.textContent="প্রয়োজনীয় তথ্য পূরণ করুন।";return}try{await apiFetch(`/api/records/${editingId}`,{method:"PUT",body:JSON.stringify({institute,level,department,year,session,asking_price,last_price,description})});closeEdit();await loadRecords();renderAdminTable()}catch(e){editError.textContent=e.message}}
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
-openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;searchBtn.onclick=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;logoutBtn.onclick=logout;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 document.querySelectorAll(".quick span").forEach(s=>s.onclick=()=>{publicSearch.value=s.textContent;renderPublic();document.getElementById("publicResults").scrollIntoView({behavior:"smooth",block:"start"})});
 loginPass.onkeydown=e=>{if(e.key==="Enter")login()};
 loadRecords().then(renderPublic);

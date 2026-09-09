@@ -99,33 +99,71 @@
   .hint{ color:var(--muted); font-size:0.85rem; margin-top:10px; }
 
   /* ---------- Result cards ---------- */
-  .results{ margin-top:32px; display:flex; flex-direction:column; gap:14px; }
+  .results{ margin-top:28px; display:flex; flex-direction:column; gap:12px; }
   .card{
     background:var(--card);
     border:1px solid var(--line);
     border-radius:var(--radius);
-    padding:18px 20px;
     display:flex;
-    justify-content:space-between;
-    gap:16px;
-    align-items:flex-start;
+    align-items:stretch;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(16,26,48,0.04);
   }
-  .card .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
-  .tag{
-    font-size:0.78rem;
-    padding:3px 10px;
-    border-radius:20px;
-    background:var(--gold-soft);
-    color:#4a3714;
-    font-weight:600;
+  .card-body{
+    flex:1;
+    padding:8px 14px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:4px;
+    min-width:0;
   }
-  .tag.dept{ background:#E4E9F2; color:var(--navy); }
-  .card h3{ margin:0 0 4px; font-size:1.1rem; }
-  .card .meta{ color:var(--muted); font-size:0.88rem; margin-bottom:8px; }
-  .card p.desc{ margin:0; color:#37404E; font-size:0.92rem; line-height:1.55; max-width:520px; }
-  .price-block{ text-align:right; min-width:130px; }
-  .price-block .ask{ font-size:1.25rem; font-weight:700; color:var(--green); }
-  .price-block .last{ font-size:0.82rem; color:var(--muted); text-decoration:line-through; }
+  .pill-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{
+    font-size:0.76rem;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:6px;
+    line-height:1.3;
+    white-space:nowrap;
+  }
+  .pill-outline{
+    background:transparent;
+    border:1.5px solid var(--navy);
+    color:var(--navy);
+  }
+  .pill-year{ background:#D7DEEE; color:var(--navy); border:1.5px solid transparent; }
+  .pill-sub{ background:var(--gold-soft); color:#5a4318; border:1.5px solid transparent; }
+  .card p.desc{
+    margin:0;
+    color:var(--muted);
+    font-size:0.82rem;
+    line-height:1.3;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .price-block{
+    display:flex;
+    flex-direction:column;
+    min-width:130px;
+    background:#FBF3DC;
+    border-left:1px solid var(--line);
+  }
+  .price-block .half{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:4px 10px;
+    gap:0;
+  }
+  .price-block .half + .half{ border-top:1px solid rgba(16,26,48,0.12); }
+  .price-block .label{ font-size:0.62rem; font-weight:700; color:#6b5a2c; }
+  .price-block .ask{ font-size:1rem; font-weight:700; color:var(--navy); }
+  .price-block .last{ font-size:0.92rem; font-weight:700; color:var(--red); }
   .empty{
     text-align:center;
     padding:40px 20px;
@@ -192,7 +230,8 @@
 
   @media (max-width:640px){
     .card{ flex-direction:column; }
-    .price-block{ text-align:left; }
+    .price-block{ flex-direction:row; border-left:none; border-top:1px solid var(--line); }
+    .price-block .half + .half{ border-top:none; border-left:1px solid rgba(16,26,48,0.12); }
     .two-col{ grid-template-columns:1fr; }
     .search-wrap{ flex-direction:column; }
     .admin-topbar{ flex-direction:column; align-items:flex-start; gap:10px; }
@@ -241,7 +280,7 @@
       <table>
         <thead>
           <tr>
-            <th>Level</th><th>Department</th><th>Year</th><th>Session</th>
+            <th>Institute</th><th>Level</th><th>Department</th><th>Year</th><th>Session</th>
             <th>Asking</th><th>Last</th><th>Description</th><th></th>
           </tr>
         </thead>
@@ -255,15 +294,19 @@
     <div style="max-width:560px;">
       <div class="two-col">
         <div class="field">
+          <label>Institute</label>
+          <input type="text" id="add_institute" placeholder="যেমন: DCU">
+        </div>
+        <div class="field">
           <label>Level</label>
           <input type="text" id="add_level" placeholder="যেমন: BBA">
         </div>
+      </div>
+      <div class="two-col">
         <div class="field">
           <label>Department</label>
           <input type="text" id="add_department" placeholder="যেমন: Accounting">
         </div>
-      </div>
-      <div class="two-col">
         <div class="field">
           <label>Year</label>
           <input type="text" id="add_year" placeholder="যেমন: 4th Year">
@@ -320,12 +363,16 @@
     <h2>তথ্য সম্পাদনা করো</h2>
     <p class="sub">প্রয়োজনীয় অংশ পরিবর্তন করে সংরক্ষণ করো</p>
     <div class="two-col">
+      <div class="field"><label>Institute</label><input type="text" id="edit_institute"></div>
       <div class="field"><label>Level</label><input type="text" id="edit_level"></div>
-      <div class="field"><label>Department</label><input type="text" id="edit_department"></div>
     </div>
     <div class="two-col">
+      <div class="field"><label>Department</label><input type="text" id="edit_department"></div>
       <div class="field"><label>Year</label><input type="text" id="edit_year"></div>
+    </div>
+    <div class="two-col">
       <div class="field"><label>Session</label><input type="text" id="edit_session"></div>
+      <div></div>
     </div>
     <div class="two-col">
       <div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div>
@@ -361,11 +408,11 @@ const ADMIN_PASSWORD = "admin123";
 
 // ---- নমুনা ডাটা (পরে D1 থেকে আসবে) ----
 let records = [
-  { id: 1, level: "BBA", department: "Accounting", year: "4th Year", session: "21-22", askingPrice: 15000, lastPrice: 12000, description: "সম্পূর্ণ কোর্স ম্যাটেরিয়াল ও নোটসহ, ভালো অবস্থায়।" },
-  { id: 2, level: "BBA", department: "Marketing", year: "3rd Year", session: "20-21", askingPrice: 9000, lastPrice: 8500, description: "মার্কেটিং মেজরের সেশন, দ্রুত যোগাযোগ করুন।" },
-  { id: 3, level: "MBA", department: "Finance", year: "1st Year", session: "22-23", askingPrice: 22000, lastPrice: 20000, description: "ফাইন্যান্স মেজর, ইভিনিং প্রোগ্রাম।" },
-  { id: 4, level: "BBA", department: "Accounting", year: "2nd Year", session: "22-23", askingPrice: 11000, lastPrice: 9000, description: "নতুন সেশন, সব বই সহ।" },
-  { id: 5, level: "BBA", department: "HRM", year: "4th Year", session: "19-20", askingPrice: 7000, lastPrice: 6000, description: "থিসিস সেমিস্টার বাকি আছে।" }
+  { id: 1, institute: "DCU", level: "BBA", department: "Accounting", year: "4th Year", session: "21-22", askingPrice: 7000, lastPrice: 7000, description: "সম্পূর্ণ কোর্স ম্যাটেরিয়াল ও নোটসহ সকল রেকর্ডেড ক্লাস।" },
+  { id: 2, institute: "DCU", level: "BBA", department: "Marketing", year: "3rd Year", session: "20-21", askingPrice: 9000, lastPrice: 8500, description: "মার্কেটিং মেজরের সেশন, দ্রুত যোগাযোগ করুন।" },
+  { id: 3, institute: "NU", level: "MBA", department: "Finance", year: "1st Year", session: "22-23", askingPrice: 22000, lastPrice: 20000, description: "ফাইন্যান্স মেজর, ইভিনিং প্রোগ্রাম।" },
+  { id: 4, institute: "DCU", level: "BBA", department: "Accounting", year: "2nd Year", session: "22-23", askingPrice: 11000, lastPrice: 9000, description: "নতুন সেশন, সব বই সহ।" },
+  { id: 5, institute: "NU", level: "BBA", department: "HRM", year: "4th Year", session: "19-20", askingPrice: 7000, lastPrice: 6000, description: "থিসিস সেমিস্টার বাকি আছে।" }
 ];
 let nextId = 6;
 let editingId = null;
@@ -374,7 +421,7 @@ let editingId = null;
 function matches(record, query){
   if(!query) return true;
   const q = query.trim().toLowerCase();
-  return [record.level, record.department, record.year, record.session, record.description]
+  return [record.institute, record.level, record.department, record.year, record.session, record.description]
     .some(v => String(v).toLowerCase().includes(q));
 }
 function fmtPrice(n){ return "৳" + Number(n).toLocaleString("en-US"); }
@@ -393,19 +440,25 @@ function renderPublic(){
   }
   wrap.innerHTML = list.map(r => `
     <div class="card">
-      <div>
-        <div class="tags">
-          <span class="tag">${r.level}</span>
-          <span class="tag dept">${r.department}</span>
-          <span class="tag dept">${r.year}</span>
+      <div class="card-body">
+        <div class="pill-row">
+          <span class="pill pill-outline">${r.institute}</span>
+          <span class="pill pill-outline">${r.level}</span>
+          <span class="pill pill-year">${r.year}</span>
+          <span class="pill pill-sub">${r.department}</span>
+          <span class="pill pill-sub">${r.session}</span>
         </div>
-        <h3>সেশন ${r.session}</h3>
-        <div class="meta">${r.level} · ${r.department} · ${r.year}</div>
         <p class="desc">${r.description}</p>
       </div>
       <div class="price-block">
-        <div class="ask">${fmtPrice(r.askingPrice)}</div>
-        <div class="last">আগের দাম ${fmtPrice(r.lastPrice)}</div>
+        <div class="half">
+          <div class="label">Asking Price</div>
+          <div class="ask">${fmtPrice(r.askingPrice)}</div>
+        </div>
+        <div class="half">
+          <div class="label">Last Price</div>
+          <div class="last">${fmtPrice(r.lastPrice)}</div>
+        </div>
       </div>
     </div>
   `).join("");
@@ -418,11 +471,12 @@ function renderAdminTable(){
   const body = document.getElementById("adminTableBody");
 
   if(list.length === 0){
-    body.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--muted); padding:24px;">কোনো তথ্য পাওয়া যায়নি</td></tr>`;
+    body.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--muted); padding:24px;">কোনো তথ্য পাওয়া যায়নি</td></tr>`;
     return;
   }
   body.innerHTML = list.map(r => `
     <tr>
+      <td>${r.institute}</td>
       <td>${r.level}</td>
       <td>${r.department}</td>
       <td>${r.year}</td>
@@ -476,6 +530,7 @@ function switchTab(tab){
 
 // ---------- নতুন তথ্য যোগ ----------
 function addRecord(){
+  const institute = document.getElementById("add_institute").value.trim();
   const level = document.getElementById("add_level").value.trim();
   const department = document.getElementById("add_department").value.trim();
   const year = document.getElementById("add_year").value.trim();
@@ -485,21 +540,21 @@ function addRecord(){
   const description = document.getElementById("add_desc").value.trim();
   const errorEl = document.getElementById("addError");
 
-  if(!level || !department || !year || !session || !askingPrice){
-    errorEl.textContent = "Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
+  if(!institute || !level || !department || !year || !session || !askingPrice){
+    errorEl.textContent = "Institute, Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
     return;
   }
   errorEl.textContent = "";
 
   records.push({
     id: nextId++,
-    level, department, year, session,
+    institute, level, department, year, session,
     askingPrice: Number(askingPrice),
     lastPrice: Number(lastPrice) || 0,
     description
   });
 
-  ["add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
+  ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
     .forEach(id => document.getElementById(id).value = "");
 
   renderAdminTable();
@@ -511,6 +566,7 @@ function openEdit(id){
   const r = records.find(x => x.id === id);
   if(!r) return;
   editingId = id;
+  document.getElementById("edit_institute").value = r.institute;
   document.getElementById("edit_level").value = r.level;
   document.getElementById("edit_department").value = r.department;
   document.getElementById("edit_year").value = r.year;
@@ -526,6 +582,7 @@ function closeEdit(){ document.getElementById("editOverlay").classList.remove("s
 function saveEdit(){
   const r = records.find(x => x.id === editingId);
   if(!r) return;
+  const institute = document.getElementById("edit_institute").value.trim();
   const level = document.getElementById("edit_level").value.trim();
   const department = document.getElementById("edit_department").value.trim();
   const year = document.getElementById("edit_year").value.trim();
@@ -534,12 +591,12 @@ function saveEdit(){
   const lastPrice = document.getElementById("edit_last").value;
   const description = document.getElementById("edit_desc").value.trim();
 
-  if(!level || !department || !year || !session || !askingPrice){
-    document.getElementById("editError").textContent = "Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
+  if(!institute || !level || !department || !year || !session || !askingPrice){
+    document.getElementById("editError").textContent = "Institute, Level, Department, Year, Session এবং Asking Price পূরণ করা আবশ্যক।";
     return;
   }
 
-  Object.assign(r, { level, department, year, session, askingPrice: Number(askingPrice), lastPrice: Number(lastPrice) || 0, description });
+  Object.assign(r, { institute, level, department, year, session, askingPrice: Number(askingPrice), lastPrice: Number(lastPrice) || 0, description });
   closeEdit();
   renderAdminTable();
 }

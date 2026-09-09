@@ -35,6 +35,7 @@ header{
 .btn-gold{background:var(--gold);color:#201705}.btn-gold:hover{background:#d2a956}
 .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff}
 .btn-navy{background:var(--navy2);color:#fff}.btn-red{background:transparent;border:1px solid #d7aaa5;color:var(--red)}
+.btn-green{background:transparent;border:1px solid #a6d2bb;color:var(--green)}
 .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--muted)}
 main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .hero{background:transparent;padding:28px 0 18px;max-width:100%;box-shadow:none}
@@ -168,7 +169,12 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   <div class="admin-topbar"><h1>Admin Panel</h1></div>
   <div class="tabs"><button class="tab-btn active" data-tab="manage">Data Management</button><button class="tab-btn" data-tab="add">Add New Data</button></div>
   <div class="admin-section active" id="tab-manage">
-    <div class="search-box" style="background:#fff;border:1px solid var(--line);box-shadow:none;margin-bottom:16px"><input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন..."></div>
+    <div class="search-box" style="background:#fff;border:1px solid var(--line);box-shadow:none;margin-bottom:16px">
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন...">
+    </div>
     <div class="table-wrap"><table><thead><tr><th>Institute</th><th>Level</th><th>Department</th><th>Year</th><th>Session</th><th>Asking</th><th>Last</th><th>Description</th><th></th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
   </div>
   <div class="admin-section" id="tab-add">
@@ -270,7 +276,7 @@ function fuzzyThreshold(len){return Math.min(3,Math.max(1,Math.floor(len/4)))}
 // OR if it's within edit-distance of some whole word in the record (typo tolerance, e.g. "Accaounting" -> "Accounting")
 function tokenMatches(token,haystack,words){
  if(haystack.includes(token))return true;
- if(token.length<3)return false; // too short to fuzzy-match reliably, avoids false positives
+ if(token.length<5)return false; // short tokens (BBA, MBA, HSC, 1st, 21-22...) must match exactly - fuzzy on short words causes false collisions like BBA<->MBA
  const thr=fuzzyThreshold(token.length);
  return words.some(w=>Math.abs(w.length-token.length)<=thr && levenshtein(token,w)<=thr);
 }
@@ -342,7 +348,7 @@ function renderPublic(){
   </div>
  </article>`}).join("")
 }
-function renderAdminTable(){const q=document.getElementById("adminSearch").value,list=records.filter(r=>matches(r,q)),b=document.getElementById("adminTableBody");b.innerHTML=list.length?list.map(r=>`<tr><td>${r.institute}</td><td>${r.level}</td><td>${r.department}</td><td>${r.year}</td><td>${r.session}</td><td>${fmtPrice(r.asking_price)}</td><td>${fmtPrice(r.last_price)}</td><td class="desc-cell">${r.description||""}</td><td><div class="row-actions"><button class="btn btn-ghost" onclick="openEdit(${r.id})">এডিট</button><button class="btn btn-red" onclick="deleteRecord(${r.id})">ডিলিট</button></div></td></tr>`).join(""):`<tr><td colspan="9" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`}
+function renderAdminTable(){const q=document.getElementById("adminSearch").value,list=records.filter(r=>matches(r,q)),b=document.getElementById("adminTableBody");b.innerHTML=list.length?list.map(r=>`<tr><td>${r.institute}</td><td>${r.level}</td><td>${r.department}</td><td>${r.year}</td><td>${r.session}</td><td>${fmtPrice(r.asking_price)}</td><td>${fmtPrice(r.last_price)}</td><td class="desc-cell">${r.description||""}</td><td><div class="row-actions"><button class="btn btn-green" onclick="openEdit(${r.id})">Edit</button><button class="btn btn-red" onclick="deleteRecord(${r.id})">Delete</button></div></td></tr>`).join(""):`<tr><td colspan="9" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`}
 function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show")}
 function closeLogin(){loginOverlay.classList.remove("show")}
 async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}

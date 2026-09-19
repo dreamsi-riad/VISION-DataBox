@@ -240,14 +240,22 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .card-top{
   display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-bottom:5px;
 }
-.card-identity{display:flex;align-items:center;gap:18px;min-width:0}
-.card-identity .institute{margin:0}
-.institute{
-  font-family:'Source Serif 4',serif;font-size:1.2rem;font-weight:700;color:var(--navy);
-  display:flex;align-items:center;gap:8px;
+.card-identity{display:flex;align-items:center;gap:14px;min-width:0;flex-wrap:wrap}
+.card-identity .course-name{margin:0}
+.course-name{
+  font-family:'Source Serif 4',serif;font-size:1.22rem;font-weight:700;color:var(--navy);
+  display:flex;align-items:center;gap:8px;line-height:1.25;
+}
+.department-row{
+  display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap;
 }
 .department{
-  font-size:1.08rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;color:var(--navy2);
+  font-size:1.02rem;font-weight:700;display:flex;align-items:center;gap:7px;color:var(--navy2);
+}
+.inst-tag{
+  font-size:.76rem;font-weight:600;color:var(--muted);background:#f1f5f9;
+  border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:4px;
 }
 .icon-badge{
   display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
@@ -591,6 +599,7 @@ tr:hover td{background:#fafcff}
       <table>
         <thead>
           <tr>
+            <th>Course Name</th>
             <th>Level</th>
             <th>Department</th>
             <th>Year</th>
@@ -609,6 +618,7 @@ tr:hover td{background:#fafcff}
   </div>
   <div class="admin-section" id="tab-add">
     <div style="max-width:580px;background:#fff;padding:26px;border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow-sm)">
+      <div class="field"><label>Course Name</label><input id="add_course_name" placeholder="যেমন: Principles of Accounting, Financial Management..."></div>
       <div class="field"><label>Level</label>
         <select id="add_level">
           <option value="">Level নির্বাচন করুন</option>
@@ -663,7 +673,7 @@ tr:hover td{background:#fafcff}
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
             Course Data (গোল্ডেন বক্স)
           </span>
-          <span class="box-hint">গুগল ড্রাইভ, শীট ও রিসোর্স লিংক</span>
+          <span class="box-hint">রিসোর্স লিংক</span>
         </label>
         <textarea id="add_course_data" placeholder="কোর্স ডাটা, ড্রাইভ ও ফাইল লিংক লিখুন..."></textarea>
       </div>
@@ -706,6 +716,7 @@ tr:hover td{background:#fafcff}
       </div>
       <button type="button" class="viewer-close" id="cancelEditCrossBtn" aria-label="Close modal">&times;</button>
     </div>
+    <div class="field"><label>Course Name</label><input id="edit_course_name" placeholder="Course Name লিখুন..."></div>
     <div class="field"><label>Level</label>
       <select id="edit_level">
         <option value="">Level নির্বাচন করুন</option>
@@ -757,7 +768,7 @@ tr:hover td{background:#fafcff}
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           Course Data (গোল্ডেন বক্স)
         </span>
-        <span class="box-hint">গুগল ড্রাইভ, শীট ও রিসোর্স লিংক</span>
+        <span class="box-hint">রিসোর্স লিংক</span>
       </label>
       <textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea>
     </div>
@@ -832,7 +843,7 @@ function tokenMatches(token,haystack,words){
 function matches(r,q){
   if(!q)return true;
   const t=q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  const h=[r.institute,r.level,r.department,r.year,r.session,r.description,r.course_info,r.course_data].join(" ").toLowerCase();
+  const h=[r.course_name,r.institute,r.level,r.department,r.year,r.session,r.description,r.course_info,r.course_data].join(" ").toLowerCase();
   const words=h.split(/[^a-z0-9\u0980-\u09FF]+/).filter(Boolean);
   return t.every(x=>tokenMatches(x,h,words));
 }
@@ -1012,10 +1023,14 @@ function renderPublic(){
         <div class="card-top">
           <div class="card-identity">
             <span class="level ${levelClass(r.level)}">${r.level||""}</span>
-            ${r.institute?`<div class="institute">${iconBadge(r.level,INSTITUTE_ICON,false)}${r.institute}</div>`:""}
+            ${r.course_name?`<div class="course-name">${r.course_name}</div>`:""}
           </div>
         </div>
-        ${r.department?`<div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}${r.department}</div>`:""}
+        ${(r.department||r.institute)?`
+        <div class="department-row">
+          ${r.department?`<div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}<span>${r.department}</span></div>`:""}
+          ${r.institute?`<span class="inst-tag" title="Institute">${r.institute}</span>`:""}
+        </div>`:""}
         <div class="meta-row">
           <div class="meta">
             <span>${r.year||""}</span>
@@ -1054,6 +1069,7 @@ function renderAdminTable(){
     const hasInfo=Boolean(r.course_info && r.course_info.trim());
     const hasData=Boolean(r.course_data && r.course_data.trim());
     return `<tr>
+      <td><strong>${r.course_name||"—"}</strong></td>
       <td><span class="level ${levelClass(r.level)}" style="font-size:.72rem;padding:3px 8px">${r.level}</span></td>
       <td>${r.department||"—"}</td>
       <td>${r.year}</td>
@@ -1075,7 +1091,7 @@ function renderAdminTable(){
         </div>
       </td>
     </tr>`;
-  }).join(""):`<tr><td colspan="10" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
+  }).join(""):`<tr><td colspan="11" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
 }
 
 function openLogin(){
@@ -1148,6 +1164,7 @@ function setSelectValue(id,value){
 }
 
 async function addRecord(){
+  const course_name=add_course_name.value.trim();
   const level=add_level.value.trim();
   const institute=add_institute.value.trim();
   const department=add_department.value.trim();
@@ -1172,9 +1189,9 @@ async function addRecord(){
   addError.textContent="";
   try{
     await apiFetch("/api/records",{method:"POST",body:JSON.stringify({
-      institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
+      course_name,institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
     })});
-    ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc","add_course_info","add_course_data"]
+    ["add_course_name","add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc","add_course_info","add_course_data"]
       .forEach(id=>document.getElementById(id).value="");
     updateLevelFields("add");
     await loadRecords(); renderAdminTable(); switchTab("manage");
@@ -1184,6 +1201,7 @@ async function addRecord(){
 function openEdit(id){
   const r=records.find(x=>x.id===id); if(!r)return;
   editingId=id;
+  edit_course_name.value=r.course_name||"";
   setSelectValue("edit_level",r.level);
   setSelectValue("edit_institute",r.institute);
   setSelectValue("edit_department",r.department);
@@ -1205,6 +1223,7 @@ function openEdit(id){
 function closeEdit(){editOverlay.classList.remove("show");editingId=null}
 
 async function saveEdit(){
+  const course_name=edit_course_name.value.trim();
   const level=edit_level.value.trim();
   const institute=edit_institute.value.trim();
   const department=edit_department.value.trim();
@@ -1228,7 +1247,7 @@ async function saveEdit(){
 
   try{
     await apiFetch(`/api/records/${editingId}`,{method:"PUT",body:JSON.stringify({
-      institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
+      course_name,institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
     })});
     markLocalUpdate(editingId);
     closeEdit(); await loadRecords(); renderAdminTable();
@@ -1258,7 +1277,7 @@ function openCourseModal(id,type){
   }
 
   document.getElementById("viewerTitle").textContent=title;
-  const subParts=[r.level,r.department,r.year,r.session?`Session ${r.session}`:""].filter(Boolean);
+  const subParts=[r.course_name,r.level,r.department,r.year,r.session?`Session ${r.session}`:""].filter(Boolean);
   document.getElementById("viewerSub").textContent=subParts.join(" • ")||(r.institute||"");
 
   const bodyEl=document.getElementById("viewerContent");

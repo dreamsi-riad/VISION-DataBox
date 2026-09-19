@@ -134,11 +134,49 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .saving{font-size:.68rem;color:var(--green);font-weight:700;margin-top:3px}
 .empty{background:#fff;border:1px dashed #d9d4c8;border-radius:17px;text-align:center;padding:55px 20px;color:var(--muted)}
 .empty-icon{font-size:2rem;margin-bottom:8px}.empty strong{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
-.overlay{position:fixed;inset:0;background:rgba(7,15,31,.66);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
-.overlay.show{display:flex}
-.modal{background:#fff;width:100%;max-width:440px;border-radius:18px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
-.modal.wide{max-width:580px}
-.viewer-modal{background:#fff;width:100%;max-width:520px;border-radius:18px;padding:24px 26px;box-shadow:0 30px 80px rgba(0,0,0,.3);position:relative}
+.overlay{
+  position:fixed;inset:0;background:rgba(7,15,31,.66);backdrop-filter:blur(5px);
+  display:none;padding:24px 14px;z-index:60;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.overlay.show{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+.modal{
+  background:#fff;width:100%;max-width:440px;border-radius:18px;padding:26px 28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+  margin:auto;
+  max-height:calc(100vh - 48px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  position:relative;
+}
+.modal.wide{max-width:600px}
+.viewer-modal{
+  background:#fff;width:100%;max-width:520px;border-radius:18px;padding:24px 26px;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+  margin:auto;
+  max-height:calc(100vh - 48px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  position:relative;
+}
+.modal::-webkit-scrollbar, .viewer-modal::-webkit-scrollbar, .overlay::-webkit-scrollbar, .viewer-content::-webkit-scrollbar{
+  width:6px;
+}
+.modal::-webkit-scrollbar-thumb, .viewer-modal::-webkit-scrollbar-thumb, .overlay::-webkit-scrollbar-thumb, .viewer-content::-webkit-scrollbar-thumb{
+  background:#cfc9ba;
+  border-radius:8px;
+}
+.modal::-webkit-scrollbar-thumb:hover, .viewer-modal::-webkit-scrollbar-thumb:hover, .overlay::-webkit-scrollbar-thumb:hover, .viewer-content::-webkit-scrollbar-thumb:hover{
+  background:#a39a85;
+}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:4px}
+.modal-head h2{margin:0;font-family:'Source Serif 4';font-size:1.4rem}
+.modal-head .sub{margin:4px 0 16px;color:var(--muted);font-size:.85rem}
 .viewer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
 .viewer-title-group{display:flex;align-items:center;gap:11px}
 .viewer-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
@@ -146,7 +184,7 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .viewer-icon.data{background:#fefce8;color:#854d0e;border:1px solid #fef08a}
 .viewer-head h3{font-family:'Source Serif 4',serif;margin:0;font-size:1.32rem;color:var(--navy)}
 .viewer-head .viewer-sub{font-size:.8rem;color:var(--muted);margin-top:2px}
-.viewer-close{border:0;background:transparent;color:var(--muted);width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:1.4rem;line-height:1;cursor:pointer;transition:.15s;padding:0}
+.viewer-close{border:0;background:transparent;color:var(--muted);width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:1.4rem;line-height:1;cursor:pointer;transition:.15s}
 .viewer-close:hover{background:#f3f0e8;color:var(--ink)}
 .viewer-content{background:#fbfaf7;border:1px solid var(--line);border-radius:12px;padding:15px 17px;max-height:350px;overflow-y:auto;font-size:.92rem;line-height:1.65;color:var(--ink);white-space:pre-wrap;word-break:break-word;user-select:text}
 .viewer-empty{text-align:center;padding:28px 12px;color:var(--muted);font-style:italic}
@@ -156,9 +194,9 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .modal h2{font-family:'Source Serif 4';margin:0;font-size:1.4rem}.sub{color:var(--muted);font-size:.85rem;margin:4px 0 20px}
 .field{margin-bottom:13px}.field label{display:block;font-weight:700;font-size:.8rem;margin-bottom:6px}
 .field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fbfaf7;outline:0}
-.field textarea{min-height:82px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.field textarea{min-height:76px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:17px}.error-text{color:var(--red);font-size:.82rem;min-height:18px;margin:2px 0 8px}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.error-text{color:var(--red);font-size:.82rem;min-height:18px;margin:2px 0 8px}
 #adminView{display:none}.admin-topbar{display:flex;justify-content:space-between;align-items:center;padding:28px 0 17px;border-bottom:1px solid var(--line);margin-bottom:20px}
 .admin-topbar h1{font-family:'Source Serif 4';margin:0}.tabs{display:flex;gap:8px;margin-bottom:18px}.tab-btn{border:1px solid var(--line);background:#fff;padding:9px 15px;border-radius:9px;font-weight:700;color:var(--muted)}.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .admin-section{display:none}.admin-section.active{display:block}.table-wrap{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:auto}
@@ -173,6 +211,9 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
  .card-body{padding:13px 15px 12px 20px}.department{font-size:1rem}.section-head{align-items:flex-start;flex-direction:column;gap:7px}.result-count{white-space:normal}
  .meta-row{gap:6px}
  .card-btn-group{gap:5px}
+ .overlay{padding:14px 10px}
+ .modal{padding:20px 16px;max-height:calc(100vh - 28px);border-radius:15px}
+ .viewer-modal{padding:20px 16px;max-height:calc(100vh - 28px);border-radius:15px}
  .two-col{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;gap:10px;flex-direction:column}
 }
 .card-top .level{order:-1}
@@ -273,9 +314,28 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   </div>
 </main>
 
-<div class="overlay" id="loginOverlay"><div class="modal"><h2>Admin Login</h2><p class="sub">Username & Password দিয়ে প্রবেশ করুন</p><div class="field"><label>Username</label><input id="loginUser" autocomplete="username"></div><div class="field"><label>Password</label><input type="password" id="loginPass" autocomplete="current-password"></div><div class="error-text" id="loginError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button><button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button></div></div></div>
+<div class="overlay" id="loginOverlay"><div class="modal">
+  <div class="modal-head">
+    <div>
+      <h2>Admin Login</h2>
+      <p class="sub">Username & Password দিয়ে প্রবেশ করুন</p>
+    </div>
+    <button type="button" class="viewer-close" id="cancelLoginCrossBtn" aria-label="Close modal">&times;</button>
+  </div>
+  <div class="field"><label>Username</label><input id="loginUser" autocomplete="username"></div>
+  <div class="field"><label>Password</label><input type="password" id="loginPass" autocomplete="current-password"></div>
+  <div class="error-text" id="loginError"></div>
+  <div class="modal-actions"><button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button><button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button></div>
+</div></div>
 
-<div class="overlay" id="editOverlay"><div class="modal wide"><h2>Data Edit</h2><p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p>
+<div class="overlay" id="editOverlay"><div class="modal wide">
+  <div class="modal-head">
+    <div>
+      <h2>Data Edit</h2>
+      <p class="sub">প্রয়োজনীয় তথ্য পরিবর্তন করে সংরক্ষণ করুন</p>
+    </div>
+    <button type="button" class="viewer-close" id="cancelEditCrossBtn" aria-label="Close modal">&times;</button>
+  </div>
   <div class="field"><label>Level</label>
     <select id="edit_level">
       <option value="">Level নির্বাচন করুন</option>
@@ -548,7 +608,7 @@ function renderAdminTable(){
     </tr>`;
   }).join(""):`<tr><td colspan="10" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
 }
-function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show")}
+function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show");const lm=loginOverlay.querySelector(".modal");if(lm)lm.scrollTop=0;}
 function closeLogin(){loginOverlay.classList.remove("show")}
 async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
 function logout(){adminToken=null;localStorage.removeItem("adminToken");adminView.style.display="none";publicView.style.display="block";openLoginBtn.textContent="Admin Login";openLoginBtn.onclick=openLogin;loadRecords().then(refreshPublicView)}
@@ -636,6 +696,7 @@ function openEdit(id){
  edit_course_data.value=r.course_data||"";
  editError.textContent="";
  editOverlay.classList.add("show");
+ const em=editOverlay.querySelector(".modal");if(em)em.scrollTop=0;
 }
 
 function closeEdit(){editOverlay.classList.remove("show");editingId=null}
@@ -715,6 +776,9 @@ function openCourseModal(id,type){
   }
 
   document.getElementById("viewerOverlay").classList.add("show");
+  if(bodyEl) bodyEl.scrollTop = 0;
+  const vm = document.getElementById("viewerOverlay").querySelector(".viewer-modal");
+  if(vm) vm.scrollTop = 0;
 }
 
 function closeCourseModal(){
@@ -750,7 +814,7 @@ async function copyCourseModalContent(){
   }
 }
 
-openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;cancelLoginCrossBtn.onclick=closeLogin;submitLoginBtn.onclick=login;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;cancelEditCrossBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
 viewerCloseBtn.onclick=closeCourseModal;viewerDismissBtn.onclick=closeCourseModal;viewerCopyBtn.onclick=copyCourseModalContent;
 viewerOverlay.onclick=e=>{if(e.target===viewerOverlay)closeCourseModal()};
 editOverlay.onclick=e=>{if(e.target===editOverlay)closeEdit()};

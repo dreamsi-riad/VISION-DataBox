@@ -90,7 +90,7 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
  100%{box-shadow:0 4px 16px rgba(11,23,48,.045);border-color:var(--line);background:var(--card)}
 }
 .card-body{padding:14px 18px 13px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0}
-.card-top{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-bottom:5pxgap:30px;margin-bottom:5px}
+.card-top{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-bottom:5px}
 .card-identity{display:flex;align-items:center;gap:31px;min-width:0}
 .card-identity .institute{margin:0}
 .institute{font-family:'Source Serif 4',serif;font-size:1.22rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:9px}
@@ -105,8 +105,26 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .level-professional{background:linear-gradient(135deg,#16294e,#0b1730);box-shadow:0 4px 10px rgba(11,23,48,.22)}
 .level-hsc{background:linear-gradient(135deg,#8b0000,#5c0000);box-shadow:0 4px 10px rgba(139,0,0,.22)}
 .level-default{background:linear-gradient(135deg,#16294e,#0b1730)}
-.meta{display:flex;gap:8px;flex-wrap:wrap}
-.meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:3px 8px;border-radius:7px;font-size:.8rem;font-weight:600}
+.meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.meta span{background:#f5f2ea;border:1px solid #e8e3d8;color:#566174;padding:3px 8px;border-radius:7px;font-size:.8rem;font-weight:600;line-height:1.25}
+.card-btn-group{display:inline-flex;align-items:center;gap:6px}
+.card-action-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#fff;border:1px solid var(--line);
+  padding:3px 9px;border-radius:7px;
+  font-size:.78rem;font-weight:700;line-height:1.25;
+  transition:all .18s ease;cursor:pointer;
+  box-shadow:0 1px 2px rgba(11,23,48,.03);
+}
+.card-action-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(11,23,48,.10)}
+.card-action-btn:active{transform:translateY(0)}
+.btn-course-info{border-color:#bfdbfe;color:#1e40af;background:#f8faff}
+.btn-course-info:hover{background:#1e40af;color:#fff;border-color:#1e40af}
+.btn-course-info:hover svg{stroke:#fff}
+.btn-course-data{border-color:#fde047;color:#854d0e;background:#fffdf0}
+.btn-course-data:hover{background:#c59a4a;color:#201705;border-color:#c59a4a}
+.btn-course-data:hover svg{stroke:#201705}
 .desc{color:var(--ink);font-size:.88rem;margin:6px 0 0;line-height:1.5;max-width:680px}
 .price-panel{background:linear-gradient(145deg,#fff9eb,#f5e7c5);border-left:1px solid var(--line);display:grid;grid-template-columns:1fr;align-content:center}
 .price{padding:10px 15px;text-align:center}.price+.price{border-top:1px solid rgba(23,35,61,.10)}
@@ -120,6 +138,21 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .overlay.show{display:flex}
 .modal{background:#fff;width:100%;max-width:440px;border-radius:18px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
 .modal.wide{max-width:580px}
+.viewer-modal{background:#fff;width:100%;max-width:520px;border-radius:18px;padding:24px 26px;box-shadow:0 30px 80px rgba(0,0,0,.3);position:relative}
+.viewer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.viewer-title-group{display:flex;align-items:center;gap:11px}
+.viewer-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.viewer-icon.info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+.viewer-icon.data{background:#fefce8;color:#854d0e;border:1px solid #fef08a}
+.viewer-head h3{font-family:'Source Serif 4',serif;margin:0;font-size:1.32rem;color:var(--navy)}
+.viewer-head .viewer-sub{font-size:.8rem;color:var(--muted);margin-top:2px}
+.viewer-close{border:0;background:transparent;color:var(--muted);width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:1.4rem;line-height:1;cursor:pointer;transition:.15s;padding:0}
+.viewer-close:hover{background:#f3f0e8;color:var(--ink)}
+.viewer-content{background:#fbfaf7;border:1px solid var(--line);border-radius:12px;padding:15px 17px;max-height:350px;overflow-y:auto;font-size:.92rem;line-height:1.65;color:var(--ink);white-space:pre-wrap;word-break:break-word;user-select:text}
+.viewer-empty{text-align:center;padding:28px 12px;color:var(--muted);font-style:italic}
+.viewer-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
+.viewer-count{font-size:.76rem;color:var(--muted)}
+.viewer-btns{display:flex;gap:8px}
 .modal h2{font-family:'Source Serif 4';margin:0;font-size:1.4rem}.sub{color:var(--muted);font-size:.85rem;margin:4px 0 20px}
 .field{margin-bottom:13px}.field label{display:block;font-weight:700;font-size:.8rem;margin-bottom:6px}
 .field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fbfaf7;outline:0}
@@ -138,6 +171,8 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
  .filter-bar{gap:5px}.filter-bar select{font-size:.7rem;padding:0 5px;height:36px;background-position:right 3px center;background-size:12px}
  .card{grid-template-columns:1fr}.price-panel{border-left:0;border-top:1px solid var(--line);grid-template-columns:1fr 1fr}.price+.price{border-top:0;border-left:1px solid rgba(23,35,61,.10)}
  .card-body{padding:13px 15px 12px 20px}.department{font-size:1rem}.section-head{align-items:flex-start;flex-direction:column;gap:7px}.result-count{white-space:normal}
+ .meta-row{gap:6px}
+ .card-btn-group{gap:5px}
  .two-col{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;gap:10px;flex-direction:column}
 }
 .card-top .level{order:-1}
@@ -195,7 +230,7 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
       </span>
       <input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন...">
     </div>
-    <div class="table-wrap"><table><thead><tr><th>Institute</th><th>Level</th><th>Department</th><th>Year</th><th>Session</th><th>Asking</th><th>Last</th><th>Description</th><th></th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>Institute</th><th>Level</th><th>Department</th><th>Year</th><th>Session</th><th>Asking</th><th>Last</th><th>Course Details</th><th>Description</th><th></th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
   </div>
   <div class="admin-section" id="tab-add">
     <div style="max-width:580px">
@@ -231,6 +266,8 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
       <div class="two-col"><div class="field"><label>Year</label><input id="add_year" placeholder="যেমন: 1st Year"></div><div class="field"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div></div>
       <div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="add_asking"></div><div class="field"><label>Last Price</label><input type="number" id="add_last"></div></div>
       <div class="field"><label>Description</label><textarea id="add_desc" placeholder="বিস্তারিত লিখুন..."></textarea></div>
+      <div class="field"><label>Course Info</label><textarea id="add_course_info" placeholder="Course Info লিখুন..."></textarea></div>
+      <div class="field"><label>Course Data</label><textarea id="add_course_data" placeholder="Course Data লিখুন..."></textarea></div>
       <div class="error-text" id="addError"></div><button class="btn btn-navy" id="addSubmitBtn">Add Data</button>
     </div>
   </div>
@@ -268,8 +305,38 @@ table{width:100%;border-collapse:collapse;min-width:850px}th{background:#efede6;
   <div class="two-col"><div class="field"><label>Year</label><input id="edit_year"></div><div class="field"><label>Session</label><input id="edit_session"></div></div>
   <div class="two-col"><div class="field"><label>Asking Price</label><input type="number" id="edit_asking"></div><div class="field"><label>Last Price</label><input type="number" id="edit_last"></div></div>
   <div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div>
+  <div class="field"><label>Course Info</label><textarea id="edit_course_info" placeholder="Course Info লিখুন..."></textarea></div>
+  <div class="field"><label>Course Data</label><textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea></div>
   <div class="error-text" id="editError"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelEditBtn">Cancel</button><button class="btn btn-navy" id="saveEditBtn">Save Data</button></div>
 </div></div>
+
+<div class="overlay" id="viewerOverlay">
+  <div class="viewer-modal" role="dialog" aria-modal="true">
+    <div class="viewer-head">
+      <div class="viewer-title-group">
+        <div class="viewer-icon info" id="viewerIcon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div>
+          <h3 id="viewerTitle">Course Info</h3>
+          <div class="viewer-sub" id="viewerSub"></div>
+        </div>
+      </div>
+      <button type="button" class="viewer-close" id="viewerCloseBtn" aria-label="Close modal">&times;</button>
+    </div>
+    <div class="viewer-content" id="viewerContent"></div>
+    <div class="viewer-foot">
+      <div class="viewer-count" id="viewerCount"></div>
+      <div class="viewer-btns">
+        <button type="button" class="btn btn-ghost" id="viewerDismissBtn">Close</button>
+        <button type="button" class="btn btn-navy" id="viewerCopyBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="viewerCopyText">Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 const API_BASE="https://visiondatabox-worker.dreamsicreation.workers.dev";
 let records=[],editingId=null,adminToken=localStorage.getItem("adminToken")||null;
@@ -303,7 +370,7 @@ function tokenMatches(token,haystack,words){
 function matches(r,q){
  if(!q)return true;
  const t=q.trim().toLowerCase().split(/\s+/).filter(Boolean);
- const h=[r.institute,r.level,r.department,r.year,r.session,r.description].join(" ").toLowerCase();
+ const h=[r.institute,r.level,r.department,r.year,r.session,r.description,r.course_info,r.course_data].join(" ").toLowerCase();
  const words=h.split(/[^a-z0-9\u0980-\u09FF]+/).filter(Boolean);
  return t.every(x=>tokenMatches(x,h,words));
 }
@@ -436,7 +503,19 @@ function renderPublic(){
   <div class="card-body">
    <div class="card-top"><div class="card-identity"><span class="level ${levelClass(r.level)}">${r.level||""}</span>${r.institute?`<div class="institute">${iconBadge(r.level,INSTITUTE_ICON,false)}${r.institute}</div>`:""}</div></div>
    ${r.department?`<div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}${r.department}</div>`:""}
-   <div class="meta"><span>${r.year||""}</span><span>Session ${r.session||""}</span></div>
+   <div class="meta-row">
+     <div class="meta"><span>${r.year||""}</span><span>Session ${r.session||""}</span></div>
+     <div class="card-btn-group">
+       <button type="button" class="card-action-btn btn-course-info" onclick="openCourseModal(${r.id}, 'info')" title="Course Info দেখুন">
+         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+         Course Info
+       </button>
+       <button type="button" class="card-action-btn btn-course-data" onclick="openCourseModal(${r.id}, 'data')" title="Course Data দেখুন">
+         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+         Course Data
+       </button>
+     </div>
+   </div>
    ${r.description?`<p class="desc">${r.description}</p>`:""}
   </div>
   <div class="price-panel">
@@ -445,7 +524,30 @@ function renderPublic(){
   </div>
  </article>`}).join("")
 }
-function renderAdminTable(){const q=document.getElementById("adminSearch").value,list=records.filter(r=>matches(r,q)),b=document.getElementById("adminTableBody");b.innerHTML=list.length?list.map(r=>`<tr><td>${r.institute}</td><td>${r.level}</td><td>${r.department}</td><td>${r.year}</td><td>${r.session}</td><td>${fmtPrice(r.asking_price)}</td><td>${fmtPrice(r.last_price)}</td><td class="desc-cell">${r.description||""}</td><td><div class="row-actions"><button class="btn btn-green" onclick="openEdit(${r.id})">Edit</button><button class="btn btn-red" onclick="deleteRecord(${r.id})">Delete</button></div></td></tr>`).join(""):`<tr><td colspan="9" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`}
+function renderAdminTable(){
+  const q=document.getElementById("adminSearch").value,list=records.filter(r=>matches(r,q)),b=document.getElementById("adminTableBody");
+  b.innerHTML=list.length?list.map(r=>{
+    const hasInfo=Boolean(r.course_info && r.course_info.trim());
+    const hasData=Boolean(r.course_data && r.course_data.trim());
+    return `<tr>
+      <td>${r.institute}</td>
+      <td>${r.level}</td>
+      <td>${r.department}</td>
+      <td>${r.year}</td>
+      <td>${r.session}</td>
+      <td>${fmtPrice(r.asking_price)}</td>
+      <td>${fmtPrice(r.last_price)}</td>
+      <td>
+        <div style="display:flex;gap:4px">
+          <button type="button" class="card-action-btn btn-course-info" onclick="openCourseModal(${r.id}, 'info')" style="padding:2px 7px;font-size:.73rem">${hasInfo?'Info ✓':'Info'}</button>
+          <button type="button" class="card-action-btn btn-course-data" onclick="openCourseModal(${r.id}, 'data')" style="padding:2px 7px;font-size:.73rem">${hasData?'Data ✓':'Data'}</button>
+        </div>
+      </td>
+      <td class="desc-cell">${r.description||""}</td>
+      <td><div class="row-actions"><button class="btn btn-green" onclick="openEdit(${r.id})">Edit</button><button class="btn btn-red" onclick="deleteRecord(${r.id})">Delete</button></div></td>
+    </tr>`;
+  }).join(""):`<tr><td colspan="10" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
+}
 function openLogin(){loginError.textContent="";loginUser.value="";loginPass.value="";loginOverlay.classList.add("show")}
 function closeLogin(){loginOverlay.classList.remove("show")}
 async function login(){const u=loginUser.value.trim(),p=loginPass.value;loginError.textContent="";try{const d=await apiFetch("/api/login",{method:"POST",body:JSON.stringify({username:u,password:p})});adminToken=d.token;localStorage.setItem("adminToken",adminToken);closeLogin();publicView.style.display="none";adminView.style.display="block";openLoginBtn.textContent="Logout";openLoginBtn.onclick=logout;await loadRecords();renderAdminTable()}catch(e){loginError.textContent=e.message}}
@@ -491,6 +593,8 @@ async function addRecord(){
  const asking_price=add_asking.value;
  const last_price=add_last.value;
  const description=add_desc.value.trim();
+ const course_info=add_course_info.value.trim();
+ const course_data=add_course_data.value.trim();
 
  if(!level||!year||!session||!asking_price){
    addError.textContent="Level, Year, Session এবং Asking Price আবশ্যক।"; return;
@@ -505,9 +609,9 @@ async function addRecord(){
  addError.textContent="";
  try{
    await apiFetch("/api/records",{method:"POST",body:JSON.stringify({
-     institute,level,department,year,session,asking_price,last_price,description
+     institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
    })});
-   ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc"]
+   ["add_institute","add_level","add_department","add_year","add_session","add_asking","add_last","add_desc","add_course_info","add_course_data"]
      .forEach(id=>document.getElementById(id).value="");
    updateLevelFields("add");
    await loadRecords(); renderAdminTable(); switchTab("manage");
@@ -528,6 +632,8 @@ function openEdit(id){
  edit_asking.value=r.asking_price;
  edit_last.value=r.last_price;
  edit_desc.value=r.description||"";
+ edit_course_info.value=r.course_info||"";
+ edit_course_data.value=r.course_data||"";
  editError.textContent="";
  editOverlay.classList.add("show");
 }
@@ -543,6 +649,8 @@ async function saveEdit(){
  const asking_price=edit_asking.value;
  const last_price=edit_last.value;
  const description=edit_desc.value.trim();
+ const course_info=edit_course_info.value.trim();
+ const course_data=edit_course_data.value.trim();
 
  if(!level||!year||!session||!asking_price){
    editError.textContent="Level, Year, Session এবং Asking Price আবশ্যক।"; return;
@@ -556,14 +664,104 @@ async function saveEdit(){
 
  try{
    await apiFetch(`/api/records/${editingId}`,{method:"PUT",body:JSON.stringify({
-     institute,level,department,year,session,asking_price,last_price,description
+     institute,level,department,year,session,asking_price,last_price,description,course_info,course_data
    })});
    markLocalUpdate(editingId);
    closeEdit(); await loadRecords(); renderAdminTable();
  }catch(e){editError.textContent=e.message}
 }
 async function deleteRecord(id){if(!confirm("আপনি কি নিশ্চিত এই তথ্যটি ডিলিট করতে চান?"))return;try{await apiFetch(`/api/records/${id}`,{method:"DELETE"});await loadRecords();renderAdminTable()}catch(e){alert(e.message)}}
+
+let currentViewerText="";
+function openCourseModal(id,type){
+  const r=records.find(x=>x.id===id);if(!r)return;
+  const isInfo=type==="info";
+  const title=isInfo?"Course Info":"Course Data";
+  const content=(isInfo?r.course_info:r.course_data)||"";
+  currentViewerText=content;
+
+  const iconEl=document.getElementById("viewerIcon");
+  if(iconEl){
+    iconEl.className=`viewer-icon ${isInfo?"info":"data"}`;
+    iconEl.innerHTML=isInfo
+      ?`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`
+      :`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`;
+  }
+
+  document.getElementById("viewerTitle").textContent=title;
+  const subParts=[r.level,r.department,r.year,r.session?`Session ${r.session}`:""].filter(Boolean);
+  document.getElementById("viewerSub").textContent=subParts.join(" • ")||(r.institute||"");
+
+  const bodyEl=document.getElementById("viewerContent");
+  const countEl=document.getElementById("viewerCount");
+  const copyBtn=document.getElementById("viewerCopyBtn");
+  const copyText=document.getElementById("viewerCopyText");
+
+  copyBtn.className="btn btn-navy";
+  copyText.textContent=`Copy ${isInfo?"Info":"Data"}`;
+
+  if(content.trim()){
+    bodyEl.textContent=content;
+    countEl.textContent=`${content.length} characters`;
+    copyBtn.disabled=false;
+    copyBtn.style.opacity="1";
+    copyBtn.style.pointerEvents="auto";
+  }else{
+    bodyEl.innerHTML=`<div class="viewer-empty">কোনো ${title} তথ্য পাওয়া যায়নি।</div>`;
+    countEl.textContent="কোনো তথ্য সংরক্ষিত নেই";
+    copyBtn.disabled=true;
+    copyBtn.style.opacity="0.5";
+    copyBtn.style.pointerEvents="none";
+  }
+
+  document.getElementById("viewerOverlay").classList.add("show");
+}
+
+function closeCourseModal(){
+  document.getElementById("viewerOverlay").classList.remove("show");
+  currentViewerText="";
+}
+
+async function copyCourseModalContent(){
+  if(!currentViewerText)return;
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(currentViewerText);
+    }else{
+      const ta=document.createElement("textarea");
+      ta.value=currentViewerText;
+      ta.style.position="fixed";
+      ta.style.opacity="0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    const btn=document.getElementById("viewerCopyBtn");
+    const textSpan=document.getElementById("viewerCopyText");
+    btn.className="btn btn-green";
+    textSpan.textContent="Copied!";
+    setTimeout(()=>{
+      btn.className="btn btn-navy";
+      textSpan.textContent=document.getElementById("viewerTitle").textContent==="Course Info"?"Copy Info":"Copy Data";
+    },2000);
+  }catch(err){
+    alert("কপি করা যায়নি: "+err.message);
+  }
+}
+
 openLoginBtn.onclick=openLogin;cancelLoginBtn.onclick=closeLogin;submitLoginBtn.onclick=login;publicSearch.oninput=renderPublic;adminSearch.oninput=renderAdminTable;addSubmitBtn.onclick=addRecord;cancelEditBtn.onclick=closeEdit;saveEditBtn.onclick=saveEdit;
+viewerCloseBtn.onclick=closeCourseModal;viewerDismissBtn.onclick=closeCourseModal;viewerCopyBtn.onclick=copyCourseModalContent;
+viewerOverlay.onclick=e=>{if(e.target===viewerOverlay)closeCourseModal()};
+editOverlay.onclick=e=>{if(e.target===editOverlay)closeEdit()};
+loginOverlay.onclick=e=>{if(e.target===loginOverlay)closeLogin()};
+window.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    if(viewerOverlay.classList.contains("show"))closeCourseModal();
+    else if(editOverlay.classList.contains("show"))closeEdit();
+    else if(loginOverlay.classList.contains("show"))closeLogin();
+  }
+});
 document.getElementById("filterLevel").onchange=()=>{updateFilterVisibility();renderPublic()};
 ["filterYear","filterDept","filterInstitute"].forEach(id=>document.getElementById(id).onchange=renderPublic);
 add_level.onchange=()=>updateLevelFields("add");

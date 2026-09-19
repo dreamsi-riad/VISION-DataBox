@@ -123,24 +123,9 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 
 /* ---------- Hero Section ---------- */
 .hero{
-  padding:32px 0 20px;position:relative;
+  padding:26px 0 16px;position:relative;
 }
 .hero-content{max-width:760px;margin:0 auto}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:linear-gradient(135deg,#fff7e6,#f7e8c3);
-  border:1px solid #dfc282;padding:5px 12px;border-radius:999px;
-  font-size:.76rem;font-weight:700;color:#6b4d10;letter-spacing:.3px;margin-bottom:14px;
-  box-shadow:0 2px 8px rgba(197,154,74,.15);
-}
-.hero-badge .spark{color:var(--gold);font-size:.85rem}
-.hero-title{
-  font-family:'Source Serif 4',serif;font-size:clamp(1.85rem,3.8vw,2.65rem);
-  font-weight:700;line-height:1.2;margin:0 0 8px;color:var(--navy);
-}
-.hero-sub{
-  margin:0 0 24px;color:var(--muted);font-size:.95rem;line-height:1.55;
-}
 
 /* ---------- Filter Bar ---------- */
 .filter-bar{display:flex;gap:8px;margin-bottom:12px}
@@ -221,18 +206,7 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .update-chip:hover .close{opacity:1}
 
 /* ---------- Results Section ---------- */
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  margin:24px 0 14px;
-}
-.section-title{
-  font-family:'Source Serif 4',serif;font-size:1.38rem;margin:0;color:var(--navy);font-weight:700;
-}
-.result-count{
-  font-size:.8rem;color:var(--muted);background:#fff;border:1px solid var(--line);
-  padding:6px 12px;border-radius:999px;white-space:nowrap;font-weight:600;box-shadow:var(--shadow-sm);
-}
-.results{display:grid;grid-template-columns:1fr;gap:12px}
+.results{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
 
 /* ---------- Card Design (Same height logic preserved) ---------- */
 .card{
@@ -312,12 +286,12 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 }
 .card-action-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(8,20,44,.10)}
 .card-action-btn:active{transform:translateY(0)}
-.btn-course-info{border-color:#bfdbfe;color:#1e40af;background:#f8faff}
-.btn-course-info:hover{background:#1e40af;color:#fff;border-color:#1e40af}
+.btn-course-info{border:1.5px solid #93c5fd;color:#1d4ed8;background:#eff6ff}
+.btn-course-info:hover{background:#1d4ed8;color:#fff;border-color:#1d4ed8;box-shadow:0 3px 10px rgba(29,78,216,.28)}
 .btn-course-info:hover svg{stroke:#fff}
-.btn-course-data{border-color:#fde047;color:#854d0e;background:#fffdf0}
-.btn-course-data:hover{background:#c59a4a;color:#201705;border-color:#c59a4a}
-.btn-course-data:hover svg{stroke:#201705}
+.btn-course-data{border:1.5px solid #fcd34d;color:#92400e;background:#fffbeb}
+.btn-course-data:hover{background:#d97706;color:#fff;border-color:#d97706;box-shadow:0 3px 10px rgba(217,119,6,.28)}
+.btn-course-data:hover svg{stroke:#fff}
 
 .desc{color:var(--muted);font-size:.85rem;margin:5px 0 0;line-height:1.45;max-width:680px}
 
@@ -396,6 +370,10 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
   font-size:.92rem;line-height:1.65;color:var(--ink);
   white-space:pre-wrap;word-break:break-word;user-select:text;
 }
+.viewer-modal.mode-info{border-top:5px solid #2563eb}
+.viewer-modal.mode-data{border-top:5px solid #d97706}
+.viewer-content.mode-info{background:#f8fbff;border:1.5px solid #bfdbfe;border-left:5px solid #2563eb;color:#0f2b5c}
+.viewer-content.mode-data{background:#fffdf5;border:1.5px solid #fde047;border-left:5px solid #d97706;color:#451a03}
 .viewer-empty{text-align:center;padding:28px 12px;color:var(--muted);font-style:italic}
 .viewer-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
 .viewer-count{font-size:.76rem;color:var(--muted)}
@@ -417,6 +395,56 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
   border-top:1px solid var(--line);
 }
 .error-text{color:var(--red);font-size:.82rem;min-height:18px;margin:2px 0 8px;font-weight:600}
+
+/* Distinct Color Identities for Course Info & Course Data Boxes */
+.field-course-info, .field-course-data{
+  border-radius:14px;padding:12px 14px;margin-bottom:15px;transition:all .2s ease;
+}
+.field-course-info{
+  background:#f0f7ff;border:1.5px solid #bfdbfe;
+}
+.field-course-info:focus-within{
+  border-color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.15);
+}
+.field-course-info label{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  color:#1e40af;font-size:.82rem;font-weight:700;margin-bottom:8px;
+}
+.field-course-info .box-badge{
+  display:inline-flex;align-items:center;gap:6px;background:#dbeafe;
+  color:#1e40af;padding:4px 10px;border-radius:6px;font-size:.76rem;font-weight:800;letter-spacing:.3px;
+}
+.field-course-info .box-hint{font-size:.72rem;color:#3b82f6;font-weight:600}
+.field-course-info textarea{
+  background:#fff !important;border:1.5px solid #93c5fd !important;border-left:4px solid #2563eb !important;
+  color:#0f2b5c;font-size:.88rem;border-radius:10px;min-height:85px;
+}
+.field-course-info textarea:focus{
+  border-color:#2563eb !important;box-shadow:0 0 0 3px rgba(37,99,235,.20) !important;
+}
+
+.field-course-data{
+  background:#fffdf0;border:1.5px solid #fde047;
+}
+.field-course-data:focus-within{
+  border-color:#d97706;box-shadow:0 4px 16px rgba(217,119,6,.16);
+}
+.field-course-data label{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  color:#92400e;font-size:.82rem;font-weight:700;margin-bottom:8px;
+}
+.field-course-data .box-badge{
+  display:inline-flex;align-items:center;gap:6px;background:#fef08a;
+  color:#854d0e;padding:4px 10px;border-radius:6px;font-size:.76rem;font-weight:800;letter-spacing:.3px;
+}
+.field-course-data .box-hint{font-size:.72rem;color:#b45309;font-weight:600}
+.field-course-data textarea{
+  background:#fff !important;border:1.5px solid #fcd34d !important;border-left:4px solid #d97706 !important;
+  color:#451a03;font-size:.88rem;border-radius:10px;min-height:85px;
+}
+.field-course-data textarea:focus{
+  border-color:#d97706 !important;box-shadow:0 0 0 3px rgba(217,119,6,.22) !important;
+}
 
 /* ---------- Admin Panel ---------- */
 #adminView{display:none}
@@ -515,10 +543,6 @@ tr:hover td{background:#fafcff}
 <main id="publicView">
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge"><span class="spark">✦</span> এক্সক্লুসিভ কোর্স ও সেশন ডিরেক্টরি</div>
-      <h1 class="hero-title">স্মার্ট ও দ্রুত একাডেমিক ডাটাবেজ</h1>
-      <p class="hero-sub">বিশ্ববিদ্যালয়, বিভাগ ও সেশন ভিত্তিক কোর্স তথ্য ও আস্কিং প্রাইস এক নজরে যাচাই করুন।</p>
-
       <div class="update-notices" id="updateNotices"></div>
 
       <div class="filter-bar">
@@ -541,11 +565,6 @@ tr:hover td{background:#fafcff}
       <div class="voice-status" id="voiceStatus"></div>
     </div>
   </section>
-
-  <div class="section-head">
-    <h2 class="section-title">কোর্স তালিকা</h2>
-    <div class="result-count" id="publicCountBadge">তথ্য লোড হচ্ছে...</div>
-  </div>
 
   <section class="results" id="publicResults"><div class="loading">তথ্য লোড হচ্ছে...</div></section>
 </main>
@@ -572,11 +591,11 @@ tr:hover td{background:#fafcff}
       <table>
         <thead>
           <tr>
-            <th>Institute</th>
             <th>Level</th>
             <th>Department</th>
             <th>Year</th>
             <th>Session</th>
+            <th>Institute</th>
             <th>Asking</th>
             <th>Last</th>
             <th>Course Details</th>
@@ -627,9 +646,27 @@ tr:hover td{background:#fafcff}
         <div class="field"><label>Asking Price (৳)</label><input type="number" id="add_asking" placeholder="0"></div>
         <div class="field"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0"></div>
       </div>
-      <div class="field"><label>Description</label><textarea id="add_desc" placeholder="কোর্স সম্পর্কে বর্ণনা লিখুন..."></textarea></div>
-      <div class="field"><label>Course Info</label><textarea id="add_course_info" placeholder="কোর্স ইনফো বিস্তারিত লিখুন..."></textarea></div>
-      <div class="field"><label>Course Data</label><textarea id="add_course_data" placeholder="কোর্স ডাটা ও লিংক বিস্তারিত লিখুন..."></textarea></div>
+      <div class="field"><label>Description</label><textarea id="add_desc" placeholder="কোর্স সম্পর্কে সংক্ষিপ্ত বর্ণনা লিখুন..."></textarea></div>
+      <div class="field field-course-info">
+        <label>
+          <span class="box-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Course Info (নীল বক্স)
+          </span>
+          <span class="box-hint">কোর্স পরিচিতি ও বিস্তারিত গাইডলাইন</span>
+        </label>
+        <textarea id="add_course_info" placeholder="কোর্স ইনফো ও গাইডলাইন লিখুন..."></textarea>
+      </div>
+      <div class="field field-course-data">
+        <label>
+          <span class="box-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            Course Data (গোল্ডেন বক্স)
+          </span>
+          <span class="box-hint">গুগল ড্রাইভ, শীট ও রিসোর্স লিংক</span>
+        </label>
+        <textarea id="add_course_data" placeholder="কোর্স ডাটা, ড্রাইভ ও ফাইল লিংক লিখুন..."></textarea>
+      </div>
       <div class="error-text" id="addError"></div>
       <button class="btn btn-navy" id="addSubmitBtn" style="width:100%;justify-content:center;padding:12px">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -703,9 +740,27 @@ tr:hover td{background:#fafcff}
       <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking"></div>
       <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last"></div>
     </div>
-    <div class="field"><label>Description</label><textarea id="edit_desc"></textarea></div>
-    <div class="field"><label>Course Info</label><textarea id="edit_course_info" placeholder="Course Info লিখুন..."></textarea></div>
-    <div class="field"><label>Course Data</label><textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea></div>
+    <div class="field"><label>Description</label><textarea id="edit_desc" placeholder="কোর্স সম্পর্কে বর্ণনা লিখুন..."></textarea></div>
+    <div class="field field-course-info">
+      <label>
+        <span class="box-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Course Info (নীল বক্স)
+        </span>
+        <span class="box-hint">কোর্স পরিচিতি ও বিস্তারিত গাইডলাইন</span>
+      </label>
+      <textarea id="edit_course_info" placeholder="Course Info লিখুন..."></textarea>
+    </div>
+    <div class="field field-course-data">
+      <label>
+        <span class="box-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Course Data (গোল্ডেন বক্স)
+        </span>
+        <span class="box-hint">গুগল ড্রাইভ, শীট ও রিসোর্স লিংক</span>
+      </label>
+      <textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea>
+    </div>
     <div class="error-text" id="editError"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" id="cancelEditBtn">Cancel</button>
@@ -999,11 +1054,11 @@ function renderAdminTable(){
     const hasInfo=Boolean(r.course_info && r.course_info.trim());
     const hasData=Boolean(r.course_data && r.course_data.trim());
     return `<tr>
-      <td><strong>${r.institute||"—"}</strong></td>
       <td><span class="level ${levelClass(r.level)}" style="font-size:.72rem;padding:3px 8px">${r.level}</span></td>
       <td>${r.department||"—"}</td>
       <td>${r.year}</td>
       <td>${r.session}</td>
+      <td><strong>${r.institute||"—"}</strong></td>
       <td style="font-weight:700;color:var(--navy)">${fmtPrice(r.asking_price)}</td>
       <td style="font-weight:700;color:var(--red)">${fmtPrice(r.last_price)}</td>
       <td>
@@ -1228,10 +1283,15 @@ function openCourseModal(id,type){
     copyBtn.style.pointerEvents="none";
   }
 
+  bodyEl.className=`viewer-content ${isInfo?"mode-info":"mode-data"}`;
   document.getElementById("viewerOverlay").classList.add("show");
   if(bodyEl) bodyEl.scrollTop=0;
   const vm=document.getElementById("viewerOverlay").querySelector(".viewer-modal");
-  if(vm) vm.scrollTop=0;
+  if(vm){
+    vm.classList.remove("mode-info","mode-data");
+    vm.classList.add(isInfo?"mode-info":"mode-data");
+    vm.scrollTop=0;
+  }
 }
 
 function closeCourseModal(){

@@ -252,11 +252,13 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .department{
   font-size:1.02rem;font-weight:700;display:flex;align-items:center;gap:7px;color:var(--navy2);
 }
-.inst-tag{
-  font-size:.76rem;font-weight:600;color:var(--muted);background:#f1f5f9;
-  border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;
-  display:inline-flex;align-items:center;gap:4px;
+.inst-badge{
+  font-size:.78rem;font-weight:700;color:#1e3a8a;background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border:1.5px solid #93c5fd;padding:3px 10px;border-radius:8px;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;line-height:1.25;
+  box-shadow:0 1px 3px rgba(30,58,138,.08);
 }
+.inst-badge svg{width:12px;height:12px;color:#1d4ed8;flex-shrink:0}
 .icon-badge{
   display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
   flex-shrink:0;border-radius:8px;box-shadow:0 2px 5px rgba(8,20,44,.18),inset 0 1px 0 rgba(255,255,255,.30);
@@ -280,9 +282,25 @@ main{max-width:1040px;margin:auto;padding:0 24px 90px}
 .meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
 .meta span{
-  background:#f8fafc;border:1px solid #e2e8f0;color:#475569;padding:3px 8px;
-  border-radius:7px;font-size:.78rem;font-weight:600;line-height:1.25;
+  padding:3px 8px;border-radius:7px;font-size:.78rem;font-weight:600;line-height:1.25;
 }
+/* Year Badge (Emerald / Mint) */
+.badge-year{
+  font-size:.78rem;font-weight:700;color:#065f46;background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1.5px solid #86efac;padding:3px 10px;border-radius:8px;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:5px;line-height:1.25;
+  box-shadow:0 1px 3px rgba(6,95,70,.08);
+}
+.badge-year svg{width:11px;height:11px;color:#059669;flex-shrink:0}
+
+/* Session Badge (Violet / Lavender) */
+.badge-session{
+  font-size:.78rem;font-weight:700;color:#581c87;background:linear-gradient(135deg,#faf5ff,#f3e8ff);
+  border:1.5px solid #d8b4fe;padding:3px 10px;border-radius:8px;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:5px;line-height:1.25;
+  box-shadow:0 1px 3px rgba(88,28,135,.08);
+}
+.badge-session svg{width:11px;height:11px;color:#7c3aed;flex-shrink:0}
 .card-btn-group{display:inline-flex;align-items:center;gap:6px}
 .card-action-btn{
   display:inline-flex;align-items:center;gap:5px;
@@ -1029,12 +1047,12 @@ function renderPublic(){
         ${(r.department||r.institute)?`
         <div class="department-row">
           ${r.department?`<div class="department">${iconBadge(r.level,DEPARTMENT_ICON,true)}<span>${r.department}</span></div>`:""}
-          ${r.institute?`<span class="inst-tag" title="Institute">${r.institute}</span>`:""}
+          ${r.institute?`<span class="inst-badge" title="Institute"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2 2 7h20L12 2z"/></svg>${r.institute}</span>`:""}
         </div>`:""}
         <div class="meta-row">
           <div class="meta">
-            <span>${r.year||""}</span>
-            <span>Session ${r.session||""}</span>
+            ${r.year?`<span class="badge-year" title="Academic Year"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${r.year}</span>`:""}
+            ${r.session?`<span class="badge-session" title="Session"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Session ${r.session}</span>`:""}
           </div>
           <div class="card-btn-group">
             <button type="button" class="card-action-btn btn-course-info" onclick="openCourseModal(${r.id}, 'info')" title="Course Info দেখুন">
@@ -1072,9 +1090,9 @@ function renderAdminTable(){
       <td><strong>${r.course_name||"—"}</strong></td>
       <td><span class="level ${levelClass(r.level)}" style="font-size:.72rem;padding:3px 8px">${r.level}</span></td>
       <td>${r.department||"—"}</td>
-      <td>${r.year}</td>
-      <td>${r.session}</td>
-      <td><strong>${r.institute||"—"}</strong></td>
+      <td>${r.year?`<span class="badge-year" style="font-size:.73rem;padding:2px 7px">${r.year}</span>`:"—"}</td>
+      <td>${r.session?`<span class="badge-session" style="font-size:.73rem;padding:2px 7px">Session ${r.session}</span>`:"—"}</td>
+      <td>${r.institute?`<span class="inst-badge" style="font-size:.73rem;padding:2px 7px">${r.institute}</span>`:"—"}</td>
       <td style="font-weight:700;color:var(--navy)">${fmtPrice(r.asking_price)}</td>
       <td style="font-weight:700;color:var(--red)">${fmtPrice(r.last_price)}</td>
       <td>

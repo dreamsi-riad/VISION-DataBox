@@ -1406,40 +1406,77 @@
 
     .tabs {
       display: inline-flex;
-      background: #eef2f7;
-      border: 1px solid rgba(203, 213, 225, 0.7);
-      padding: 5px;
-      border-radius: 14px;
+      background: #eef3f9;
+      border: 1.5px solid #d5e0ee;
+      padding: 6px;
+      border-radius: 16px;
       gap: 6px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(8, 20, 44, 0.03);
+      margin-bottom: 22px;
+      box-shadow: inset 0 2px 4px rgba(8, 20, 44, 0.04), 0 2px 8px rgba(8, 20, 44, 0.02);
     }
 
     .tab-btn {
-      border: 0;
+      border: 1.5px solid transparent;
       background: transparent;
       padding: 10px 22px;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       color: #64748b;
-      font-size: .90rem;
-      transition: all .2s ease;
+      font-size: .93rem;
+      transition: all .24s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       cursor: pointer;
+      user-select: none;
     }
 
-    .tab-btn:hover {
+    .tab-btn svg {
+      transition: transform .22s ease, stroke .22s ease;
+      color: #94a3b8;
+    }
+
+    .tab-btn:not(.active):hover {
       color: var(--navy);
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(203, 213, 225, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .tab-btn:not(.active):hover svg {
+      color: var(--navy);
+      transform: scale(1.08);
     }
 
     .tab-btn.active {
-      background: #fff;
-      color: var(--navy);
-      box-shadow: 0 4px 14px rgba(8, 20, 44, .10);
       transform: translateY(-1px);
+      font-weight: 800;
+    }
+
+    /* Soft light coloring for Data Management tab */
+    .tab-btn.active[data-tab="manage"] {
+      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+      color: #1d4ed8;
+      border-color: #93c5fd;
+      box-shadow: 0 4px 14px rgba(29, 78, 216, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-btn.active[data-tab="manage"] svg {
+      color: #2563eb;
+      stroke: #2563eb;
+    }
+
+    /* Soft light coloring for Add New Data tab */
+    .tab-btn.active[data-tab="add"] {
+      background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+      color: #047857;
+      border-color: #a7f3d0;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-btn.active[data-tab="add"] svg {
+      color: #059669;
+      stroke: #059669;
     }
 
     .admin-section {
@@ -1517,46 +1554,73 @@
     }
 
     .row-actions button {
-      border: 0;
-      border-radius: 9px;
+      border: 1.5px solid transparent;
+      border-radius: 11px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all .2s ease;
+      justify-content: center;
+      gap: 6.5px;
+      transition: all .25s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
+      user-select: none;
+      letter-spacing: .25px;
+      position: relative;
+    }
+
+    .row-actions button svg {
+      transition: transform .22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
     }
 
     .row-actions .btn-admin-edit {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #fff;
       padding: 7px 18px;
-      font-size: .83rem;
-      min-width: 68px;
-      justify-content: center;
-      box-shadow: 0 3px 8px rgba(16, 185, 129, 0.28);
+      font-size: .85rem;
+      min-width: 74px;
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     }
 
     .row-actions .btn-admin-edit:hover {
-      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-      transform: translateY(-1.5px);
-      box-shadow: 0 5px 14px rgba(16, 185, 129, 0.38);
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 7px 20px rgba(16, 185, 129, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.40);
+    }
+
+    .row-actions .btn-admin-edit:hover svg {
+      transform: rotate(-12deg) scale(1.18);
+    }
+
+    .row-actions .btn-admin-edit:active {
+      transform: translateY(0) scale(0.97);
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
     }
 
     .row-actions .btn-admin-delete {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
       color: #fff;
-      padding: 7px 14px;
-      font-size: .83rem;
-      min-width: 64px;
-      justify-content: center;
-      box-shadow: 0 3px 8px rgba(220, 38, 38, 0.24);
+      padding: 7px 16px;
+      font-size: .85rem;
+      min-width: 68px;
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 3px 10px rgba(225, 29, 72, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     }
 
     .row-actions .btn-admin-delete:hover {
-      background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%);
-      transform: translateY(-1.5px);
-      box-shadow: 0 5px 14px rgba(220, 38, 38, 0.34);
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 7px 20px rgba(225, 29, 72, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.40);
+    }
+
+    .row-actions .btn-admin-delete:hover svg {
+      transform: scale(1.20);
+    }
+
+    .row-actions .btn-admin-delete:active {
+      transform: translateY(0) scale(0.97);
+      box-shadow: 0 2px 6px rgba(225, 29, 72, 0.22);
     }
 
     .loading {
@@ -2082,7 +2146,7 @@
       </button>
       <button class="tab-btn" data-tab="add">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        + Add New Data
+        Add New Data
       </button>
     </div>
     <div class="admin-section active" id="tab-manage">
@@ -2457,7 +2521,8 @@
     function updateFilterVisibility() {
       const level = (document.getElementById("filterLevel").value || "").trim().toUpperCase();
       const isSchool = level === "SSC" || level === "HSC";
-      const needsInstitute = !isSchool && (level === "" || ["BBA", "MBA", "BBS", "BBA PROFESSIONAL"].includes(level));
+      const isBbaPro = level === "BBA PROFESSIONAL";
+      const needsInstitute = !isSchool && !isBbaPro && (level === "" || ["BBA", "MBA", "BBS"].includes(level));
       const instSel = document.getElementById("filterInstitute");
       const yearSel = document.getElementById("filterYear");
       if (instSel) {
@@ -2640,11 +2705,11 @@
       <td>
         <div class="row-actions">
           <button type="button" class="btn-admin-edit" onclick="openEdit(${r.id})" title="তথ্য এডিট করুন">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit
           </button>
           <button type="button" class="btn-admin-delete" onclick="deleteRecord(${r.id})" title="ডিলিট করুন">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             Delete
           </button>
         </div>
@@ -2904,6 +2969,7 @@
 
       const levelVal = (levelEl ? levelEl.value : "").trim().toUpperCase();
       const isSchool = levelVal === "SSC" || levelVal === "HSC";
+      const isBbaPro = levelVal === "BBA PROFESSIONAL";
 
       if (isSchool) {
         if (instField) instField.style.display = "none";
@@ -2920,6 +2986,26 @@
             <option value="Arts">Arts</option>
           `;
           if (["Business Studies", "Science", "Arts"].includes(prevVal)) {
+            deptSelect.value = prevVal;
+          }
+        }
+      } else if (isBbaPro) {
+        // BBA Professional: only hide Institute; keep Year, Session, and Department regular
+        if (instField) instField.style.display = "none";
+        if (yearField) yearField.style.display = "";
+        if (levelRow) levelRow.style.gridTemplateColumns = "1fr 1fr";
+        if (yearRow) yearRow.style.gridTemplateColumns = "";
+        if (deptLabel) deptLabel.textContent = "Department";
+        if (deptSelect) {
+          const prevVal = deptSelect.value;
+          deptSelect.innerHTML = `
+            <option value="">Department নির্বাচন করুন</option>
+            <option value="Accounting Department">Accounting Department</option>
+            <option value="Management Department">Management Department</option>
+            <option value="Finance Department">Finance Department</option>
+            <option value="Marketing Department">Marketing Department</option>
+          `;
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department"].includes(prevVal)) {
             deptSelect.value = prevVal;
           }
         }
@@ -2962,7 +3048,8 @@
       const course_name = add_course_name.value.trim();
       const level = add_level.value.trim();
       const isSchool = ["SSC", "HSC"].includes(level.toUpperCase());
-      const institute = isSchool ? "" : add_institute.value.trim();
+      const isBbaPro = level.toUpperCase() === "BBA PROFESSIONAL";
+      const institute = (isSchool || isBbaPro) ? "" : add_institute.value.trim();
       const department = add_department.value.trim();
       const year = isSchool ? "" : add_year.value.trim();
       const session = add_session.value.trim();
@@ -3012,7 +3099,8 @@
       const course_name = edit_course_name.value.trim();
       const level = edit_level.value.trim();
       const isSchool = ["SSC", "HSC"].includes(level.toUpperCase());
-      const institute = isSchool ? "" : edit_institute.value.trim();
+      const isBbaPro = level.toUpperCase() === "BBA PROFESSIONAL";
+      const institute = (isSchool || isBbaPro) ? "" : edit_institute.value.trim();
       const department = edit_department.value.trim();
       const year = isSchool ? "" : edit_year.value.trim();
       const session = edit_session.value.trim();

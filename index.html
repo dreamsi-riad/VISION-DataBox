@@ -2588,7 +2588,7 @@
       renderUpdateNotices();
     }
 
-    const FIVE_HOURS = 5 * 60 * 60 * 1000;
+    const NOTICE_WINDOW = 24 * 60 * 60 * 1000; // 24 ঘণ্টা পর্যন্ত আপডেট নোটিশ কার্যকর থাকবে
     function markLocalUpdate(id) {
       try { const m = JSON.parse(localStorage.getItem("localUpdateTs") || "{}"); m[id] = Date.now(); localStorage.setItem("localUpdateTs", JSON.stringify(m)) } catch (e) { }
     }
@@ -2611,7 +2611,7 @@
       const box = document.getElementById("updateNotices"); if (!box) return;
       const now = Date.now(), dismissed = loadDismissed();
       const notices = records.map(r => {
-        const t = getUpdateTimestamp(r); if (!t || now - t > FIVE_HOURS) return null;
+        const t = getUpdateTimestamp(r); if (!t || now - t > NOTICE_WINDOW) return null;
         const key = r.id + "_" + t; if (dismissed.includes(key)) return null;
         return { key, id: r.id, label: `Updated: ${r.level || ""} - ${r.year || ""} - ${r.department || ""}`.replace(/\s+-\s+$/, "") };
       }).filter(Boolean);
@@ -2946,7 +2946,8 @@
         adminPreviewPublic();
       } else if (authRole === "user") {
         showUserView();
-        loadRecords().then(refreshPublicView);
+        if (!records.length) loadRecords().then(refreshPublicView);
+        else refreshPublicView();
       } else {
         showLoginGateway();
       }

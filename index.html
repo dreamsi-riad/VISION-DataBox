@@ -736,6 +736,11 @@
       box-shadow: 0 3px 8px rgba(15, 23, 42, .24)
     }
 
+    .level-ssc {
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      box-shadow: 0 3px 8px rgba(13, 148, 136, .24);
+    }
+
     .level-hsc {
       background: linear-gradient(135deg, #ef4444, #b91c1c);
       box-shadow: 0 3px 8px rgba(239, 68, 68, .24)
@@ -2114,10 +2119,11 @@
         <div class="field"><label>Course Name</label><input id="add_course_name"
             placeholder="যেমন: Principles of Accounting, Financial Management..."></div>
 
-        <div class="three-col">
+        <div class="three-col" id="addLevelRow">
           <div class="field"><label>Level</label>
             <select id="add_level">
               <option value="">Level নির্বাচন করুন</option>
+              <option value="SSC">SSC</option>
               <option value="HSC">HSC</option>
               <option value="BBA">BBA</option>
               <option value="MBA">MBA</option>
@@ -2134,7 +2140,7 @@
             </select>
           </div>
 
-          <div class="field" id="addDepartmentField"><label>Department</label>
+          <div class="field" id="addDepartmentField"><label id="addDepartmentLabel">Department</label>
             <select id="add_department">
               <option value="">Department নির্বাচন করুন</option>
               <option value="Accounting Department">Accounting Department</option>
@@ -2145,9 +2151,9 @@
           </div>
         </div>
 
-        <div class="two-col">
-          <div class="field"><label>Year</label><input id="add_year" placeholder="যেমন: 1st Year"></div>
-          <div class="field"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
+        <div class="two-col" id="addYearSessionRow">
+          <div class="field" id="addYearField"><label>Year</label><input id="add_year" placeholder="যেমন: 1st Year"></div>
+          <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
         </div>
         <div class="two-col">
           <div class="field"><label>Asking Price (৳)</label><input type="number" id="add_asking" placeholder="0"></div>
@@ -2239,6 +2245,7 @@
       <div class="field"><label>Level</label>
         <select id="edit_level">
           <option value="">Level নির্বাচন করুন</option>
+          <option value="SSC">SSC</option>
           <option value="HSC">HSC</option>
           <option value="BBA">BBA</option>
           <option value="MBA">MBA</option>
@@ -2253,7 +2260,7 @@
           <option value="National University">National University</option>
         </select>
       </div>
-      <div class="field" id="editDepartmentField"><label>Department</label>
+      <div class="field" id="editDepartmentField"><label id="editDepartmentLabel">Department</label>
         <select id="edit_department">
           <option value="">Department নির্বাচন করুন</option>
           <option value="Accounting Department">Accounting Department</option>
@@ -2262,9 +2269,9 @@
           <option value="Marketing Department">Marketing Department</option>
         </select>
       </div>
-      <div class="two-col">
-        <div class="field"><label>Year</label><input id="edit_year"></div>
-        <div class="field"><label>Session</label><input id="edit_session"></div>
+      <div class="two-col" id="editYearSessionRow">
+        <div class="field" id="editYearField"><label>Year</label><input id="edit_year"></div>
+        <div class="field" id="editSessionField"><label>Session</label><input id="edit_session"></div>
       </div>
       <div class="two-col">
         <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking"></div>
@@ -2414,6 +2421,7 @@
     function levelClass(level) {
       const v = (level || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
       if (v.includes("professional")) return "level-professional";
+      if (v.includes("ssc")) return "level-ssc";
       if (v.includes("hsc")) return "level-hsc";
       if (v.includes("bba")) return "level-bba";
       if (v.includes("mba")) return "level-mba";
@@ -2424,6 +2432,7 @@
     function levelColor(level) {
       const v = (level || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
       if (v.includes("professional")) return "#16294e";
+      if (v.includes("ssc")) return "#0d9488";
       if (v.includes("hsc")) return "#8b0000";
       if (v.includes("bba")) return "#6366f1";
       if (v.includes("mba")) return "#10b981";
@@ -2446,14 +2455,19 @@
     const DEPARTMENT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H12v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M20 5.5C20 4.67 19.33 4 18.5 4H12v16h6.5a1.5 1.5 0 0 0 1.5-1.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>';
 
     function updateFilterVisibility() {
-      const level = document.getElementById("filterLevel").value;
-      const needsInstitute = level === "" || ["BBA", "MBA", "BBS"].includes(level);
-      const needsDept = level === "" || level !== "HSC";
-      const instSel = document.getElementById("filterInstitute"), deptSel = document.getElementById("filterDept");
-      instSel.style.display = needsInstitute ? "" : "none";
-      deptSel.style.display = needsDept ? "" : "none";
-      if (!needsInstitute) instSel.value = "";
-      if (!needsDept) deptSel.value = "";
+      const level = (document.getElementById("filterLevel").value || "").trim().toUpperCase();
+      const isSchool = level === "SSC" || level === "HSC";
+      const needsInstitute = !isSchool && (level === "" || ["BBA", "MBA", "BBS", "BBA PROFESSIONAL"].includes(level));
+      const instSel = document.getElementById("filterInstitute");
+      const yearSel = document.getElementById("filterYear");
+      if (instSel) {
+        instSel.style.display = needsInstitute ? "" : "none";
+        if (!needsInstitute) instSel.value = "";
+      }
+      if (yearSel) {
+        yearSel.style.display = isSchool ? "none" : "";
+        if (isSchool) yearSel.value = "";
+      }
     }
 
     function ciEq(a, b) { return (a || "").trim().toLowerCase() === (b || "").trim().toLowerCase() }
@@ -2879,7 +2893,56 @@
     }
 
     function updateLevelFields(prefix) {
-      // All fields remain visible so admin can input or leave empty any field
+      const levelEl = document.getElementById(prefix + "_level");
+      const instField = document.getElementById(prefix + "InstituteField");
+      const deptField = document.getElementById(prefix + "DepartmentField");
+      const deptLabel = document.getElementById(prefix + "DepartmentLabel") || (deptField ? deptField.querySelector("label") : null);
+      const deptSelect = document.getElementById(prefix + "_department");
+      const yearField = document.getElementById(prefix + "YearField");
+      const levelRow = document.getElementById(prefix + "LevelRow");
+      const yearRow = document.getElementById(prefix + "YearSessionRow");
+
+      const levelVal = (levelEl ? levelEl.value : "").trim().toUpperCase();
+      const isSchool = levelVal === "SSC" || levelVal === "HSC";
+
+      if (isSchool) {
+        if (instField) instField.style.display = "none";
+        if (yearField) yearField.style.display = "none";
+        if (levelRow) levelRow.style.gridTemplateColumns = "1fr 1fr";
+        if (yearRow) yearRow.style.gridTemplateColumns = "1fr";
+        if (deptLabel) deptLabel.textContent = "Group";
+        if (deptSelect) {
+          const prevVal = deptSelect.value;
+          deptSelect.innerHTML = `
+            <option value="">Group নির্বাচন করুন</option>
+            <option value="Business Studies">Business Studies</option>
+            <option value="Science">Science</option>
+            <option value="Arts">Arts</option>
+          `;
+          if (["Business Studies", "Science", "Arts"].includes(prevVal)) {
+            deptSelect.value = prevVal;
+          }
+        }
+      } else {
+        if (instField) instField.style.display = "";
+        if (yearField) yearField.style.display = "";
+        if (levelRow) levelRow.style.gridTemplateColumns = "";
+        if (yearRow) yearRow.style.gridTemplateColumns = "";
+        if (deptLabel) deptLabel.textContent = "Department";
+        if (deptSelect) {
+          const prevVal = deptSelect.value;
+          deptSelect.innerHTML = `
+            <option value="">Department নির্বাচন করুন</option>
+            <option value="Accounting Department">Accounting Department</option>
+            <option value="Management Department">Management Department</option>
+            <option value="Finance Department">Finance Department</option>
+            <option value="Marketing Department">Marketing Department</option>
+          `;
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department"].includes(prevVal)) {
+            deptSelect.value = prevVal;
+          }
+        }
+      }
     }
 
     function setSelectValue(id, value) {
@@ -2898,9 +2961,10 @@
     async function addRecord() {
       const course_name = add_course_name.value.trim();
       const level = add_level.value.trim();
-      const institute = add_institute.value.trim();
+      const isSchool = ["SSC", "HSC"].includes(level.toUpperCase());
+      const institute = isSchool ? "" : add_institute.value.trim();
       const department = add_department.value.trim();
-      const year = add_year.value.trim();
+      const year = isSchool ? "" : add_year.value.trim();
       const session = add_session.value.trim();
       const asking_price = add_asking.value;
       const last_price = add_last.value;
@@ -2927,15 +2991,13 @@
       editingId = id;
       edit_course_name.value = r.course_name || "";
       setSelectValue("edit_level", r.level);
-      setSelectValue("edit_institute", r.institute);
-      setSelectValue("edit_department", r.department);
       updateLevelFields("edit");
       setSelectValue("edit_institute", r.institute);
       setSelectValue("edit_department", r.department);
-      edit_year.value = r.year;
-      edit_session.value = r.session;
-      edit_asking.value = r.asking_price;
-      edit_last.value = r.last_price;
+      edit_year.value = r.year || "";
+      edit_session.value = r.session || "";
+      edit_asking.value = r.asking_price || "";
+      edit_last.value = r.last_price || "";
       edit_desc.value = r.description || "";
       edit_course_info.value = r.course_info || "";
       edit_course_data.value = r.course_data || "";
@@ -2949,9 +3011,10 @@
     async function saveEdit() {
       const course_name = edit_course_name.value.trim();
       const level = edit_level.value.trim();
-      const institute = edit_institute.value.trim();
+      const isSchool = ["SSC", "HSC"].includes(level.toUpperCase());
+      const institute = isSchool ? "" : edit_institute.value.trim();
       const department = edit_department.value.trim();
-      const year = edit_year.value.trim();
+      const year = isSchool ? "" : edit_year.value.trim();
       const session = edit_session.value.trim();
       const asking_price = edit_asking.value;
       const last_price = edit_last.value;
@@ -3158,6 +3221,14 @@
       ["এম বি", "MBA"],
       ["এইচএসসি", "HSC"],
       ["এইচ এস সি", "HSC"],
+      ["এসএসসি", "SSC"],
+      ["এস এস সি", "SSC"],
+      ["বিজনেস স্টাডিজ", "Business Studies"],
+      ["ব্যবসায় শিক্ষা", "Business Studies"],
+      ["সায়েন্স", "Science"],
+      ["বিজ্ঞান", "Science"],
+      ["আর্টস", "Arts"],
+      ["মানবিক", "Arts"],
       ["অ্যাকাউন্টিং", "Accounting"],
       ["একাউন্টিং", "Accounting"],
       ["হিসাববিজ্ঞান", "Accounting"],

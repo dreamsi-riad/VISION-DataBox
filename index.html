@@ -1399,46 +1399,42 @@
       }
     }
 
-    .admin-topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 0 18px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 20px;
-    }
-
-    .admin-topbar h1 {
-      font-family: 'Source Serif 4', serif;
-      margin: 0;
-      font-size: 1.75rem;
-      color: var(--navy)
-    }
-
     .tabs {
       display: inline-flex;
-      background: #eef2f6;
-      padding: 4px;
-      border-radius: 12px;
-      gap: 4px;
+      background: #eef2f7;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      padding: 5px;
+      border-radius: 14px;
+      gap: 6px;
       margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(8, 20, 44, 0.03);
     }
 
     .tab-btn {
       border: 0;
       background: transparent;
-      padding: 9px 18px;
-      border-radius: 9px;
+      padding: 10px 22px;
+      border-radius: 10px;
       font-weight: 700;
-      color: var(--muted);
-      font-size: .82rem;
-      transition: all .18s ease;
+      color: #64748b;
+      font-size: .90rem;
+      transition: all .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+
+    .tab-btn:hover {
+      color: var(--navy);
+      background: rgba(255, 255, 255, 0.6);
     }
 
     .tab-btn.active {
       background: #fff;
       color: var(--navy);
-      box-shadow: 0 2px 8px rgba(8, 20, 44, .08);
+      box-shadow: 0 4px 14px rgba(8, 20, 44, .10);
+      transform: translateY(-1px);
     }
 
     .admin-section {
@@ -1449,67 +1445,113 @@
       display: block
     }
 
+    .admin-search-box {
+      border: 1.5px solid #dbe3ee;
+      box-shadow: 0 4px 16px rgba(8, 20, 44, .04);
+      border-radius: 14px;
+      transition: all .2s ease;
+    }
+
+    .admin-search-box:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px -4px rgba(197, 154, 74, .22), 0 0 0 3px rgba(197, 154, 74, .15);
+    }
+
+    .admin-search-box input {
+      font-size: .94rem;
+      padding: 13px 14px 13px 44px;
+      color: var(--navy);
+    }
+
     .table-wrap {
       background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
       overflow: auto;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 10px 30px -5px rgba(8, 20, 44, 0.05), 0 2px 8px rgba(8, 20, 44, 0.03);
       width: 100%;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 920px;
+      min-width: 940px;
     }
 
     th {
       background: #f8fafc;
       text-align: left;
-      padding: 12px 14px;
-      font-size: .76rem;
+      padding: 14px 16px;
+      font-size: .83rem;
       font-weight: 700;
-      color: var(--muted);
+      color: #475569;
       text-transform: uppercase;
-      letter-spacing: .5px;
-      border-bottom: 1px solid var(--line);
+      letter-spacing: .6px;
+      border-bottom: 1.5px solid #e2e8f0;
+      white-space: nowrap;
     }
 
     td {
-      padding: 12px 14px;
-      border-top: 1px solid var(--line);
-      font-size: .82rem;
+      padding: 14px 16px;
+      border-top: 1px solid #edf2f7;
+      font-size: .90rem;
+      color: #1e293b;
       vertical-align: middle;
+      transition: background .15s ease;
     }
 
     tr:hover td {
-      background: #fafcff
-    }
-
-    .desc-cell {
-      max-width: 200px;
-      color: var(--muted)
+      background: #f8fbff;
     }
 
     .row-actions {
       display: flex;
-      gap: 8px;
+      gap: 9px;
       align-items: center;
       white-space: nowrap;
     }
 
     .row-actions button {
-      padding: 5px 10px;
-      font-size: .74rem;
-      border-radius: 7px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all .2s ease;
+      cursor: pointer;
     }
 
     .row-actions .btn-admin-edit {
-      padding: 6px 16px;
-      min-width: 58px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      padding: 7px 18px;
+      font-size: .83rem;
+      min-width: 68px;
       justify-content: center;
-      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(16, 185, 129, 0.28);
+    }
+
+    .row-actions .btn-admin-edit:hover {
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+      transform: translateY(-1.5px);
+      box-shadow: 0 5px 14px rgba(16, 185, 129, 0.38);
+    }
+
+    .row-actions .btn-admin-delete {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      padding: 7px 14px;
+      font-size: .83rem;
+      min-width: 64px;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(220, 38, 38, 0.24);
+    }
+
+    .row-actions .btn-admin-delete:hover {
+      background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%);
+      transform: translateY(-1.5px);
+      box-shadow: 0 5px 14px rgba(220, 38, 38, 0.34);
     }
 
     .loading {
@@ -2029,18 +2071,24 @@
 
   <main id="adminView">
     <div class="tabs">
-      <button class="tab-btn active" data-tab="manage">Data Management</button>
-      <button class="tab-btn" data-tab="add">+ Add New Data</button>
+      <button class="tab-btn active" data-tab="manage">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Data Management
+      </button>
+      <button class="tab-btn" data-tab="add">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Add New Data
+      </button>
     </div>
     <div class="admin-section active" id="tab-manage">
-      <div class="search-box" style="margin-bottom:16px">
+      <div class="search-box admin-search-box" style="margin-bottom:18px">
         <span class="search-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2" />
             <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
           </svg>
         </span>
-        <input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন সার্চ করুন...">
+        <input id="adminSearch" placeholder="লেভেল, ডিপার্টমেন্ট, সেশন, কোর্স সার্চ করুন...">
       </div>
       <div class="table-wrap">
         <table>
@@ -2562,27 +2610,33 @@
       const q = document.getElementById("adminSearch").value, list = records.filter(r => matches(r, q)), b = document.getElementById("adminTableBody");
       b.innerHTML = list.length ? list.map(r => {
         return `<tr>
-      <td><strong>${r.course_name || "—"}</strong></td>
-      <td><span class="level ${levelClass(r.level)}" style="font-size:.72rem;padding:3px 8px">${r.level}</span></td>
-      <td>${r.department || "—"}</td>
+      <td style="font-size:.95rem;font-weight:700;color:var(--navy)">${r.course_name || "—"}</td>
+      <td><span class="level ${levelClass(r.level)}" style="font-size:.80rem;padding:4px 9px;font-weight:700">${r.level}</span></td>
+      <td style="font-size:.90rem;color:#334155;font-weight:600">${r.department || "—"}</td>
       <td>
-        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-start">
-          ${r.year ? `<span class="badge-year" style="font-size:.73rem;padding:2px 7px">${r.year}</span>` : ""}
-          ${r.session ? `<span class="badge-session" style="font-size:.73rem;padding:2px 7px">Session ${r.session}</span>` : ""}
+        <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-start">
+          ${r.year ? `<span class="badge-year" style="font-size:.80rem;padding:3px 8px">${r.year}</span>` : ""}
+          ${r.session ? `<span class="badge-session" style="font-size:.80rem;padding:3px 8px">Session ${r.session}</span>` : ""}
           ${!r.year && !r.session ? "—" : ""}
         </div>
       </td>
-      <td>${r.institute ? `<span class="inst-badge" style="font-size:.73rem;padding:2px 7px">${r.institute}</span>` : "—"}</td>
-      <td style="font-weight:700;color:var(--navy)">${fmtPrice(r.asking_price)}</td>
-      <td style="font-weight:700;color:var(--red)">${fmtPrice(r.last_price)}</td>
+      <td>${r.institute ? `<span class="inst-badge" style="font-size:.82rem;padding:4px 10px">${r.institute}</span>` : "—"}</td>
+      <td style="font-weight:800;font-size:.96rem;color:var(--navy)">${fmtPrice(r.asking_price)}</td>
+      <td style="font-weight:800;font-size:.96rem;color:var(--red)">${fmtPrice(r.last_price)}</td>
       <td>
         <div class="row-actions">
-          <button class="btn btn-green btn-admin-edit" onclick="openEdit(${r.id})">Edit</button>
-          <button class="btn btn-red" onclick="deleteRecord(${r.id})">Delete</button>
+          <button type="button" class="btn-admin-edit" onclick="openEdit(${r.id})" title="তথ্য এডিট করুন">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit
+          </button>
+          <button type="button" class="btn-admin-delete" onclick="deleteRecord(${r.id})" title="ডিলিট করুন">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Delete
+          </button>
         </div>
       </td>
     </tr>`;
-      }).join("") : `<tr><td colspan="8" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
+      }).join("") : `<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--muted);font-size:.92rem">কোনো তথ্য পাওয়া যায়নি</td></tr>`
     }
 
     function updateHeaderNav(mode) {

@@ -1483,6 +1483,259 @@
       box-shadow: var(--shadow-sm)
     }
 
+    /* ---------- Login Gateway (Dual Security) ---------- */
+    .login-gateway {
+      min-height: calc(100vh - 74px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 18px 80px;
+      position: relative;
+    }
+
+    .login-gateway-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1.5px solid rgba(223, 183, 108, 0.40);
+      border-radius: 24px;
+      padding: 38px 34px 32px;
+      box-shadow: 0 25px 60px -12px rgba(8, 20, 44, 0.20), 0 0 0 1px rgba(255, 255, 255, 0.8) inset, 0 12px 35px rgba(197, 154, 74, 0.15);
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .login-gateway-card:hover {
+      box-shadow: 0 30px 70px -10px rgba(8, 20, 44, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.9) inset, 0 16px 40px rgba(197, 154, 74, 0.20);
+    }
+
+    .login-gateway-card.shake {
+      animation: gatewayShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes gatewayShake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    .login-icon-ring {
+      width: 66px;
+      height: 66px;
+      margin: 0 auto 16px;
+      border-radius: 20px;
+      background: linear-gradient(140deg, #182d57, #081329);
+      border: 2px solid rgba(223, 183, 108, 0.60);
+      display: grid;
+      place-items: center;
+      color: var(--gold-glow);
+      box-shadow: 0 8px 24px rgba(8, 20, 44, 0.28), 0 0 24px rgba(223, 183, 108, 0.25);
+    }
+
+    .login-gateway-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .login-brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(197, 154, 74, 0.12);
+      border: 1px solid rgba(197, 154, 74, 0.35);
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #926615;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .login-gateway-header h2 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.62rem;
+      color: var(--navy);
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .login-gateway-header p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .gateway-field {
+      margin-bottom: 16px;
+    }
+
+    .gateway-field label {
+      display: block;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 7px;
+      letter-spacing: 0.2px;
+    }
+
+    .gateway-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .gateway-input-icon {
+      position: absolute;
+      left: 14px;
+      color: #8c9bb3;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    .gateway-input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-size: 0.92rem;
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .gateway-input:focus {
+      background: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(197, 154, 74, 0.18);
+    }
+
+    .gateway-pwd-toggle {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: 0;
+      color: #8c9bb3;
+      padding: 6px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      transition: color 0.15s ease;
+    }
+
+    .gateway-pwd-toggle:hover {
+      color: var(--navy);
+    }
+
+    .gateway-hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 13px;
+      background: linear-gradient(135deg, #fdf9ed 0%, #fffbf2 100%);
+      border: 1px solid rgba(197, 154, 74, 0.28);
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      font-size: 0.77rem;
+      line-height: 1.5;
+      color: #6c4e13;
+      margin-bottom: 16px;
+    }
+
+    .gateway-hint svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--gold);
+    }
+
+    .gateway-error {
+      min-height: 20px;
+      font-size: 0.82rem;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+      display: none;
+      padding: 6px 10px;
+      background: rgba(225, 29, 72, 0.08);
+      border-radius: 8px;
+      border: 1px solid rgba(225, 29, 72, 0.2);
+    }
+
+    .gateway-error.show {
+      display: block;
+    }
+
+    .gateway-btn {
+      width: 100%;
+      padding: 13px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: 0;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(140deg, #1b366e 0%, #081329 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(8, 20, 44, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .gateway-btn:hover {
+      transform: translateY(-1.5px);
+      background: linear-gradient(140deg, #224388 0%, #0c1c3d 100%);
+      box-shadow: 0 10px 26px rgba(8, 20, 44, 0.32);
+    }
+
+    .gateway-btn:active {
+      transform: translateY(0);
+    }
+
+    .gateway-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .auth-status-pill.locked {
+      background: rgba(197, 154, 74, 0.14);
+      border: 1px solid rgba(197, 154, 74, 0.35);
+      color: #dfb76c;
+    }
+
+    .auth-status-pill.user-badge {
+      background: rgba(59, 130, 246, 0.14);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
+    }
+
+    .auth-status-pill.admin-badge {
+      background: rgba(220, 38, 38, 0.14);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      color: #fca5a5;
+    }
+
     /* ---------- Responsive ---------- */
     @media(max-width:700px) {
       header {
@@ -1624,19 +1877,84 @@
     </a>
     <div class="header-actions">
       <div class="live-pill"><i class="pulse"></i>LIVE SYNC</div>
-      <button class="btn btn-outline" id="openLoginBtn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-          <polyline points="10 17 15 12 10 7" />
-          <line x1="15" y1="12" x2="3" y2="12" />
-        </svg>
-        Admin Login
-      </button>
+      <div id="headerNavBtns" style="display:flex;align-items:center;gap:10px"></div>
     </div>
   </header>
 
-  <main id="publicView">
+  <!-- Login Gateway (Initial Screen) -->
+  <main id="loginGatewayView" class="login-gateway">
+    <div class="login-gateway-card" id="gatewayCard">
+      <div class="login-icon-ring">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+
+      <div class="login-gateway-header">
+        <div class="login-brand-tag">PORTAL AUTHENTICATION</div>
+        <h2>VISION DataBox Access</h2>
+        <p>ডাটা বক্সে প্রবেশ করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
+      </div>
+
+      <form id="gatewayLoginForm" onsubmit="handleGatewayLogin(event); return false;" autocomplete="on">
+        <div class="gateway-field">
+          <label for="gatewayUser">ইউজারনেম (Username)</label>
+          <div class="gateway-input-wrap">
+            <span class="gateway-input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            <input type="text" id="gatewayUser" class="gateway-input" placeholder="Username (যেমন: admin বা user)" autocomplete="username" autofocus>
+          </div>
+        </div>
+
+        <div class="gateway-field">
+          <label for="gatewayPass">পাসওয়ার্ড (Password)</label>
+          <div class="gateway-input-wrap">
+            <span class="gateway-input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="gatewayPass" class="gateway-input" placeholder="পাসওয়ার্ড দিন..." autocomplete="current-password" required>
+            <button type="button" class="gateway-pwd-toggle" id="gatewayPwdToggle" aria-label="Toggle password visibility" title="পাসওয়ার্ড দেখুন/লুকান">
+              <svg id="pwdEyeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="gateway-hint">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <div>
+            এডমিন পাসওয়ার্ড দিলে <strong>এডমিন প্যানেলে</strong> এবং ইউজার পাসওয়ার্ড দিলে <strong>হোম / ইউজার পেজে</strong> প্রবেশ করবে।
+          </div>
+        </div>
+
+        <div class="gateway-error" id="gatewayError"></div>
+
+        <button type="submit" class="gateway-btn" id="gatewaySubmitBtn">
+          <span id="gatewayBtnText">লগইন ও প্রবেশ করুন</span>
+          <svg id="gatewayBtnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <main id="publicView" style="display:none">
     <section class="hero">
       <div class="hero-content">
         <div class="update-notices" id="updateNotices"></div>
@@ -1959,7 +2277,10 @@
 
   <script>
     const API_BASE = "https://visiondatabox-worker.dreamsicreation.workers.dev";
-    let records = [], editingId = null, adminToken = localStorage.getItem("adminToken") || null;
+    let records = [], editingId = null;
+    let adminToken = sessionStorage.getItem("adminToken") || localStorage.getItem("adminToken") || null;
+    let userToken = sessionStorage.getItem("userToken") || localStorage.getItem("userToken") || null;
+    let authRole = sessionStorage.getItem("authRole") || localStorage.getItem("authRole") || null;
 
     // Edit distance (Levenshtein) - typo tolerance
     function levenshtein(a, b) {
@@ -2007,7 +2328,8 @@
 
     async function apiFetch(path, options = {}) {
       const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
-      if (adminToken) headers.Authorization = "Bearer " + adminToken;
+      const activeToken = adminToken || userToken;
+      if (activeToken) headers.Authorization = "Bearer " + activeToken;
       const res = await fetch(API_BASE + path, { ...options, headers });
       let data = null; try { data = await res.json() } catch (e) { }
       if (!res.ok) throw new Error(data?.error || "একটি সমস্যা হয়েছে।");
@@ -2242,37 +2564,237 @@
       }).join("") : `<tr><td colspan="11" style="text-align:center;padding:25px;color:var(--muted)">কোনো তথ্য পাওয়া যায়নি</td></tr>`
     }
 
-    function openLogin() {
-      loginError.textContent = ""; loginUser.value = ""; loginPass.value = "";
-      loginOverlay.classList.add("show");
-      const lm = loginOverlay.querySelector(".modal"); if (lm) lm.scrollTop = 0;
-    }
-    function closeLogin() { loginOverlay.classList.remove("show") }
+    function updateHeaderNav(mode) {
+      const container = document.getElementById("headerNavBtns");
+      if (!container) return;
 
-    async function login() {
-      const u = loginUser.value.trim(), p = loginPass.value; loginError.textContent = "";
+      if (mode === "gateway") {
+        container.innerHTML = `
+          <span class="auth-status-pill locked">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure Portal
+          </span>
+        `;
+      } else if (mode === "user") {
+        container.innerHTML = `
+          <span class="auth-status-pill user-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            User Panel
+          </span>
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Logout
+          </button>
+        `;
+      } else if (mode === "admin") {
+        container.innerHTML = `
+          <span class="auth-status-pill admin-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Admin
+          </span>
+          <button type="button" class="btn btn-outline" onclick="adminPreviewPublic()" title="ইউজার হিসেবে হোম পেজ দেখুন">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            হোম পেজ দেখুন
+          </button>
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Logout
+          </button>
+        `;
+      } else if (mode === "admin-preview") {
+        container.innerHTML = `
+          <button type="button" class="btn btn-gold" onclick="showAdminView()" title="এডমিন প্যানেলে ফিরে যান">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            এডমিন কন্ট্রোল
+          </button>
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Logout
+          </button>
+        `;
+      }
+    }
+
+    function showLoginGateway() {
+      const gView = document.getElementById("loginGatewayView");
+      const pView = document.getElementById("publicView");
+      const aView = document.getElementById("adminView");
+      if (gView) gView.style.display = "flex";
+      if (pView) pView.style.display = "none";
+      if (aView) aView.style.display = "none";
+      updateHeaderNav("gateway");
+
+      const errEl = document.getElementById("gatewayError");
+      if (errEl) { errEl.textContent = ""; errEl.classList.remove("show"); }
+      const pInput = document.getElementById("gatewayPass");
+      if (pInput) pInput.value = "";
+    }
+
+    function showUserView() {
+      const gView = document.getElementById("loginGatewayView");
+      const pView = document.getElementById("publicView");
+      const aView = document.getElementById("adminView");
+      if (gView) gView.style.display = "none";
+      if (pView) pView.style.display = "block";
+      if (aView) aView.style.display = "none";
+      updateHeaderNav("user");
+    }
+
+    function showAdminView() {
+      const gView = document.getElementById("loginGatewayView");
+      const pView = document.getElementById("publicView");
+      const aView = document.getElementById("adminView");
+      if (gView) gView.style.display = "none";
+      if (pView) pView.style.display = "none";
+      if (aView) aView.style.display = "block";
+      updateHeaderNav("admin");
+    }
+
+    function adminPreviewPublic() {
+      const gView = document.getElementById("loginGatewayView");
+      const pView = document.getElementById("publicView");
+      const aView = document.getElementById("adminView");
+      if (gView) gView.style.display = "none";
+      if (pView) pView.style.display = "block";
+      if (aView) aView.style.display = "none";
+      updateHeaderNav("admin-preview");
+      if (!records.length) loadRecords().then(refreshPublicView);
+      else refreshPublicView();
+    }
+
+    async function handleGatewayLogin(e) {
+      if (e) e.preventDefault();
+      const uInput = document.getElementById("gatewayUser");
+      const pInput = document.getElementById("gatewayPass");
+      const errEl = document.getElementById("gatewayError");
+      const cardEl = document.getElementById("gatewayCard");
+      const btn = document.getElementById("gatewaySubmitBtn");
+      const btnText = document.getElementById("gatewayBtnText");
+
+      const username = (uInput?.value || "").trim();
+      const password = (pInput?.value || "").trim();
+
+      if (errEl) { errEl.textContent = ""; errEl.classList.remove("show"); }
+
+      if (!password) {
+        if (errEl) {
+          errEl.textContent = "দয়া করে পাসওয়ার্ড প্রদান করুন।";
+          errEl.classList.add("show");
+        }
+        if (cardEl) {
+          cardEl.classList.remove("shake");
+          void cardEl.offsetWidth;
+          cardEl.classList.add("shake");
+        }
+        if (pInput) pInput.focus();
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      if (btnText) btnText.textContent = "যাচাই করা হচ্ছে...";
+
       try {
-        const d = await apiFetch("/api/login", { method: "POST", body: JSON.stringify({ username: u, password: p }) });
-        adminToken = d.token; localStorage.setItem("adminToken", adminToken);
-        closeLogin();
-        publicView.style.display = "none"; adminView.style.display = "block";
-        openLoginBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout`;
-        openLoginBtn.onclick = logout;
-        await loadRecords(); renderAdminTable();
-      } catch (e) { loginError.textContent = e.message }
+        const res = await apiFetch("/api/login", {
+          method: "POST",
+          body: JSON.stringify({ username, password })
+        });
+
+        const role = res.role || (res.token ? "admin" : "user");
+        authRole = role;
+
+        if (role === "admin") {
+          adminToken = res.token;
+          userToken = null;
+          sessionStorage.setItem("authRole", "admin");
+          sessionStorage.setItem("adminToken", adminToken);
+          localStorage.setItem("authRole", "admin");
+          localStorage.setItem("adminToken", adminToken);
+          showAdminView();
+          await loadRecords();
+          renderAdminTable();
+        } else {
+          userToken = res.token || "user_active";
+          adminToken = null;
+          sessionStorage.setItem("authRole", "user");
+          sessionStorage.setItem("userToken", userToken);
+          localStorage.setItem("authRole", "user");
+          localStorage.setItem("userToken", userToken);
+          showUserView();
+          await loadRecords();
+          refreshPublicView();
+        }
+      } catch (err) {
+        if (errEl) {
+          errEl.textContent = err.message || "ইউজারনেম বা পাসওয়ার্ড সঠিক নয়।";
+          errEl.classList.add("show");
+        }
+        if (cardEl) {
+          cardEl.classList.remove("shake");
+          void cardEl.offsetWidth;
+          cardEl.classList.add("shake");
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.textContent = "লগইন ও প্রবেশ করুন";
+      }
+    }
+
+    function toggleGatewayPassword() {
+      const pInput = document.getElementById("gatewayPass");
+      const icon = document.getElementById("pwdEyeIcon");
+      if (!pInput) return;
+      if (pInput.type === "password") {
+        pInput.type = "text";
+        if (icon) {
+          icon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+        }
+      } else {
+        pInput.type = "password";
+        if (icon) {
+          icon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+        }
+      }
     }
 
     function logout() {
-      adminToken = null; localStorage.removeItem("adminToken");
-      adminView.style.display = "none"; publicView.style.display = "block";
-      openLoginBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Admin Login`;
-      openLoginBtn.onclick = openLogin;
-      loadRecords().then(refreshPublicView);
+      adminToken = null;
+      userToken = null;
+      authRole = null;
+      sessionStorage.removeItem("authRole");
+      sessionStorage.removeItem("adminToken");
+      sessionStorage.removeItem("userToken");
+      localStorage.removeItem("authRole");
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("userToken");
+
+      showLoginGateway();
+      const uInput = document.getElementById("gatewayUser");
+      if (uInput) uInput.focus();
     }
 
     function goHome() {
-      adminView.style.display = "none"; publicView.style.display = "block";
-      loadRecords().then(refreshPublicView);
+      if (authRole === "admin") {
+        adminPreviewPublic();
+      } else if (authRole === "user") {
+        showUserView();
+        loadRecords().then(refreshPublicView);
+      } else {
+        showLoginGateway();
+      }
+    }
+
+    function openLogin() {
+      showLoginGateway();
+    }
+
+    function closeLogin() {
+      if (authRole === "admin") showAdminView();
+      else if (authRole === "user") showUserView();
+      else showLoginGateway();
+    }
+
+    async function login() {
+      await handleGatewayLogin();
     }
 
     function switchTab(t) {
@@ -2489,10 +3011,17 @@
       publicSearchInput.focus();
     };
 
-    openLoginBtn.onclick = openLogin;
-    cancelLoginBtn.onclick = closeLogin;
-    cancelLoginCrossBtn.onclick = closeLogin;
-    submitLoginBtn.onclick = login;
+    const openLoginBtnEl = document.getElementById("openLoginBtn");
+    if (openLoginBtnEl) openLoginBtnEl.onclick = openLogin;
+    const cancelLoginBtnEl = document.getElementById("cancelLoginBtn");
+    if (cancelLoginBtnEl) cancelLoginBtnEl.onclick = closeLogin;
+    const cancelLoginCrossBtnEl = document.getElementById("cancelLoginCrossBtn");
+    if (cancelLoginCrossBtnEl) cancelLoginCrossBtnEl.onclick = closeLogin;
+    const submitLoginBtnEl = document.getElementById("submitLoginBtn");
+    if (submitLoginBtnEl) submitLoginBtnEl.onclick = login;
+    const pwdToggleBtn = document.getElementById("gatewayPwdToggle");
+    if (pwdToggleBtn) pwdToggleBtn.onclick = toggleGatewayPassword;
+
     adminSearch.oninput = renderAdminTable;
     addSubmitBtn.onclick = addRecord;
     cancelEditBtn.onclick = closeEdit;
@@ -2503,7 +3032,7 @@
     viewerCopyBtn.onclick = copyCourseModalContent;
     viewerOverlay.onclick = e => { if (e.target === viewerOverlay) closeCourseModal() };
     editOverlay.onclick = e => { if (e.target === editOverlay) closeEdit() };
-    loginOverlay.onclick = e => { if (e.target === loginOverlay) closeLogin() };
+    if (typeof loginOverlay !== "undefined" && loginOverlay) loginOverlay.onclick = e => { if (e.target === loginOverlay) closeLogin() };
 
     window.addEventListener("keydown", e => {
       if (e.key === "Escape") {
@@ -2525,7 +3054,8 @@
     edit_level.onchange = () => updateLevelFields("edit");
     updateLevelFields("add");
     document.querySelectorAll(".tab-btn").forEach(b => b.onclick = () => switchTab(b.dataset.tab));
-    loginPass.onkeydown = e => { if (e.key === "Enter") login() };
+    const loginPassInput = document.getElementById("loginPass");
+    if (loginPassInput) loginPassInput.onkeydown = e => { if (e.key === "Enter") login() };
 
     /* ---------- Voice Search (Bangla speech -> English keywords) ---------- */
     const BN_DIGIT_MAP = { "০": "0", "১": "1", "২": "2", "৩": "3", "৪": "4", "৫": "5", "৬": "6", "৭": "7", "৮": "8", "৯": "9" };
@@ -2630,13 +3160,15 @@
       };
     }
 
-    if (adminToken) {
-      publicView.style.display = "none"; adminView.style.display = "block";
-      openLoginBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Logout`;
-      openLoginBtn.onclick = logout;
-      loadRecords().then(renderAdminTable).catch(() => { logout() });
-    } else {
+    // ---------- Authentication Gateway Boot (প্রথম পেজে সবসময় লগইন সেকশন) ----------
+    if (authRole === "admin" && adminToken) {
+      showAdminView();
+      loadRecords().then(renderAdminTable).catch(() => logout());
+    } else if (authRole === "user") {
+      showUserView();
       loadRecords().then(refreshPublicView);
+    } else {
+      showLoginGateway();
     }
   </script>
 </body>

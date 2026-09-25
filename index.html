@@ -997,7 +997,10 @@
     }
 
     .modal.wide {
-      max-width: 600px
+      width: 92%;
+      max-width: 960px;
+      padding: 30px 34px;
+      border-radius: 22px;
     }
 
     .viewer-modal {
@@ -2304,75 +2307,87 @@
         </div>
         <button type="button" class="viewer-close" id="cancelEditCrossBtn" aria-label="Close modal">&times;</button>
       </div>
-      <div class="field"><label>Course Name</label><input id="edit_course_name" placeholder="Course Name লিখুন...">
+      <div class="field"><label>Course Name</label><input id="edit_course_name" placeholder="Course Name লিখুন..."></div>
+
+      <div class="three-col" id="editLevelRow">
+        <div class="field"><label>Level</label>
+          <select id="edit_level">
+            <option value="">Level নির্বাচন করুন</option>
+            <option value="SSC">SSC</option>
+            <option value="HSC">HSC</option>
+            <option value="BBA">BBA</option>
+            <option value="MBA">MBA</option>
+            <option value="BBS">BBS</option>
+            <option value="BBA Professional">BBA Professional</option>
+          </select>
+        </div>
+
+        <div class="field" id="editInstituteField"><label>Institute</label>
+          <select id="edit_institute">
+            <option value="">Institute নির্বাচন করুন</option>
+            <option value="Dhaka Central University">Dhaka Central University</option>
+            <option value="National University">National University</option>
+          </select>
+        </div>
+
+        <div class="field" id="editDepartmentField"><label id="editDepartmentLabel">Department</label>
+          <select id="edit_department">
+            <option value="">Department নির্বাচন করুন</option>
+            <option value="Accounting Department">Accounting Department</option>
+            <option value="Management Department">Management Department</option>
+            <option value="Finance Department">Finance Department</option>
+            <option value="Marketing Department">Marketing Department</option>
+          </select>
+        </div>
       </div>
-      <div class="field"><label>Level</label>
-        <select id="edit_level">
-          <option value="">Level নির্বাচন করুন</option>
-          <option value="SSC">SSC</option>
-          <option value="HSC">HSC</option>
-          <option value="BBA">BBA</option>
-          <option value="MBA">MBA</option>
-          <option value="BBS">BBS</option>
-          <option value="BBA Professional">BBA Professional</option>
-        </select>
-      </div>
-      <div class="field" id="editInstituteField"><label>Institute</label>
-        <select id="edit_institute">
-          <option value="">Institute নির্বাচন করুন</option>
-          <option value="Dhaka Central University">Dhaka Central University</option>
-          <option value="National University">National University</option>
-        </select>
-      </div>
-      <div class="field" id="editDepartmentField"><label id="editDepartmentLabel">Department</label>
-        <select id="edit_department">
-          <option value="">Department নির্বাচন করুন</option>
-          <option value="Accounting Department">Accounting Department</option>
-          <option value="Management Department">Management Department</option>
-          <option value="Finance Department">Finance Department</option>
-          <option value="Marketing Department">Marketing Department</option>
-        </select>
-      </div>
+
       <div class="two-col" id="editYearSessionRow">
         <div class="field" id="editYearField"><label>Year</label><input id="edit_year"></div>
         <div class="field" id="editSessionField"><label>Session</label><input id="edit_session"></div>
       </div>
+
       <div class="two-col">
         <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking"></div>
         <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last"></div>
       </div>
+
       <div class="field"><label>Description</label><textarea id="edit_desc"
           placeholder="কোর্স সম্পর্কে বর্ণনা লিখুন..."></textarea></div>
-      <div class="field field-course-info">
-        <label>
-          <span class="box-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="16" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12.01" y2="8" />
-            </svg>
-            Course Info (নীল বক্স)
-          </span>
-          <span class="box-hint">কোর্স পরিচিতি ও বিস্তারিত গাইডলাইন</span>
-        </label>
-        <textarea id="edit_course_info" placeholder="Course Info লিখুন..."></textarea>
+
+      <div class="two-col">
+        <div class="field field-course-info">
+          <label>
+            <span class="box-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+              Course Info (নীল বক্স)
+            </span>
+            <span class="box-hint">কোর্স পরিচিতি ও বিস্তারিত গাইডলাইন</span>
+          </label>
+          <textarea id="edit_course_info" placeholder="Course Info লিখুন..."></textarea>
+        </div>
+
+        <div class="field field-course-data">
+          <label>
+            <span class="box-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg>
+              Course Data (গোল্ডেন বক্স)
+            </span>
+            <span class="box-hint">রিসোর্স লিংক</span>
+          </label>
+          <textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea>
+        </div>
       </div>
-      <div class="field field-course-data">
-        <label>
-          <span class="box-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
-            Course Data (গোল্ডেন বক্স)
-          </span>
-          <span class="box-hint">রিসোর্স লিংক</span>
-        </label>
-        <textarea id="edit_course_data" placeholder="Course Data লিখুন..."></textarea>
-      </div>
+
       <div class="error-text" id="editError"></div>
       <div class="modal-actions">
         <button class="btn btn-ghost" id="cancelEditBtn">Cancel</button>

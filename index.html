@@ -1367,7 +1367,24 @@
 
     /* ---------- Admin Panel ---------- */
     #adminView {
-      display: none
+      display: none;
+      width: 82%;
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 0 20px 90px;
+    }
+
+    @media(max-width: 1200px) {
+      #adminView {
+        width: 92%;
+      }
+    }
+
+    @media(max-width: 768px) {
+      #adminView {
+        width: 96%;
+        padding: 0 10px 60px;
+      }
     }
 
     .admin-topbar {
@@ -1426,12 +1443,13 @@
       border-radius: 14px;
       overflow: auto;
       box-shadow: var(--shadow-sm);
+      width: 100%;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 880px
+      min-width: 920px;
     }
 
     th {
@@ -1464,14 +1482,22 @@
 
     .row-actions {
       display: flex;
-      gap: 6px;
-      white-space: nowrap
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
     }
 
     .row-actions button {
       padding: 5px 10px;
       font-size: .74rem;
-      border-radius: 7px
+      border-radius: 7px;
+    }
+
+    .row-actions .btn-admin-edit {
+      padding: 6px 16px;
+      min-width: 58px;
+      justify-content: center;
+      font-weight: 700;
     }
 
     .loading {
@@ -1894,12 +1920,11 @@
       <div class="login-gateway-header">
         <div class="login-brand-tag">PORTAL AUTHENTICATION</div>
         <h2>VISION DataBox Access</h2>
-        <p>ডাটা বক্সে প্রবেশ করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
       </div>
 
       <form id="gatewayLoginForm" onsubmit="handleGatewayLogin(event); return false;" autocomplete="on">
         <div class="gateway-field">
-          <label for="gatewayUser">ইউজারনেম (Username)</label>
+          <label for="gatewayUser">Username</label>
           <div class="gateway-input-wrap">
             <span class="gateway-input-icon">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -1907,12 +1932,12 @@
                 <circle cx="12" cy="7" r="4"/>
               </svg>
             </span>
-            <input type="text" id="gatewayUser" class="gateway-input" placeholder="Username (যেমন: admin বা user)" autocomplete="username" autofocus>
+            <input type="text" id="gatewayUser" class="gateway-input" placeholder="Username" autocomplete="username" autofocus>
           </div>
         </div>
 
         <div class="gateway-field">
-          <label for="gatewayPass">পাসওয়ার্ড (Password)</label>
+          <label for="gatewayPass">Password</label>
           <div class="gateway-input-wrap">
             <span class="gateway-input-icon">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -1920,8 +1945,8 @@
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
               </svg>
             </span>
-            <input type="password" id="gatewayPass" class="gateway-input" placeholder="পাসওয়ার্ড দিন..." autocomplete="current-password" required>
-            <button type="button" class="gateway-pwd-toggle" id="gatewayPwdToggle" aria-label="Toggle password visibility" title="পাসওয়ার্ড দেখুন/লুকান">
+            <input type="password" id="gatewayPass" class="gateway-input" placeholder="Password" autocomplete="current-password" required>
+            <button type="button" class="gateway-pwd-toggle" id="gatewayPwdToggle" aria-label="Toggle password visibility" title="Show/Hide Password">
               <svg id="pwdEyeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                 <circle cx="12" cy="12" r="3"/>
@@ -1930,21 +1955,10 @@
           </div>
         </div>
 
-        <div class="gateway-hint">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="16" x2="12" y2="12"/>
-            <line x1="12" y1="8" x2="12.01" y2="8"/>
-          </svg>
-          <div>
-            এডমিন পাসওয়ার্ড দিলে <strong>এডমিন প্যানেলে</strong> এবং ইউজার পাসওয়ার্ড দিলে <strong>হোম / ইউজার পেজে</strong> প্রবেশ করবে।
-          </div>
-        </div>
-
         <div class="gateway-error" id="gatewayError"></div>
 
         <button type="submit" class="gateway-btn" id="gatewaySubmitBtn">
-          <span id="gatewayBtnText">লগইন ও প্রবেশ করুন</span>
+          <span id="gatewayBtnText">Login & Entry</span>
           <svg id="gatewayBtnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
@@ -2556,7 +2570,7 @@
       <td class="desc-cell">${r.description || ""}</td>
       <td>
         <div class="row-actions">
-          <button class="btn btn-green" onclick="openEdit(${r.id})">Edit</button>
+          <button class="btn btn-green btn-admin-edit" onclick="openEdit(${r.id})">Edit</button>
           <button class="btn btn-red" onclick="deleteRecord(${r.id})">Delete</button>
         </div>
       </td>
@@ -2678,7 +2692,7 @@
 
       if (!password) {
         if (errEl) {
-          errEl.textContent = "দয়া করে পাসওয়ার্ড প্রদান করুন।";
+          errEl.textContent = "Please enter your password.";
           errEl.classList.add("show");
         }
         if (cardEl) {
@@ -2691,7 +2705,7 @@
       }
 
       if (btn) btn.disabled = true;
-      if (btnText) btnText.textContent = "যাচাই করা হচ্ছে...";
+      if (btnText) btnText.textContent = "Verifying...";
 
       try {
         const res = await apiFetch("/api/login", {
@@ -2725,7 +2739,7 @@
         }
       } catch (err) {
         if (errEl) {
-          errEl.textContent = err.message || "ইউজারনেম বা পাসওয়ার্ড সঠিক নয়।";
+          errEl.textContent = err.message || "Invalid username or password.";
           errEl.classList.add("show");
         }
         if (cardEl) {
@@ -2735,7 +2749,7 @@
         }
       } finally {
         if (btn) btn.disabled = false;
-        if (btnText) btnText.textContent = "লগইন ও প্রবেশ করুন";
+        if (btnText) btnText.textContent = "Login & Entry";
       }
     }
 

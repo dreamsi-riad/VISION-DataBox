@@ -1233,6 +1233,18 @@
       resize: vertical
     }
 
+    /* Hide number input spinners/arrows */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2216,6 +2228,7 @@
               <option value="Management Department">Management Department</option>
               <option value="Finance Department">Finance Department</option>
               <option value="Marketing Department">Marketing Department</option>
+              <option value="All Department">All Department</option>
             </select>
           </div>
         </div>
@@ -2225,8 +2238,8 @@
           <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
         </div>
         <div class="two-col">
-          <div class="field"><label>Asking Price (৳)</label><input type="number" id="add_asking" placeholder="0"></div>
-          <div class="field"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0"></div>
+          <div class="field"><label>Asking Price (৳)</label><input type="number" id="add_asking" placeholder="0" inputmode="numeric"></div>
+          <div class="field"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0" inputmode="numeric"></div>
         </div>
         <div class="field"><label>Description</label><textarea id="add_desc"
             placeholder="কোর্স সম্পর্কে সংক্ষিপ্ত বর্ণনা লিখুন..."></textarea></div>
@@ -2339,6 +2352,7 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="All Department">All Department</option>
           </select>
         </div>
       </div>
@@ -2349,8 +2363,8 @@
       </div>
 
       <div class="two-col">
-        <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking"></div>
-        <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last"></div>
+        <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking" inputmode="numeric"></div>
+        <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last" inputmode="numeric"></div>
       </div>
 
       <div class="field"><label>Description</label><textarea id="edit_desc"
@@ -2534,6 +2548,12 @@
 
     const INSTITUTE_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M6 10.5V16c0 1.5 2.5 3 6 3s6-1.5 6-3v-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 8v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     const DEPARTMENT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H12v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M20 5.5C20 4.67 19.33 4 18.5 4H12v16h6.5a1.5 1.5 0 0 0 1.5-1.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>';
+    const ALL_DEPARTMENT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/></svg>';
+
+    function isAllDepartment(dept) {
+      const d = (dept || "").trim().toLowerCase();
+      return d === "all department" || d === "all" || d === "all departments" || d.startsWith("all dept");
+    }
 
     function updateFilterVisibility() {
       const level = (document.getElementById("filterLevel").value || "").trim().toUpperCase();
@@ -2667,7 +2687,7 @@
         </div>
         ${(r.department || r.institute) ? `
         <div class="department-row">
-          ${r.department ? `<div class="department">${iconBadge(r.level, DEPARTMENT_ICON, true)}<span>${r.department}</span></div>` : ""}
+          ${r.department ? `<div class="department">${iconBadge(r.level, isAllDepartment(r.department) ? ALL_DEPARTMENT_ICON : DEPARTMENT_ICON, true)}<span>${r.department}</span></div>` : ""}
           ${r.institute ? `<span class="inst-badge" title="Institute"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2 2 7h20L12 2z"/></svg>${r.institute}</span>` : ""}
         </div>`: ""}
         <div class="meta-row">
@@ -3022,8 +3042,9 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="All Department">All Department</option>
           `;
-          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department"].includes(prevVal)) {
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "All Department"].includes(prevVal)) {
             deptSelect.value = prevVal;
           }
         }
@@ -3041,8 +3062,9 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="All Department">All Department</option>
           `;
-          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department"].includes(prevVal)) {
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "All Department"].includes(prevVal)) {
             deptSelect.value = prevVal;
           }
         }

@@ -899,8 +899,8 @@
 
     /* Price Panel */
     .price-panel {
-      background: linear-gradient(155deg, #fffdf7 0%, #fbf4e4 100%);
-      border-left: 1px solid #e8e3d5;
+      background: linear-gradient(155deg, #ffffff 0%, #f8fafc 100%);
+      border-left: 1px solid #e2e8f0;
       display: grid;
       grid-template-columns: 1fr;
       align-content: center;
@@ -913,54 +913,65 @@
     }
 
     .price+.price {
-      border-top: 1px solid rgba(197, 154, 74, .18);
+      border-top: 1px solid #eef2f6;
     }
 
     .price-label {
       font-size: .60rem;
       font-weight: 800;
-      color: #85641e;
       text-transform: uppercase;
-      letter-spacing: .6px;
+      letter-spacing: .65px;
       margin-bottom: 2px;
       line-height: 1;
     }
 
     .price-value {
-      font-size: 1.12rem;
+      font-size: 1.14rem;
       font-weight: 800;
-      color: var(--navy);
       font-variant-numeric: tabular-nums;
       line-height: 1.15;
     }
 
+    /* Face Value (Blue) */
+    .price.face {
+      background: rgba(37, 99, 235, 0.025);
+    }
+
     .price.face .price-label {
-      color: #64748b;
+      color: #2563eb;
     }
 
     .price.face .price-value {
-      color: #475569;
-      font-size: 1.02rem;
+      color: #1d4ed8;
+      font-size: 1.05rem;
+    }
+
+    /* After Discount (Green) */
+    .price.after {
+      background: rgba(16, 185, 129, 0.035);
     }
 
     .price.after .price-label {
-      color: #b45309;
+      color: #059669;
     }
 
     .price.after .price-value {
-      color: var(--navy);
+      color: #047857;
+      font-size: 1.15rem;
     }
 
+    /* Last Price (Red) */
     .price.last {
-      background: rgba(220, 38, 38, .03);
+      background: rgba(225, 29, 72, 0.035);
     }
 
     .price.last .price-label {
-      color: #dc2626;
+      color: #e11d48;
     }
 
     .price.last .price-value {
-      color: var(--red);
+      color: #dc2626;
+      font-size: 1.15rem;
     }
 
     /* ---------- Empty State ---------- */
@@ -1249,6 +1260,52 @@
       border-color: var(--gold);
       background: #fff;
       box-shadow: 0 0 0 3px rgba(197, 154, 74, .15);
+    }
+
+    /* Price Fields in Forms (Add & Edit Panels) */
+    .field.field-face label {
+      color: #2563eb;
+    }
+    .field.field-face input {
+      color: #1d4ed8;
+      font-weight: 700;
+      border-color: rgba(37, 99, 235, 0.30);
+      background: rgba(37, 99, 235, 0.02);
+    }
+    .field.field-face input:focus {
+      border-color: #2563eb;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .field.field-after label {
+      color: #059669;
+    }
+    .field.field-after input {
+      color: #047857;
+      font-weight: 700;
+      border-color: rgba(16, 185, 129, 0.30);
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .field.field-after input:focus {
+      border-color: #059669;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+
+    .field.field-last label {
+      color: #dc2626;
+    }
+    .field.field-last input {
+      color: #dc2626;
+      font-weight: 700;
+      border-color: rgba(220, 38, 38, 0.30);
+      background: rgba(220, 38, 38, 0.02);
+    }
+    .field.field-last input:focus {
+      border-color: #dc2626;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
     }
 
     .field textarea {
@@ -2222,9 +2279,9 @@
               <th>Department</th>
               <th>Year &amp; Session</th>
               <th>Institute</th>
-              <th>Face Value</th>
-              <th>After Discount</th>
-              <th>Last Price</th>
+              <th style="color:#2563eb;background:rgba(37,99,235,0.035)">Face Value</th>
+              <th style="color:#059669;background:rgba(16,185,129,0.035)">After Discount</th>
+              <th style="color:#dc2626;background:rgba(220,38,38,0.035)">Last Price</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -2277,9 +2334,9 @@
           <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
         </div>
         <div class="three-col">
-          <div class="field"><label>Face Value (৳)</label><input type="number" id="add_face_value" placeholder="0" inputmode="numeric"></div>
-          <div class="field"><label>After Discount (৳)</label><input type="number" id="add_after_discount" placeholder="0" inputmode="numeric"></div>
-          <div class="field"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0" inputmode="numeric"></div>
+          <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="add_face_value" placeholder="0" inputmode="numeric"></div>
+          <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="add_after_discount" placeholder="0" inputmode="numeric"></div>
+          <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0" inputmode="numeric"></div>
         </div>
         <div class="field"><label>Description</label><textarea id="add_desc"
             placeholder="কোর্স সম্পর্কে সংক্ষিপ্ত বর্ণনা লিখুন..."></textarea></div>
@@ -2404,9 +2461,9 @@
       </div>
 
       <div class="three-col">
-        <div class="field"><label>Face Value (৳)</label><input type="number" id="edit_face_value" placeholder="0" inputmode="numeric"></div>
-        <div class="field"><label>After Discount (৳)</label><input type="number" id="edit_after_discount" placeholder="0" inputmode="numeric"></div>
-        <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last" placeholder="0" inputmode="numeric"></div>
+        <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="edit_face_value" placeholder="0" inputmode="numeric"></div>
+        <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="edit_after_discount" placeholder="0" inputmode="numeric"></div>
+        <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="edit_last" placeholder="0" inputmode="numeric"></div>
       </div>
 
       <div class="field"><label>Description</label><textarea id="edit_desc"
@@ -2783,9 +2840,9 @@
         </div>
       </td>
       <td>${r.institute ? `<span class="inst-badge" style="font-size:.82rem;padding:4px 10px">${r.institute}</span>` : "—"}</td>
-      <td style="font-weight:700;font-size:.90rem;color:#64748b">${Number(r.face_value) > 0 ? fmtPrice(r.face_value) : "—"}</td>
-      <td style="font-weight:800;font-size:.96rem;color:var(--navy)">${fmtPrice(r.after_discount)}</td>
-      <td style="font-weight:800;font-size:.96rem;color:var(--red)">${Number(r.last_price) > 0 ? fmtPrice(r.last_price) : "—"}</td>
+      <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:700;font-size:.90rem;color:#1d4ed8;background:rgba(37,99,235,0.07)">${Number(r.face_value) > 0 ? fmtPrice(r.face_value) : "—"}</span></td>
+      <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:800;font-size:.94rem;color:#047857;background:rgba(16,185,129,0.08)">${fmtPrice(r.after_discount)}</span></td>
+      <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:800;font-size:.94rem;color:#dc2626;background:rgba(220,38,38,0.08)">${Number(r.last_price) > 0 ? fmtPrice(r.last_price) : "—"}</span></td>
       <td>
         <div class="row-actions">
           <button type="button" class="btn-admin-edit" onclick="openEdit(${r.id})" title="তথ্য এডিট করুন">

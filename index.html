@@ -1295,12 +1295,14 @@
     .field.field-face label {
       color: #2563eb;
     }
+
     .field.field-face input {
       color: #1d4ed8;
       font-weight: 700;
       border-color: rgba(37, 99, 235, 0.30);
       background: rgba(37, 99, 235, 0.02);
     }
+
     .field.field-face input:focus {
       border-color: #2563eb;
       background: #fff;
@@ -1310,12 +1312,14 @@
     .field.field-after label {
       color: #059669;
     }
+
     .field.field-after input {
       color: #047857;
       font-weight: 700;
       border-color: rgba(16, 185, 129, 0.30);
       background: rgba(16, 185, 129, 0.02);
     }
+
     .field.field-after input:focus {
       border-color: #059669;
       background: #fff;
@@ -1325,12 +1329,14 @@
     .field.field-last label {
       color: #dc2626;
     }
+
     .field.field-last input {
       color: #dc2626;
       font-weight: 700;
       border-color: rgba(220, 38, 38, 0.30);
       background: rgba(220, 38, 38, 0.02);
     }
+
     .field.field-last input:focus {
       border-color: #dc2626;
       background: #fff;
@@ -1511,23 +1517,22 @@
     /* ---------- Admin Panel ---------- */
     #adminView {
       display: none;
-      width: 95%;
-      max-width: 1720px;
+      width: 82%;
+      max-width: 1680px;
       margin: 0 auto;
-      padding: 20px 14px 90px;
+      padding: 20px 20px 90px;
     }
 
     @media(max-width: 1200px) {
       #adminView {
-        width: 96%;
-        padding: 16px 12px 80px;
+        width: 92%;
       }
     }
 
     @media(max-width: 768px) {
       #adminView {
-        width: 98%;
-        padding: 0 8px 60px;
+        width: 96%;
+        padding: 0 10px 60px;
       }
     }
 
@@ -1636,7 +1641,7 @@
       background: #fff;
       border: 1.5px solid #e2e8f0;
       border-radius: 16px;
-      overflow-x: auto;
+      overflow: auto;
       box-shadow: 0 10px 30px -5px rgba(8, 20, 44, 0.05), 0 2px 8px rgba(8, 20, 44, 0.03);
       width: 100%;
     }
@@ -1644,7 +1649,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      table-layout: auto;
+      min-width: 820px;
     }
 
     th {
@@ -1669,52 +1674,15 @@
       transition: background .15s ease;
     }
 
-    /* Element-based column widths - only take as much space as their contents need */
-    th:nth-child(2), td:nth-child(2), /* Level */
-    th:nth-child(3), td:nth-child(3), /* Department */
-    th:nth-child(4), td:nth-child(4), /* Year & Session */
-    th:nth-child(5), td:nth-child(5), /* Institute */
-    th:nth-child(6), td:nth-child(6), /* Face Value */
-    th:nth-child(7), td:nth-child(7), /* After Dis */
-    th:nth-child(8), td:nth-child(8), /* Last Price */
-    th:nth-child(9), td:nth-child(9)  /* Actions */ {
-      white-space: nowrap;
-      width: 1%;
-    }
-
-    /* Course Name gets remaining flexible width */
-    th:first-child, td:first-child {
-      min-width: 180px;
-    }
-
-    /* Centered columns */
-    th:nth-child(2), td:nth-child(2),
-    th:nth-child(5), td:nth-child(5),
-    th:nth-child(6), td:nth-child(6),
-    th:nth-child(7), td:nth-child(7),
-    th:nth-child(8), td:nth-child(8),
-    th:nth-child(9), td:nth-child(9) {
-      text-align: center;
-    }
-
-    /* Guaranteed room for Actions column - Edit and Delete will never be covered */
-    th:last-child, td:last-child {
-      min-width: 165px;
-      padding-left: 8px;
-      padding-right: 12px;
-    }
-
     tr:hover td {
       background: #f8fbff;
     }
 
     .row-actions {
-      display: inline-flex;
+      display: flex;
       gap: 7px;
       align-items: center;
-      justify-content: center;
       white-space: nowrap;
-      min-width: 155px;
     }
 
     .row-actions button {
@@ -1742,7 +1710,7 @@
     .row-actions .btn-admin-edit {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #fff;
-      padding: 7px 14px;
+      padding: 7px 15px;
       font-size: .84rem;
       min-width: 68px;
       border-color: rgba(255, 255, 255, 0.22);
@@ -1767,7 +1735,7 @@
     .row-actions .btn-admin-delete {
       background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
       color: #fff;
-      padding: 7px 14px;
+      padding: 7px 15px;
       font-size: .84rem;
       min-width: 68px;
       border-color: rgba(255, 255, 255, 0.22);
@@ -1830,10 +1798,27 @@
     }
 
     @keyframes gatewayShake {
-      10%, 90% { transform: translate3d(-2px, 0, 0); }
-      20%, 80% { transform: translate3d(4px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
-      40%, 60% { transform: translate3d(5px, 0, 0); }
+
+      10%,
+      90% {
+        transform: translate3d(-2px, 0, 0);
+      }
+
+      20%,
+      80% {
+        transform: translate3d(4px, 0, 0);
+      }
+
+      30%,
+      50%,
+      70% {
+        transform: translate3d(-5px, 0, 0);
+      }
+
+      40%,
+      60% {
+        transform: translate3d(5px, 0, 0);
+      }
     }
 
     .login-icon-ring {
@@ -2214,9 +2199,10 @@
   <main id="loginGatewayView" class="login-gateway">
     <div class="login-gateway-card" id="gatewayCard">
       <div class="login-icon-ring">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
         </svg>
       </div>
 
@@ -2231,11 +2217,12 @@
           <div class="gateway-input-wrap">
             <span class="gateway-input-icon">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
               </svg>
             </span>
-            <input type="text" id="gatewayUser" class="gateway-input" placeholder="Username" autocomplete="username" autofocus>
+            <input type="text" id="gatewayUser" class="gateway-input" placeholder="Username" autocomplete="username"
+              autofocus>
           </div>
         </div>
 
@@ -2244,15 +2231,18 @@
           <div class="gateway-input-wrap">
             <span class="gateway-input-icon">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </span>
-            <input type="password" id="gatewayPass" class="gateway-input" placeholder="Password" autocomplete="current-password" required>
-            <button type="button" class="gateway-pwd-toggle" id="gatewayPwdToggle" aria-label="Toggle password visibility" title="Show/Hide Password">
-              <svg id="pwdEyeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
+            <input type="password" id="gatewayPass" class="gateway-input" placeholder="Password"
+              autocomplete="current-password" required>
+            <button type="button" class="gateway-pwd-toggle" id="gatewayPwdToggle"
+              aria-label="Toggle password visibility" title="Show/Hide Password">
+              <svg id="pwdEyeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
               </svg>
             </button>
           </div>
@@ -2262,9 +2252,10 @@
 
         <button type="submit" class="gateway-btn" id="gatewaySubmitBtn">
           <span id="gatewayBtnText">Login & Entry</span>
-          <svg id="gatewayBtnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
+          <svg id="gatewayBtnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
           </svg>
         </button>
       </form>
@@ -2321,11 +2312,21 @@
   <main id="adminView">
     <div class="tabs">
       <button class="tab-btn active" data-tab="manage">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
         Data Management
       </button>
       <button class="tab-btn" data-tab="add">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
         Add New Data
       </button>
     </div>
@@ -2413,12 +2414,16 @@
               <option value="All Year">All Year</option>
             </select>
           </div>
-          <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
+          <div class="field" id="addSessionField"><label>Session</label><input id="add_session"
+              placeholder="যেমন: 21-22"></div>
         </div>
         <div class="three-col">
-          <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="add_face_value" placeholder="0" inputmode="numeric"></div>
-          <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="add_after_discount" placeholder="0" inputmode="numeric"></div>
-          <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0" inputmode="numeric"></div>
+          <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="add_face_value"
+              placeholder="0" inputmode="numeric"></div>
+          <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="add_after_discount"
+              placeholder="0" inputmode="numeric"></div>
+          <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0"
+              inputmode="numeric"></div>
         </div>
         <div class="field"><label>Description</label><textarea id="add_desc"
             placeholder="কোর্স সম্পর্কে সংক্ষিপ্ত বর্ণনা লিখুন..."></textarea></div>
@@ -2458,7 +2463,8 @@
         </div>
 
         <div class="error-text" id="addError"></div>
-        <button class="btn btn-navy" id="addSubmitBtn" style="width:100%;justify-content:center;padding:13px;font-size:.95rem">
+        <button class="btn btn-navy" id="addSubmitBtn"
+          style="width:100%;justify-content:center;padding:13px;font-size:.95rem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
@@ -2501,7 +2507,8 @@
         </div>
         <button type="button" class="viewer-close" id="cancelEditCrossBtn" aria-label="Close modal">&times;</button>
       </div>
-      <div class="field"><label>Course Name</label><input id="edit_course_name" placeholder="Course Name লিখুন..."></div>
+      <div class="field"><label>Course Name</label><input id="edit_course_name" placeholder="Course Name লিখুন...">
+      </div>
 
       <div class="three-col" id="editLevelRow">
         <div class="field"><label>Level</label>
@@ -2556,9 +2563,12 @@
       </div>
 
       <div class="three-col">
-        <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="edit_face_value" placeholder="0" inputmode="numeric"></div>
-        <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="edit_after_discount" placeholder="0" inputmode="numeric"></div>
-        <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="edit_last" placeholder="0" inputmode="numeric"></div>
+        <div class="field field-face"><label>Face Value (৳)</label><input type="number" id="edit_face_value"
+            placeholder="0" inputmode="numeric"></div>
+        <div class="field field-after"><label>After Discount (৳)</label><input type="number" id="edit_after_discount"
+            placeholder="0" inputmode="numeric"></div>
+        <div class="field field-last"><label>Last Price (৳)</label><input type="number" id="edit_last" placeholder="0"
+            inputmode="numeric"></div>
       </div>
 
       <div class="field"><label>Description</label><textarea id="edit_desc"

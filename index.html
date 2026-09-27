@@ -482,24 +482,31 @@
     .update-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: linear-gradient(135deg, #fff7e6, #f7e5b8);
       border: 1px solid #d9b46a;
       color: #5c400d;
       font-size: .8rem;
       font-weight: 700;
-      padding: 7px 13px;
+      padding: 4px 6px 4px 13px;
       border-radius: 999px;
-      cursor: pointer;
       transition: .18s;
       white-space: nowrap;
       box-shadow: 0 3px 10px rgba(197, 154, 74, .22);
+      user-select: none;
     }
 
     .update-chip:hover {
       background: linear-gradient(135deg, #ffeed0, #eed08a);
-      transform: translateY(-1px);
       box-shadow: 0 6px 16px rgba(197, 154, 74, .35);
+    }
+
+    .update-chip-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 3px 0;
     }
 
     .update-chip .dot {
@@ -512,15 +519,37 @@
     }
 
     .update-chip .close {
-      margin-left: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      margin-left: 2px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      border-radius: 50%;
+      font-size: 1.15rem;
       font-weight: 900;
-      opacity: .5;
-      font-size: .95rem;
-      line-height: 1
+      line-height: 1;
+      color: #5c400d;
+      opacity: .6;
+      cursor: pointer;
+      transition: all .15s ease;
+      touch-action: manipulation;
     }
 
-    .update-chip:hover .close {
-      opacity: 1
+    .update-chip .close:hover {
+      opacity: 1;
+      background: rgba(180, 83, 9, .22);
+      color: #451a03;
+      transform: scale(1.12);
+    }
+
+    .update-chip .close:active {
+      background: rgba(180, 83, 9, .35);
+      transform: scale(0.95);
     }
 
     /* ---------- Results Section ---------- */
@@ -1614,26 +1643,26 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 940px;
+      min-width: 820px;
     }
 
     th {
       background: #f8fafc;
       text-align: left;
-      padding: 14px 16px;
-      font-size: .83rem;
+      padding: 12px 10px;
+      font-size: .80rem;
       font-weight: 700;
       color: #475569;
       text-transform: uppercase;
-      letter-spacing: .6px;
+      letter-spacing: .5px;
       border-bottom: 1.5px solid #e2e8f0;
       white-space: nowrap;
     }
 
     td {
-      padding: 14px 16px;
+      padding: 11px 10px;
       border-top: 1px solid #edf2f7;
-      font-size: .90rem;
+      font-size: .88rem;
       color: #1e293b;
       vertical-align: middle;
       transition: background .15s ease;
@@ -1645,23 +1674,23 @@
 
     .row-actions {
       display: flex;
-      gap: 9px;
+      gap: 6px;
       align-items: center;
       white-space: nowrap;
     }
 
     .row-actions button {
       border: 1.5px solid transparent;
-      border-radius: 11px;
+      border-radius: 10px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6.5px;
+      gap: 5.5px;
       transition: all .25s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
       user-select: none;
-      letter-spacing: .25px;
+      letter-spacing: .2px;
       position: relative;
     }
 
@@ -1673,9 +1702,9 @@
     .row-actions .btn-admin-edit {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #fff;
-      padding: 7px 18px;
-      font-size: .85rem;
-      min-width: 74px;
+      padding: 6px 13px;
+      font-size: .82rem;
+      min-width: 62px;
       border-color: rgba(255, 255, 255, 0.22);
       box-shadow: 0 3px 10px rgba(16, 185, 129, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     }
@@ -1698,9 +1727,9 @@
     .row-actions .btn-admin-delete {
       background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
       color: #fff;
-      padding: 7px 16px;
-      font-size: .85rem;
-      min-width: 68px;
+      padding: 6px 13px;
+      font-size: .82rem;
+      min-width: 62px;
       border-color: rgba(255, 255, 255, 0.22);
       box-shadow: 0 3px 10px rgba(225, 29, 72, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     }
@@ -2280,7 +2309,7 @@
               <th>Year &amp; Session</th>
               <th>Institute</th>
               <th style="color:#2563eb;background:rgba(37,99,235,0.035)">Face Value</th>
-              <th style="color:#059669;background:rgba(16,185,129,0.035)">After Discount</th>
+              <th style="color:#059669;background:rgba(16,185,129,0.035)">After Dis</th>
               <th style="color:#dc2626;background:rgba(220,38,38,0.035)">Last Price</th>
               <th>Actions</th>
             </tr>
@@ -2330,7 +2359,20 @@
         </div>
 
         <div class="two-col" id="addYearSessionRow">
-          <div class="field" id="addYearField"><label>Year</label><input id="add_year" placeholder="যেমন: 1st Year"></div>
+          <div class="field" id="addYearField"><label>Year</label>
+            <select id="add_year">
+              <option value="">Year নির্বাচন করুন</option>
+              <option value="1st Year (old)">1st Year (old)</option>
+              <option value="1st Year (new)">1st Year (new)</option>
+              <option value="2nd Year (old)">2nd Year (old)</option>
+              <option value="2nd Year (new)">2nd Year (new)</option>
+              <option value="3rd Year (old)">3rd Year (old)</option>
+              <option value="3rd Year (new)">3rd Year (new)</option>
+              <option value="4th Year (old)">4th Year (old)</option>
+              <option value="4th Year (new)">4th Year (new)</option>
+              <option value="All Year">All Year</option>
+            </select>
+          </div>
           <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
         </div>
         <div class="three-col">
@@ -2456,7 +2498,20 @@
       </div>
 
       <div class="two-col" id="editYearSessionRow">
-        <div class="field" id="editYearField"><label>Year</label><input id="edit_year"></div>
+        <div class="field" id="editYearField"><label>Year</label>
+          <select id="edit_year">
+            <option value="">Year নির্বাচন করুন</option>
+            <option value="1st Year (old)">1st Year (old)</option>
+            <option value="1st Year (new)">1st Year (new)</option>
+            <option value="2nd Year (old)">2nd Year (old)</option>
+            <option value="2nd Year (new)">2nd Year (new)</option>
+            <option value="3rd Year (old)">3rd Year (old)</option>
+            <option value="3rd Year (new)">3rd Year (new)</option>
+            <option value="4th Year (old)">4th Year (old)</option>
+            <option value="4th Year (new)">4th Year (new)</option>
+            <option value="All Year">All Year</option>
+          </select>
+        </div>
         <div class="field" id="editSessionField"><label>Session</label><input id="edit_session"></div>
       </div>
 
@@ -2737,14 +2792,37 @@
         return { key, id: r.id, label: `Updated: ${r.level || ""} - ${r.year || ""} - ${r.department || ""}`.replace(/\s+-\s+$/, "") };
       }).filter(Boolean);
       if (!notices.length) { box.classList.remove("show"); box.innerHTML = ""; return }
-      box.innerHTML = notices.map(n => `<span class="update-chip" data-key="${n.key}" data-id="${n.id}"><i class="dot"></i>${n.label}<span class="close">&times;</span></span>`).join("");
+      box.innerHTML = notices.map(n => `
+        <span class="update-chip" data-key="${n.key}" data-id="${n.id}">
+          <span class="update-chip-content"><i class="dot"></i>${n.label}</span>
+          <button type="button" class="close" title="মুছে ফেলুন" aria-label="Dismiss">&times;</button>
+        </span>
+      `).join("");
       box.classList.add("show");
-      box.querySelectorAll(".update-chip").forEach(el => el.onclick = () => {
-        const key = el.getAttribute("data-key"), id = el.getAttribute("data-id"), d = loadDismissed();
-        if (!d.includes(key)) { d.push(key); saveDismissed(d) }
-        el.remove();
-        if (!box.children.length) box.classList.remove("show");
-        goToCard(id);
+      box.querySelectorAll(".update-chip").forEach(el => {
+        const key = el.getAttribute("data-key"), id = el.getAttribute("data-id");
+        const closeBtn = el.querySelector(".close");
+        const content = el.querySelector(".update-chip-content");
+
+        if (closeBtn) {
+          closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            const d = loadDismissed();
+            if (!d.includes(key)) { d.push(key); saveDismissed(d); }
+            el.remove();
+            if (!box.children.length) box.classList.remove("show");
+          };
+        }
+
+        if (content) {
+          content.onclick = () => {
+            const d = loadDismissed();
+            if (!d.includes(key)) { d.push(key); saveDismissed(d); }
+            el.remove();
+            if (!box.children.length) box.classList.remove("show");
+            goToCard(id);
+          };
+        }
       });
     }
 
@@ -2825,6 +2903,19 @@
       }).join("");
     }
 
+    function adminInstBadge(inst) {
+      if (!inst) return "—";
+      const s = String(inst).trim();
+      const lower = s.toLowerCase();
+      let shortName = s;
+      if (lower === "dhaka central university" || lower.includes("dhaka central")) {
+        shortName = "DCU";
+      } else if (lower === "national university" || lower.includes("national")) {
+        shortName = "NU";
+      }
+      return `<span class="inst-badge" style="font-size:.82rem;padding:3.5px 8px;font-weight:700" title="${s}">${shortName}</span>`;
+    }
+
     function renderAdminTable() {
       const q = document.getElementById("adminSearch").value, list = records.filter(r => matches(r, q)), b = document.getElementById("adminTableBody");
       b.innerHTML = list.length ? list.map(r => {
@@ -2839,7 +2930,7 @@
           ${!r.year && !r.session ? "—" : ""}
         </div>
       </td>
-      <td>${r.institute ? `<span class="inst-badge" style="font-size:.82rem;padding:4px 10px">${r.institute}</span>` : "—"}</td>
+      <td>${adminInstBadge(r.institute)}</td>
       <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:700;font-size:.90rem;color:#1d4ed8;background:rgba(37,99,235,0.07)">${Number(r.face_value) > 0 ? fmtPrice(r.face_value) : "—"}</span></td>
       <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:800;font-size:.94rem;color:#047857;background:rgba(16,185,129,0.08)">${fmtPrice(r.after_discount)}</span></td>
       <td><span style="display:inline-block;padding:3.5px 10px;border-radius:8px;font-weight:800;font-size:.94rem;color:#dc2626;background:rgba(220,38,38,0.08)">${Number(r.last_price) > 0 ? fmtPrice(r.last_price) : "—"}</span></td>
@@ -3230,7 +3321,7 @@
       updateLevelFields("edit");
       setSelectValue("edit_institute", r.institute);
       setSelectValue("edit_department", r.department);
-      edit_year.value = r.year || "";
+      setSelectValue("edit_year", r.year);
       edit_session.value = r.session || "";
       edit_face_value.value = (r.face_value !== undefined && r.face_value !== null && Number(r.face_value) > 0) ? r.face_value : "";
       edit_after_discount.value = r.after_discount || "";

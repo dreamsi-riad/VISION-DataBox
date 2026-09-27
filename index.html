@@ -907,37 +907,60 @@
     }
 
     .price {
-      padding: 9px 14px;
-      text-align: center
+      padding: 6px 12px;
+      text-align: center;
+      transition: background .2s ease;
     }
 
     .price+.price {
-      border-top: 1px solid rgba(197, 154, 74, .18)
+      border-top: 1px solid rgba(197, 154, 74, .18);
     }
 
     .price-label {
-      font-size: .66rem;
+      font-size: .60rem;
       font-weight: 800;
       color: #85641e;
       text-transform: uppercase;
-      letter-spacing: .7px;
+      letter-spacing: .6px;
       margin-bottom: 2px;
+      line-height: 1;
     }
 
     .price-value {
-      font-size: 1.25rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--navy);
       font-variant-numeric: tabular-nums;
       line-height: 1.15;
     }
 
+    .price.face .price-label {
+      color: #64748b;
+    }
+
+    .price.face .price-value {
+      color: #475569;
+      font-size: 1.02rem;
+    }
+
+    .price.after .price-label {
+      color: #b45309;
+    }
+
+    .price.after .price-value {
+      color: var(--navy);
+    }
+
+    .price.last {
+      background: rgba(220, 38, 38, .03);
+    }
+
     .price.last .price-label {
-      color: #991b1b
+      color: #dc2626;
     }
 
     .price.last .price-value {
-      color: var(--red)
+      color: var(--red);
     }
 
     /* ---------- Empty State ---------- */
@@ -1957,12 +1980,25 @@
       .price-panel {
         border-left: 0;
         border-top: 1px solid var(--line);
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .price {
+        padding: 7px 4px;
       }
 
       .price+.price {
         border-top: 0;
-        border-left: 1px solid rgba(197, 154, 74, .18)
+        border-left: 1px solid rgba(197, 154, 74, .18);
+      }
+
+      .price-label {
+        font-size: .54rem;
+        letter-spacing: .3px;
+      }
+
+      .price-value {
+        font-size: .95rem;
       }
 
       .card-body {
@@ -2007,7 +2043,8 @@
         border-radius: 16px
       }
 
-      .two-col {
+      .two-col,
+      .three-col {
         grid-template-columns: 1fr
       }
 
@@ -2185,8 +2222,9 @@
               <th>Department</th>
               <th>Year &amp; Session</th>
               <th>Institute</th>
-              <th>Asking</th>
-              <th>Last</th>
+              <th>Face Value</th>
+              <th>After Discount</th>
+              <th>Last Price</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -2228,6 +2266,7 @@
               <option value="Management Department">Management Department</option>
               <option value="Finance Department">Finance Department</option>
               <option value="Marketing Department">Marketing Department</option>
+              <option value="Mgt + Mkt + Fin Dept.">Mgt + Mkt + Fin Dept.</option>
               <option value="All Department">All Department</option>
             </select>
           </div>
@@ -2237,8 +2276,9 @@
           <div class="field" id="addYearField"><label>Year</label><input id="add_year" placeholder="যেমন: 1st Year"></div>
           <div class="field" id="addSessionField"><label>Session</label><input id="add_session" placeholder="যেমন: 21-22"></div>
         </div>
-        <div class="two-col">
-          <div class="field"><label>Asking Price (৳)</label><input type="number" id="add_asking" placeholder="0" inputmode="numeric"></div>
+        <div class="three-col">
+          <div class="field"><label>Face Value (৳)</label><input type="number" id="add_face_value" placeholder="0" inputmode="numeric"></div>
+          <div class="field"><label>After Discount (৳)</label><input type="number" id="add_after_discount" placeholder="0" inputmode="numeric"></div>
           <div class="field"><label>Last Price (৳)</label><input type="number" id="add_last" placeholder="0" inputmode="numeric"></div>
         </div>
         <div class="field"><label>Description</label><textarea id="add_desc"
@@ -2352,6 +2392,7 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="Mgt + Mkt + Fin Dept.">Mgt + Mkt + Fin Dept.</option>
             <option value="All Department">All Department</option>
           </select>
         </div>
@@ -2362,9 +2403,10 @@
         <div class="field" id="editSessionField"><label>Session</label><input id="edit_session"></div>
       </div>
 
-      <div class="two-col">
-        <div class="field"><label>Asking Price (৳)</label><input type="number" id="edit_asking" inputmode="numeric"></div>
-        <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last" inputmode="numeric"></div>
+      <div class="three-col">
+        <div class="field"><label>Face Value (৳)</label><input type="number" id="edit_face_value" placeholder="0" inputmode="numeric"></div>
+        <div class="field"><label>After Discount (৳)</label><input type="number" id="edit_after_discount" placeholder="0" inputmode="numeric"></div>
+        <div class="field"><label>Last Price (৳)</label><input type="number" id="edit_last" placeholder="0" inputmode="numeric"></div>
       </div>
 
       <div class="field"><label>Description</label><textarea id="edit_desc"
@@ -2552,7 +2594,7 @@
 
     function isAllDepartment(dept) {
       const d = (dept || "").trim().toLowerCase();
-      return d === "all department" || d === "all" || d === "all departments" || d.startsWith("all dept");
+      return d === "all department" || d === "all" || d === "all departments" || d.startsWith("all dept") || d.includes("mgt + mkt + fin") || d.includes("+");
     }
 
     function updateFilterVisibility() {
@@ -2709,9 +2751,13 @@
         ${r.description ? `<p class="desc">${r.description}</p>` : ""}
       </div>
       <div class="price-panel">
-        <div class="price">
-          <div class="price-label">Asking Price</div>
-          <div class="price-value">${fmtPrice(r.asking_price)}</div>
+        <div class="price face">
+          <div class="price-label">Face Value</div>
+          <div class="price-value">${Number(r.face_value) > 0 ? fmtPrice(r.face_value) : "—"}</div>
+        </div>
+        <div class="price after">
+          <div class="price-label">After Discount</div>
+          <div class="price-value">${fmtPrice(r.after_discount)}</div>
         </div>
         <div class="price last">
           <div class="price-label">Last Price</div>
@@ -2737,8 +2783,9 @@
         </div>
       </td>
       <td>${r.institute ? `<span class="inst-badge" style="font-size:.82rem;padding:4px 10px">${r.institute}</span>` : "—"}</td>
-      <td style="font-weight:800;font-size:.96rem;color:var(--navy)">${fmtPrice(r.asking_price)}</td>
-      <td style="font-weight:800;font-size:.96rem;color:var(--red)">${fmtPrice(r.last_price)}</td>
+      <td style="font-weight:700;font-size:.90rem;color:#64748b">${Number(r.face_value) > 0 ? fmtPrice(r.face_value) : "—"}</td>
+      <td style="font-weight:800;font-size:.96rem;color:var(--navy)">${fmtPrice(r.after_discount)}</td>
+      <td style="font-weight:800;font-size:.96rem;color:var(--red)">${Number(r.last_price) > 0 ? fmtPrice(r.last_price) : "—"}</td>
       <td>
         <div class="row-actions">
           <button type="button" class="btn-admin-edit" onclick="openEdit(${r.id})" title="তথ্য এডিট করুন">
@@ -2752,7 +2799,7 @@
         </div>
       </td>
     </tr>`;
-      }).join("") : `<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--muted);font-size:.92rem">কোনো তথ্য পাওয়া যায়নি</td></tr>`
+      }).join("") : `<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--muted);font-size:.92rem">কোনো তথ্য পাওয়া যায়নি</td></tr>`
     }
 
     function updateHeaderNav(mode) {
@@ -3042,9 +3089,10 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="Mgt + Mkt + Fin Dept.">Mgt + Mkt + Fin Dept.</option>
             <option value="All Department">All Department</option>
           `;
-          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "All Department"].includes(prevVal)) {
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "Mgt + Mkt + Fin Dept.", "All Department"].includes(prevVal)) {
             deptSelect.value = prevVal;
           }
         }
@@ -3062,9 +3110,10 @@
             <option value="Management Department">Management Department</option>
             <option value="Finance Department">Finance Department</option>
             <option value="Marketing Department">Marketing Department</option>
+            <option value="Mgt + Mkt + Fin Dept.">Mgt + Mkt + Fin Dept.</option>
             <option value="All Department">All Department</option>
           `;
-          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "All Department"].includes(prevVal)) {
+          if (["Accounting Department", "Management Department", "Finance Department", "Marketing Department", "Mgt + Mkt + Fin Dept.", "All Department"].includes(prevVal)) {
             deptSelect.value = prevVal;
           }
         }
@@ -3093,7 +3142,8 @@
       const department = add_department.value.trim();
       const year = isSchool ? "" : add_year.value.trim();
       const session = add_session.value.trim();
-      const asking_price = add_asking.value;
+      const face_value = add_face_value.value;
+      const after_discount = add_after_discount.value;
       const last_price = add_last.value;
       const description = add_desc.value.trim();
       const course_info = add_course_info.value.trim();
@@ -3103,10 +3153,12 @@
       try {
         await apiFetch("/api/records", {
           method: "POST", body: JSON.stringify({
-            course_name, institute, level, department, year, session, asking_price, last_price, description, course_info, course_data
+            course_name, institute, level, department, year, session,
+            face_value, after_discount, last_price,
+            description, course_info, course_data
           })
         });
-        ["add_course_name", "add_institute", "add_level", "add_department", "add_year", "add_session", "add_asking", "add_last", "add_desc", "add_course_info", "add_course_data"]
+        ["add_course_name", "add_institute", "add_level", "add_department", "add_year", "add_session", "add_face_value", "add_after_discount", "add_last", "add_desc", "add_course_info", "add_course_data"]
           .forEach(id => document.getElementById(id).value = "");
         updateLevelFields("add");
         await loadRecords(); renderAdminTable(); switchTab("manage");
@@ -3123,8 +3175,9 @@
       setSelectValue("edit_department", r.department);
       edit_year.value = r.year || "";
       edit_session.value = r.session || "";
-      edit_asking.value = r.asking_price || "";
-      edit_last.value = r.last_price || "";
+      edit_face_value.value = (r.face_value !== undefined && r.face_value !== null && Number(r.face_value) > 0) ? r.face_value : "";
+      edit_after_discount.value = r.after_discount || "";
+      edit_last.value = (r.last_price !== undefined && r.last_price !== null && Number(r.last_price) > 0) ? r.last_price : "";
       edit_desc.value = r.description || "";
       edit_course_info.value = r.course_info || "";
       edit_course_data.value = r.course_data || "";
@@ -3144,7 +3197,8 @@
       const department = edit_department.value.trim();
       const year = isSchool ? "" : edit_year.value.trim();
       const session = edit_session.value.trim();
-      const asking_price = edit_asking.value;
+      const face_value = edit_face_value.value;
+      const after_discount = edit_after_discount.value;
       const last_price = edit_last.value;
       const description = edit_desc.value.trim();
       const course_info = edit_course_info.value.trim();
@@ -3154,7 +3208,9 @@
       try {
         await apiFetch(`/api/records/${editingId}`, {
           method: "PUT", body: JSON.stringify({
-            course_name, institute, level, department, year, session, asking_price, last_price, description, course_info, course_data
+            course_name, institute, level, department, year, session,
+            face_value, after_discount, last_price,
+            description, course_info, course_data
           })
         });
         markLocalUpdate(editingId);

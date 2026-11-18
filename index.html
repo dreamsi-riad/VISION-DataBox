@@ -2114,8 +2114,8 @@
     .routine-shell { max-width: 760px; margin: 0 auto; padding-top: 22px; }
     .routine-toolbar { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 14px; }
     .routine-day-field { flex: 1; min-width: 0; }
-    .routine-day-field label { display: block; font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
-    .routine-day-field input[type="date"] { width: 100%; min-width: 0; height: 48px; border: 1px solid #dcd7cc; border-radius: 12px; padding: 0 12px; color: var(--navy); background: #fff; font: inherit; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-sm); }
+    .routine-day-field label { display: block; font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+    .routine-day-field input[type="date"] { width: 100%; min-width: 0; height: 40px; border: 1px solid #dcd7cc; border-radius: 9px; padding: 0 10px; color: var(--navy); background: #fff; font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-sm); }
     .routine-browse-title { flex: 1; margin: 0; color: var(--navy); font-size: 1.05rem; }
     .routine-history-btn { min-height: 42px; flex-shrink: 0; }
     .routine-filters { margin-bottom: 18px; }
@@ -2126,12 +2126,18 @@
     .routine-date-group { display: grid; gap: 10px; }
     .routine-date-group + .routine-date-group { margin-top: 12px; }
     .routine-date-heading { margin: 0; color: var(--navy); font-size: .9rem; font-weight: 700; }
-    .routine-row { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: var(--shadow-sm); }
-    .routine-time { flex: 0 0 124px; border-right: 1px solid var(--line); padding-right: 16px; font-weight: 800; font-size: .98rem; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .routine-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: var(--shadow-sm); }
+    .routine-time { flex: 0 0 116px; border-right: 1px solid var(--line); padding-right: 12px; font-weight: 700; font-size: .9rem; color: var(--navy); font-variant-numeric: tabular-nums; }
     .routine-details { flex: 1; min-width: 0; }
-    .routine-title { margin: 0 0 7px; font-size: 1rem; color: var(--ink); line-height: 1.5; overflow-wrap: anywhere; }
+    .routine-title { margin: 0 0 4px; font-size: .94rem; color: var(--ink); line-height: 1.4; overflow-wrap: anywhere; }
     .routine-audience { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; color: var(--muted); font-size: .76rem; overflow-wrap: anywhere; }
-    .routine-actions { display: flex; gap: 7px; flex-shrink: 0; }
+    .routine-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .routine-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 32px; padding: 6px 9px; border: 1px solid; border-radius: 8px; font-size: .76rem; font-weight: 600; line-height: 1.2; cursor: pointer; white-space: nowrap; transition: background .15s, border-color .15s, color .15s; }
+    .routine-actions button svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .routine-actions .btn-admin-edit { color: #334c8a; background: #f0f4ff; border-color: #d5def5; }
+    .routine-actions .btn-admin-edit:hover:not(:disabled) { color: #1e3a8a; background: #e3ebff; border-color: #aebfe8; }
+    .routine-actions .btn-admin-delete { color: #b33a4c; background: #fff5f6; border-color: #f3d5dc; }
+    .routine-actions .btn-admin-delete:hover:not(:disabled) { color: #9f1239; background: #ffe9ed; border-color: #e9acb9; }
     .routine-status { text-align: center; border: 1px dashed #cbd5e1; border-radius: 14px; background: #fff; color: var(--muted); padding: 30px 16px; }
     .routine-status strong { display: block; color: var(--navy); margin-bottom: 7px; font-size: .95rem; }
     .routine-status p { margin: 0; font-size: .83rem; }
@@ -2139,11 +2145,19 @@
     .routine-admin-note { margin: 0 0 18px; font-size: .8rem; line-height: 1.6; color: var(--muted); }
     .routine-admin-heading { margin: 0 0 6px; color: var(--navy); font-size: 1.15rem; }
     .routine-admin-shell { padding-top: 0; }
-    .routine-add-btn { min-height: 48px; white-space: nowrap; }
-    .schedule-modal { max-width: 620px; }
-    .schedule-modal .field { min-width: 0; }
-    .schedule-modal input[type="time"] { min-height: 46px; min-width: 0; }
-    .schedule-day-note { display: inline-block; color: #79551d; background: #fdf8eb; border: 1px solid #ebd8ac; border-radius: 8px; padding: 4px 9px; font-size: .77rem; margin-top: 8px; }
+    .routine-add-btn { min-height: 40px; padding: 8px 12px; font-size: .82rem; white-space: nowrap; }
+    .schedule-modal { max-width: 560px; padding: 22px; }
+    .schedule-modal .modal-head { margin-bottom: 14px; }
+    .schedule-modal .modal-head h2 { font-size: 1.18rem; }
+    .schedule-modal .field { min-width: 0; margin-bottom: 10px; }
+    .schedule-modal .field label { margin-bottom: 4px; }
+    .schedule-modal .field input { min-height: 38px; padding: 8px 10px; border-radius: 8px; }
+    .schedule-modal input[type="time"] { height: 40px; min-width: 0; cursor: pointer; }
+    .schedule-modal .modal-actions { margin-top: 12px; padding-top: 12px; gap: 8px; }
+    .schedule-modal .modal-actions .btn { min-height: 36px; padding: 8px 11px; font-size: .8rem; }
+    .schedule-modal .error-text:empty, .schedule-feedback:empty { display: none; }
+    .selection-only-picker { caret-color: transparent; user-select: none; -webkit-user-select: none; }
+    .schedule-day-note { display: inline-block; color: #79551d; background: #fdf8eb; border: 1px solid #ebd8ac; border-radius: 7px; padding: 3px 8px; font-size: .74rem; margin-top: 6px; }
     .schedule-feedback { min-height: 20px; color: #047857; font-size: .82rem; margin: 0 0 10px; }
     .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
     .routine-short-label { display: none; }
@@ -2151,10 +2165,10 @@
       .routine-shell { padding-top: 16px; }
       .routine-admin-shell { padding-top: 0; }
       .routine-toolbar { gap: 8px; }
-      .routine-day-field input[type="date"] { height: 44px; font-size: .88rem; }
+      .routine-day-field input[type="date"] { height: 40px; }
       .routine-history-btn { min-height: 40px; font-size: .8rem; }
-      .routine-add-btn { min-height: 44px; padding: 10px; font-size: .78rem; }
-      .routine-row { padding: 13px; gap: 12px; flex-wrap: wrap; }
+      .routine-add-btn { min-height: 40px; padding: 8px 10px; font-size: .78rem; }
+      .routine-row { padding: 11px 12px; gap: 10px; flex-wrap: wrap; }
       .routine-time { flex-basis: 104px; padding-right: 12px; font-size: .86rem; }
       .routine-title { font-size: .94rem; }
       .routine-actions { margin-left: auto; }
@@ -2165,7 +2179,12 @@
       header #headerNavBtns { gap: 6px !important; }
       header .btn { min-height: 38px; padding: 8px 10px; font-size: .76rem; }
       header .brand { gap: 8px; }
-      .schedule-modal { padding: 22px 18px; }
+      .schedule-modal { padding: 18px; }
+    }
+    @media(max-width:540px) {
+      .routine-row-admin { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 8px 10px; }
+      .routine-row-admin .routine-time { align-self: start; padding-top: 2px; }
+      .routine-row-admin .routine-actions { grid-column: 2; margin-left: 0; }
     }
     @media(max-width:420px) {
       header { padding-left: 12px; padding-right: 12px; }
@@ -2507,7 +2526,7 @@
         <div class="routine-toolbar">
           <div class="routine-day-field">
             <label for="adminRoutineDay">ক্লাসের তারিখ</label>
-            <input type="date" id="adminRoutineDay" required min="0001-01-01" max="9999-12-31">
+            <input type="date" id="adminRoutineDay" class="selection-only-picker" required min="0001-01-01" max="9999-12-31" inputmode="none" autocomplete="off" title="তারিখ বাছুন">
           </div>
           <button type="button" class="btn btn-navy routine-add-btn" id="scheduleAddBtn">＋ ক্লাস যোগ করুন</button>
         </div>
@@ -2542,7 +2561,7 @@
         </div>
         <div class="field">
           <label for="schedule_time">৩. সময় (বাংলাদেশ)</label>
-          <input id="schedule_time" type="time" required step="60">
+          <input id="schedule_time" class="selection-only-picker" type="time" required step="60" inputmode="none" autocomplete="off" title="সময় বাছুন">
         </div>
         <div class="error-text" id="scheduleFormError" role="alert"></div>
         <div class="modal-actions">
@@ -3109,7 +3128,37 @@
 
     function routineClassMarkup(row, admin) {
       const busy = deletingScheduleIds.has(row.id);
-      return `<article class="routine-row"><div class="routine-time">${routineTimeLabel(row.class_time)}</div><div class="routine-details"><h3 class="routine-title">${escapeRoutineText(row.title)}</h3><div class="routine-audience">${escapeRoutineText(row.level)}</div></div>${admin ? `<div class="routine-actions"><button type="button" class="btn-admin-edit" data-schedule-edit="${row.id}"${busy ? " disabled" : ""}>Edit</button><button type="button" class="btn-admin-delete" data-schedule-delete="${row.id}"${busy ? " disabled" : ""}>${busy ? "মুছছে…" : "Remove"}</button></div>` : ""}</article>`;
+      return `<article class="routine-row${admin ? " routine-row-admin" : ""}"><div class="routine-time">${routineTimeLabel(row.class_time)}</div><div class="routine-details"><h3 class="routine-title">${escapeRoutineText(row.title)}</h3><div class="routine-audience">${escapeRoutineText(row.level)}</div></div>${admin ? `<div class="routine-actions"><button type="button" class="btn-admin-edit" data-schedule-edit="${row.id}" aria-label="ক্লাস এডিট করুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg>এডিট</button><button type="button" class="btn-admin-delete" data-schedule-delete="${row.id}" aria-label="ক্লাস মুছুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/></svg>${busy ? "মুছছে…" : "মুছুন"}</button></div>` : ""}</article>`;
+    }
+
+    function useSelectionOnlyPicker(input) {
+      const openPicker = () => {
+        if (input.disabled || typeof input.showPicker !== "function") return false;
+        try { input.showPicker(); return true; } catch { return false; }
+      };
+      // Keep native calendar/time selection, and open it from the whole field.
+      input.addEventListener("click", event => { if (openPicker()) event.preventDefault(); });
+      input.addEventListener("keydown", event => {
+        const key = event.key;
+        if (["Backspace", "Delete", "Home", "End", "PageUp", "PageDown"].includes(key)) { event.preventDefault(); return; }
+        if (event.ctrlKey || event.metaKey) {
+          if (["v", "x", "z", "y"].includes(key.toLowerCase()) || ["ArrowUp", "ArrowDown"].includes(key)) event.preventDefault();
+          return;
+        }
+        if (["Enter", " ", "ArrowUp", "ArrowDown", "F4"].includes(key)) {
+          event.preventDefault();
+          openPicker();
+          return;
+        }
+        if (key.length === 1) event.preventDefault();
+      });
+      ["paste", "cut", "drop"].forEach(type => input.addEventListener(type, event => event.preventDefault()));
+      input.addEventListener("beforeinput", event => {
+        if (event.data != null || /^(insertText|insertCompositionText|insertFromPaste|insertFromDrop|delete)/.test(event.inputType || "")) event.preventDefault();
+      });
+      input.addEventListener("wheel", event => {
+        if (document.activeElement === input) event.preventDefault();
+      }, { passive: false });
     }
 
     function renderRoutineViews() {
@@ -3929,6 +3978,7 @@
     updateLevelFields("add");
     document.querySelectorAll(".tab-btn").forEach(b => b.onclick = () => switchTab(b.dataset.tab));
 
+    document.querySelectorAll("input.selection-only-picker").forEach(useSelectionOnlyPicker);
     document.getElementById("routinePreviousBtn").onclick = () => { routineShowPrevious = !routineShowPrevious; renderRoutineViews(); };
     document.getElementById("adminRoutineDay").onchange = () => { scheduleFeedback(""); renderRoutineViews(); };
     document.getElementById("routineFilterLevel").onchange = renderRoutineViews;

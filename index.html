@@ -1592,6 +1592,19 @@
       stroke: #059669;
     }
 
+    /* Soft violet coloring for the selected Class Routine tab. */
+    .tab-btn.active[data-tab="routine"] {
+      background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+      color: #6d28d9;
+      border-color: #c4b5fd;
+      box-shadow: 0 4px 14px rgba(109, 40, 217, 0.14), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-btn.active[data-tab="routine"] svg {
+      color: #7c3aed;
+      stroke: #7c3aed;
+    }
+
     .admin-section {
       display: none
     }
@@ -2116,9 +2129,7 @@
     .routine-day-field { flex: 1; min-width: 0; }
     .routine-day-field label { display: block; font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
     .routine-day-field input[type="date"] { width: 100%; min-width: 0; height: 40px; border: 1px solid #dcd7cc; border-radius: 9px; padding: 0 10px; color: var(--navy); background: #fff; font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-sm); }
-    .routine-browse-title { flex: 1; margin: 0; color: var(--navy); font-size: 1.05rem; }
     .routine-history-btn { min-height: 42px; flex-shrink: 0; }
-    .routine-filters { margin-bottom: 18px; }
     .routine-summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
     .routine-summary h2 { margin: 0; font-size: .98rem; color: var(--navy); }
     .routine-count { font-size: .76rem; color: var(--muted); white-space: nowrap; }
@@ -2128,6 +2139,7 @@
     .routine-date-heading { margin: 0; color: var(--navy); font-size: .9rem; font-weight: 700; }
     .routine-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: var(--shadow-sm); }
     .routine-time { flex: 0 0 116px; border-right: 1px solid var(--line); padding-right: 12px; font-weight: 700; font-size: .9rem; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .routine-class-date { display: block; margin-top: 4px; color: var(--muted); font-size: .72rem; font-weight: 500; line-height: 1.4; }
     .routine-details { flex: 1; min-width: 0; }
     .routine-title { margin: 0 0 4px; font-size: .94rem; color: var(--ink); line-height: 1.4; overflow-wrap: anywhere; }
     .routine-audience { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; color: var(--muted); font-size: .76rem; overflow-wrap: anywhere; }
@@ -2142,8 +2154,6 @@
     .routine-status strong { display: block; color: var(--navy); margin-bottom: 7px; font-size: .95rem; }
     .routine-status p { margin: 0; font-size: .83rem; }
     .routine-status .btn { margin-top: 12px; }
-    .routine-admin-note { margin: 0 0 18px; font-size: .8rem; line-height: 1.6; color: var(--muted); }
-    .routine-admin-heading { margin: 0 0 6px; color: var(--navy); font-size: 1.15rem; }
     .routine-admin-shell { padding-top: 0; }
     .routine-add-btn { min-height: 40px; padding: 8px 12px; font-size: .82rem; white-space: nowrap; }
     .schedule-modal { max-width: 560px; padding: 22px; }
@@ -2172,7 +2182,6 @@
       .routine-time { flex-basis: 104px; padding-right: 12px; font-size: .86rem; }
       .routine-title { font-size: .94rem; }
       .routine-actions { margin-left: auto; }
-      .routine-filters select { flex: 1 1 calc(50% - 5px); }
       .header-logout-label, .header-admin-label, .routine-full-label { display: none; }
       .routine-short-label { display: inline; }
       header .header-actions { gap: 7px; }
@@ -2336,16 +2345,10 @@
 
   <main id="routineView" style="display:none" aria-label="ক্লাস রুটিন">
     <div class="routine-shell">
-      <div class="routine-toolbar">
-        <h1 class="routine-browse-title" id="routineBrowseTitle">ক্লাস রুটিন</h1>
-        <button type="button" class="btn btn-ghost routine-history-btn" id="routinePreviousBtn" aria-pressed="false">← Previous</button>
-      </div>
-      <div class="filter-bar routine-filters" aria-label="কাদের ক্লাস দেখবেন">
-        <select id="routineFilterLevel" aria-label="Level / কাদের জন্য"><option value="">সব Level</option></select>
-      </div>
       <div class="routine-summary">
         <h2 id="routineDayHeading">আজ ও পরের ক্লাস</h2>
         <span class="routine-count" id="routineCount"></span>
+        <button type="button" class="btn btn-ghost routine-history-btn" id="routinePreviousBtn" aria-pressed="false">← Previous</button>
       </div>
       <section id="routineResults" class="routine-list" aria-live="polite" aria-busy="false"></section>
     </div>
@@ -2521,17 +2524,15 @@
     </div>
     <div class="admin-section" id="tab-routine">
       <div class="routine-shell routine-admin-shell">
-        <h2 class="routine-admin-heading">ক্লাস রুটিন</h2>
-        <p class="routine-admin-note">যে তারিখে ক্লাস হবে, সেই তারিখ বেছে ক্লাস যোগ করুন।</p>
         <div class="routine-toolbar">
           <div class="routine-day-field">
-            <label for="adminRoutineDay">ক্লাসের তারিখ</label>
+            <label for="adminRoutineDay">নতুন ক্লাসের তারিখ</label>
             <input type="date" id="adminRoutineDay" class="selection-only-picker" required min="0001-01-01" max="9999-12-31" inputmode="none" autocomplete="off" title="তারিখ বাছুন">
           </div>
           <button type="button" class="btn btn-navy routine-add-btn" id="scheduleAddBtn">＋ ক্লাস যোগ করুন</button>
         </div>
         <div class="routine-summary">
-          <h2 id="adminRoutineDayHeading">আজকের ক্লাস</h2>
+          <h2 id="adminRoutineDayHeading">আজ ও পরের সব ক্লাস</h2>
           <span class="routine-count" id="adminRoutineCount"></span>
         </div>
         <p class="schedule-feedback" id="scheduleFeedback" role="status"></p>
@@ -2742,6 +2743,7 @@
     let scheduleSaving = false, scheduleReturnFocus = null;
     const deletingScheduleIds = new Set();
     const routineDateFormat = new Intl.DateTimeFormat("bn-BD", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const routineShortDateFormat = new Intl.DateTimeFormat("bn-BD", { timeZone: "UTC", day: "numeric", month: "short", year: "numeric" });
     const dhakaDateFormat = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" });
 
     // Edit distance (Levenshtein) - typo tolerance
@@ -3113,22 +3115,10 @@
       return `${period} ${(hour % 12 || 12).toLocaleString("bn-BD")}:${String(minute).padStart(2, "0").replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d])}`;
     }
 
-    function populateRoutineFilters() {
-      const select = document.getElementById("routineFilterLevel"), previous = select.value;
-      const values = dedupeCI(scheduleRows.map(row => row.level));
-      select.replaceChildren(new Option("সব Level", ""), ...values.map(value => new Option(value, value)));
-      const selected = values.find(value => ciEq(value, previous));
-      if (selected) select.value = selected;
-    }
-
-    function routineAudienceMatches(row) {
-      const level = document.getElementById("routineFilterLevel").value;
-      return !level || ciEq(row.level, level);
-    }
-
     function routineClassMarkup(row, admin) {
       const busy = deletingScheduleIds.has(row.id);
-      return `<article class="routine-row${admin ? " routine-row-admin" : ""}"><div class="routine-time">${routineTimeLabel(row.class_time)}</div><div class="routine-details"><h3 class="routine-title">${escapeRoutineText(row.title)}</h3><div class="routine-audience">${escapeRoutineText(row.level)}</div></div>${admin ? `<div class="routine-actions"><button type="button" class="btn-admin-edit" data-schedule-edit="${row.id}" aria-label="ক্লাস এডিট করুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg>এডিট</button><button type="button" class="btn-admin-delete" data-schedule-delete="${row.id}" aria-label="ক্লাস মুছুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/></svg>${busy ? "মুছছে…" : "মুছুন"}</button></div>` : ""}</article>`;
+      const dateLabel = admin ? `<span class="routine-class-date" title="${escapeRoutineText(routineDateLabel(row.class_date))}">${escapeRoutineText(routineShortDateFormat.format(new Date(row.class_date + "T00:00:00Z")))}</span>` : "";
+      return `<article class="routine-row${admin ? " routine-row-admin" : ""}"><div class="routine-time">${routineTimeLabel(row.class_time)}${dateLabel}</div><div class="routine-details"><h3 class="routine-title">${escapeRoutineText(row.title)}</h3><div class="routine-audience">${escapeRoutineText(row.level)}</div></div>${admin ? `<div class="routine-actions"><button type="button" class="btn-admin-edit" data-schedule-edit="${row.id}" aria-label="ক্লাস এডিট করুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg>এডিট</button><button type="button" class="btn-admin-delete" data-schedule-delete="${row.id}" aria-label="ক্লাস মুছুন"${busy ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/></svg>${busy ? "মুছছে…" : "মুছুন"}</button></div>` : ""}</article>`;
     }
 
     function useSelectionOnlyPicker(input) {
@@ -3167,27 +3157,25 @@
       previous.textContent = routineShowPrevious ? "আজ ও পরের ক্লাস →" : "← Previous";
       previous.setAttribute("aria-pressed", String(routineShowPrevious));
       [false, true].forEach(admin => {
-        const selectedDate = document.getElementById("adminRoutineDay").value;
         const results = document.getElementById(admin ? "adminRoutineResults" : "routineResults");
         const count = document.getElementById(admin ? "adminRoutineCount" : "routineCount");
         document.getElementById(admin ? "adminRoutineDayHeading" : "routineDayHeading").textContent = admin
-          ? routineDateLabel(selectedDate) : routineShowPrevious ? "আগের ক্লাস" : "আজ ও পরের ক্লাস";
+          ? "আজ ও পরের সব ক্লাস" : routineShowPrevious ? "আগের ক্লাস" : "আজ ও পরের ক্লাস";
         results.setAttribute("aria-busy", String(schedulesLoading));
         count.textContent = "";
         if (schedulesLoading || schedulesError || !schedulesLoaded) {
           results.innerHTML = `<div class="routine-status"${schedulesError ? ' role="alert"' : ""}><strong>${schedulesError ? "রুটিন দেখা যাচ্ছে না" : "ক্লাস রুটিন লোড হচ্ছে…"}</strong>${schedulesError ? `<p>${escapeRoutineText(schedulesError)}</p><button type="button" class="btn btn-ghost" data-routine-retry>আবার চেষ্টা করুন</button>` : ""}</div>`;
           return;
         }
-        const list = scheduleRows.filter(row => admin ? row.class_date === selectedDate
-          : routineAudienceMatches(row) && (routineShowPrevious ? row.class_date < today : row.class_date >= today))
+        const list = scheduleRows.filter(row => routineShowPrevious && !admin ? row.class_date < today : row.class_date >= today)
           .sort((a, b) => {
             const dateOrder = a.class_date.localeCompare(b.class_date);
             return (routineShowPrevious && !admin ? -dateOrder : dateOrder) || a.class_time.localeCompare(b.class_time) || a.id - b.id;
           });
         count.textContent = `${list.length.toLocaleString("bn-BD")}টি ক্লাস`;
         if (!list.length) {
-          const message = admin ? "এই তারিখে কোনো ক্লাস নির্ধারিত নেই" : routineShowPrevious ? "আগের কোনো ক্লাস পাওয়া যায়নি" : "আজ বা পরের তারিখে কোনো ক্লাস নির্ধারিত নেই";
-          results.innerHTML = `<div class="routine-status"><strong>${message}</strong><p>${admin ? "এই তারিখে ক্লাস যোগ করুন।" : ""}</p></div>`;
+          const message = admin ? "আজ থেকে সামনে কোনো ক্লাস নির্ধারিত নেই" : routineShowPrevious ? "আগের কোনো ক্লাস পাওয়া যায়নি" : "আজ বা পরের তারিখে কোনো ক্লাস নির্ধারিত নেই";
+          results.innerHTML = `<div class="routine-status"><strong>${message}</strong><p>${admin ? "তারিখ বেছে নতুন ক্লাস যোগ করুন।" : ""}</p></div>`;
           return;
         }
         if (admin) { results.innerHTML = list.map(row => routineClassMarkup(row, true)).join(""); return; }
@@ -3216,7 +3204,6 @@
           scheduleRows = rows;
           schedulesLoaded = true;
           schedulesLoadedAt = Date.now();
-          populateRoutineFilters();
         } catch (error) {
           if (version === scheduleRequestVersion) schedulesError = error.message;
         } finally {
@@ -3597,7 +3584,6 @@
       closeScheduleForm(false);
       scheduleFeedback("");
       deletingScheduleIds.clear();
-      document.getElementById("routineFilterLevel").value = "";
       routineShowPrevious = false;
       document.getElementById("adminRoutineDay").value = dhakaDateKey();
       renderRoutineViews();
@@ -3980,8 +3966,7 @@
 
     document.querySelectorAll("input.selection-only-picker").forEach(useSelectionOnlyPicker);
     document.getElementById("routinePreviousBtn").onclick = () => { routineShowPrevious = !routineShowPrevious; renderRoutineViews(); };
-    document.getElementById("adminRoutineDay").onchange = () => { scheduleFeedback(""); renderRoutineViews(); };
-    document.getElementById("routineFilterLevel").onchange = renderRoutineViews;
+    document.getElementById("adminRoutineDay").onchange = () => scheduleFeedback("");
     ["routineResults", "adminRoutineResults"].forEach(id => document.getElementById(id).addEventListener("click", event => {
       const retry = event.target.closest("[data-routine-retry]");
       if (retry) { loadSchedules(true); return; }
@@ -4120,10 +4105,10 @@
     const initialView = location.hash;
     if (authRole === "admin" && adminToken) {
       showAdminView();
-      loadRecords().then(() => { renderAdminTable(); if (currentView === "databox") refreshPublicView(); if (schedulesLoaded) populateRoutineFilters(); }).catch(() => logout());
+      loadRecords().then(() => { renderAdminTable(); if (currentView === "databox") refreshPublicView(); }).catch(() => logout());
     } else if (authRole === "user") {
       showUserView();
-      loadRecords().then(() => { refreshPublicView(); if (schedulesLoaded) populateRoutineFilters(); });
+      loadRecords().then(refreshPublicView);
     } else {
       showLoginGateway();
     }

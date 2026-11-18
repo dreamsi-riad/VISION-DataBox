@@ -14,28 +14,18 @@
     :root {
       --navy: #08142c;
       --navy2: #0f2249;
-      --navy-light: #1b366e;
       --gold: #c59a4a;
       --gold-glow: #dfb76c;
-      --gold-bg: #fdf9ed;
-      --gold-border: #ebd49d;
       --paper: #f8f9fc;
       --card: #ffffff;
       --ink: #0f172a;
       --muted: #5f6d82;
       --subtle: #94a3b8;
       --line: #e4e8f0;
-      --line-gold: rgba(197, 154, 74, .24);
-      --green: #10b981;
       --red: #e11d48;
       --shadow-sm: 0 2px 6px rgba(8, 20, 44, .03);
       --shadow-md: 0 10px 28px -4px rgba(8, 20, 44, .06), 0 2px 8px -2px rgba(8, 20, 44, .04);
       --shadow-lg: 0 22px 50px -10px rgba(8, 20, 44, .12), 0 6px 18px -4px rgba(8, 20, 44, .06);
-      --shadow-gold: 0 10px 30px -4px rgba(197, 154, 74, .30);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 20px;
     }
 
     * {
@@ -244,15 +234,6 @@
     .btn-navy:hover {
       background: linear-gradient(140deg, #1b366e, #0b1935);
       box-shadow: 0 6px 18px rgba(8, 20, 44, .28)
-    }
-
-    .btn-red {
-      background: #dc2626;
-      color: #fff
-    }
-
-    .btn-red:hover {
-      background: #b91c1c
     }
 
     .btn-green {
@@ -1934,27 +1915,6 @@
       color: var(--navy);
     }
 
-    .gateway-hint {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 11px 13px;
-      background: linear-gradient(135deg, #fdf9ed 0%, #fffbf2 100%);
-      border: 1px solid rgba(197, 154, 74, 0.28);
-      border-left: 4px solid var(--gold);
-      border-radius: 10px;
-      font-size: 0.77rem;
-      line-height: 1.5;
-      color: #6c4e13;
-      margin-bottom: 16px;
-    }
-
-    .gateway-hint svg {
-      flex-shrink: 0;
-      margin-top: 1px;
-      color: var(--gold);
-    }
-
     .gateway-error {
       min-height: 20px;
       font-size: 0.82rem;
@@ -2068,10 +2028,6 @@
         padding: 20px 0 16px
       }
 
-      .hero-title {
-        font-size: 1.85rem
-      }
-
       .filter-bar {
         gap: 5px;
         flex-wrap: wrap
@@ -2120,16 +2076,6 @@
         font-size: 1rem
       }
 
-      .section-head {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px
-      }
-
-      .result-count {
-        white-space: normal
-      }
-
       .meta-row {
         gap: 6px
       }
@@ -2158,16 +2104,76 @@
       .three-col {
         grid-template-columns: 1fr
       }
-
-      .admin-topbar {
-        align-items: flex-start;
-        gap: 10px;
-        flex-direction: column
-      }
     }
 
     .card-top .level {
       order: -1
+    }
+
+    /* ---------- Dated class routine ---------- */
+    .routine-shell { max-width: 760px; margin: 0 auto; padding-top: 22px; }
+    .routine-toolbar { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 14px; }
+    .routine-day-field { flex: 1; min-width: 0; }
+    .routine-day-field label { display: block; font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+    .routine-day-field input[type="date"] { width: 100%; min-width: 0; height: 48px; border: 1px solid #dcd7cc; border-radius: 12px; padding: 0 12px; color: var(--navy); background: #fff; font: inherit; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-sm); }
+    .routine-browse-title { flex: 1; margin: 0; color: var(--navy); font-size: 1.05rem; }
+    .routine-history-btn { min-height: 42px; flex-shrink: 0; }
+    .routine-filters { margin-bottom: 18px; }
+    .routine-summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .routine-summary h2 { margin: 0; font-size: .98rem; color: var(--navy); }
+    .routine-count { font-size: .76rem; color: var(--muted); white-space: nowrap; }
+    .routine-list { display: grid; gap: 10px; }
+    .routine-date-group { display: grid; gap: 10px; }
+    .routine-date-group + .routine-date-group { margin-top: 12px; }
+    .routine-date-heading { margin: 0; color: var(--navy); font-size: .9rem; font-weight: 700; }
+    .routine-row { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: var(--shadow-sm); }
+    .routine-time { flex: 0 0 124px; border-right: 1px solid var(--line); padding-right: 16px; font-weight: 800; font-size: .98rem; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .routine-details { flex: 1; min-width: 0; }
+    .routine-title { margin: 0 0 7px; font-size: 1rem; color: var(--ink); line-height: 1.5; overflow-wrap: anywhere; }
+    .routine-audience { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; color: var(--muted); font-size: .76rem; overflow-wrap: anywhere; }
+    .routine-actions { display: flex; gap: 7px; flex-shrink: 0; }
+    .routine-status { text-align: center; border: 1px dashed #cbd5e1; border-radius: 14px; background: #fff; color: var(--muted); padding: 30px 16px; }
+    .routine-status strong { display: block; color: var(--navy); margin-bottom: 7px; font-size: .95rem; }
+    .routine-status p { margin: 0; font-size: .83rem; }
+    .routine-status .btn { margin-top: 12px; }
+    .routine-admin-note { margin: 0 0 18px; font-size: .8rem; line-height: 1.6; color: var(--muted); }
+    .routine-admin-heading { margin: 0 0 6px; color: var(--navy); font-size: 1.15rem; }
+    .routine-admin-shell { padding-top: 0; }
+    .routine-add-btn { min-height: 48px; white-space: nowrap; }
+    .schedule-modal { max-width: 620px; }
+    .schedule-modal .field { min-width: 0; }
+    .schedule-modal input[type="time"] { min-height: 46px; min-width: 0; }
+    .schedule-day-note { display: inline-block; color: #79551d; background: #fdf8eb; border: 1px solid #ebd8ac; border-radius: 8px; padding: 4px 9px; font-size: .77rem; margin-top: 8px; }
+    .schedule-feedback { min-height: 20px; color: #047857; font-size: .82rem; margin: 0 0 10px; }
+    .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .routine-short-label { display: none; }
+    @media(max-width:700px) {
+      .routine-shell { padding-top: 16px; }
+      .routine-admin-shell { padding-top: 0; }
+      .routine-toolbar { gap: 8px; }
+      .routine-day-field input[type="date"] { height: 44px; font-size: .88rem; }
+      .routine-history-btn { min-height: 40px; font-size: .8rem; }
+      .routine-add-btn { min-height: 44px; padding: 10px; font-size: .78rem; }
+      .routine-row { padding: 13px; gap: 12px; flex-wrap: wrap; }
+      .routine-time { flex-basis: 104px; padding-right: 12px; font-size: .86rem; }
+      .routine-title { font-size: .94rem; }
+      .routine-actions { margin-left: auto; }
+      .routine-filters select { flex: 1 1 calc(50% - 5px); }
+      .header-logout-label, .header-admin-label, .routine-full-label { display: none; }
+      .routine-short-label { display: inline; }
+      header .header-actions { gap: 7px; }
+      header #headerNavBtns { gap: 6px !important; }
+      header .btn { min-height: 38px; padding: 8px 10px; font-size: .76rem; }
+      header .brand { gap: 8px; }
+      .schedule-modal { padding: 22px 18px; }
+    }
+    @media(max-width:420px) {
+      header { padding-left: 12px; padding-right: 12px; }
+      header .brand-mark { display: none; }
+      .routine-summary h2 { font-size: .88rem; }
+      #adminView .tabs { gap: 5px; }
+      #adminView .tab-btn { gap: 5px; padding: 12px 9px; font-size: .72rem; }
+      #adminView .tab-btn svg { display: none; }
     }
   </style>
 </head>
@@ -2309,6 +2315,23 @@
     </section>
   </main>
 
+  <main id="routineView" style="display:none" aria-label="ক্লাস রুটিন">
+    <div class="routine-shell">
+      <div class="routine-toolbar">
+        <h1 class="routine-browse-title" id="routineBrowseTitle">ক্লাস রুটিন</h1>
+        <button type="button" class="btn btn-ghost routine-history-btn" id="routinePreviousBtn" aria-pressed="false">← Previous</button>
+      </div>
+      <div class="filter-bar routine-filters" aria-label="কাদের ক্লাস দেখবেন">
+        <select id="routineFilterLevel" aria-label="Level / কাদের জন্য"><option value="">সব Level</option></select>
+      </div>
+      <div class="routine-summary">
+        <h2 id="routineDayHeading">আজ ও পরের ক্লাস</h2>
+        <span class="routine-count" id="routineCount"></span>
+      </div>
+      <section id="routineResults" class="routine-list" aria-live="polite" aria-busy="false"></section>
+    </div>
+  </main>
+
   <main id="adminView">
     <div class="tabs">
       <button class="tab-btn active" data-tab="manage">
@@ -2328,6 +2351,10 @@
           <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         Add New Data
+      </button>
+      <button class="tab-btn" data-tab="routine">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18M8 15h2M14 15h2"/></svg>
+        ক্লাস রুটিন
       </button>
     </div>
     <div class="admin-section active" id="tab-manage">
@@ -2473,27 +2500,56 @@
         </button>
       </div>
     </div>
+    <div class="admin-section" id="tab-routine">
+      <div class="routine-shell routine-admin-shell">
+        <h2 class="routine-admin-heading">ক্লাস রুটিন</h2>
+        <p class="routine-admin-note">যে তারিখে ক্লাস হবে, সেই তারিখ বেছে ক্লাস যোগ করুন।</p>
+        <div class="routine-toolbar">
+          <div class="routine-day-field">
+            <label for="adminRoutineDay">ক্লাসের তারিখ</label>
+            <input type="date" id="adminRoutineDay" required min="0001-01-01" max="9999-12-31">
+          </div>
+          <button type="button" class="btn btn-navy routine-add-btn" id="scheduleAddBtn">＋ ক্লাস যোগ করুন</button>
+        </div>
+        <div class="routine-summary">
+          <h2 id="adminRoutineDayHeading">আজকের ক্লাস</h2>
+          <span class="routine-count" id="adminRoutineCount"></span>
+        </div>
+        <p class="schedule-feedback" id="scheduleFeedback" role="status"></p>
+        <section id="adminRoutineResults" class="routine-list" aria-live="polite" aria-busy="false"></section>
+      </div>
+    </div>
   </main>
 
-  <!-- Login Modal -->
-  <div class="overlay" id="loginOverlay">
-    <div class="modal">
+  <!-- Class editor: date is selected in the admin panel. -->
+  <div class="overlay" id="scheduleOverlay">
+    <div class="modal schedule-modal" role="dialog" aria-modal="true" aria-labelledby="scheduleFormTitle" aria-describedby="scheduleFormDay">
       <div class="modal-head">
         <div>
-          <h2>Admin Login</h2>
-          <p class="sub">Username & Password দিয়ে প্রবেশ করুন</p>
+          <h2 id="scheduleFormTitle">ক্লাস যোগ করুন</h2>
+          <span class="schedule-day-note" id="scheduleFormDay"></span>
         </div>
-        <button type="button" class="viewer-close" id="cancelLoginCrossBtn" aria-label="Close modal">&times;</button>
+        <button type="button" class="viewer-close" id="scheduleCloseBtn" aria-label="বন্ধ করুন">&times;</button>
       </div>
-      <div class="field"><label>Username</label><input id="loginUser" autocomplete="username" placeholder="Username">
-      </div>
-      <div class="field"><label>Password</label><input type="password" id="loginPass" autocomplete="current-password"
-          placeholder="Password"></div>
-      <div class="error-text" id="loginError"></div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="cancelLoginBtn">বাতিল</button>
-        <button class="btn btn-navy" id="submitLoginBtn">লগইন করুন</button>
-      </div>
+      <form id="scheduleForm">
+        <div class="field">
+          <label for="schedule_level">১. Level / কাদের জন্য</label>
+          <input id="schedule_level" required maxlength="600" placeholder="যেমন: BBA · 1st Year · Accounting · NU">
+        </div>
+        <div class="field">
+          <label for="schedule_title">২. ক্লাসের টাইটেল</label>
+          <input id="schedule_title" required maxlength="200" placeholder="যেমন: Accounting — Chapter 3">
+        </div>
+        <div class="field">
+          <label for="schedule_time">৩. সময় (বাংলাদেশ)</label>
+          <input id="schedule_time" type="time" required step="60">
+        </div>
+        <div class="error-text" id="scheduleFormError" role="alert"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="scheduleCancelBtn">বাতিল</button>
+          <button type="submit" class="btn btn-navy" id="scheduleSaveBtn">ক্লাস যোগ করুন</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -2660,6 +2716,14 @@
     let adminToken = sessionStorage.getItem("adminToken") || localStorage.getItem("adminToken") || null;
     let userToken = sessionStorage.getItem("userToken") || localStorage.getItem("userToken") || null;
     let authRole = sessionStorage.getItem("authRole") || localStorage.getItem("authRole") || null;
+    let currentView = "gateway", databoxScrollY = 0, handlingViewHistory = true, authSessionVersion = 0;
+    let scheduleRows = [], schedulesLoaded = false, schedulesLoading = false, schedulesError = "";
+    let schedulesPending = null, scheduleRequestVersion = 0, schedulesLoadedAt = 0;
+    let routineShowPrevious = false, lastRoutineDate = "", scheduleEditingId = null, scheduleFormDate = "";
+    let scheduleSaving = false, scheduleReturnFocus = null;
+    const deletingScheduleIds = new Set();
+    const routineDateFormat = new Intl.DateTimeFormat("bn-BD", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const dhakaDateFormat = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" });
 
     // Edit distance (Levenshtein) - typo tolerance
     function levenshtein(a, b) {
@@ -2707,7 +2771,7 @@
 
     async function apiFetch(path, options = {}) {
       const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
-      const activeToken = adminToken || userToken;
+      const activeToken = authRole === "admin" ? adminToken : authRole === "user" ? userToken : null;
       if (activeToken) headers.Authorization = "Bearer " + activeToken;
       const res = await fetch(API_BASE + path, { ...options, headers });
       let data = null; try { data = await res.json() } catch (e) { }
@@ -2750,7 +2814,6 @@
       return `<span class="icon-badge${round ? " round" : ""}" style="background:linear-gradient(150deg,${c1},${c2})">${svg}</span>`;
     }
 
-    const INSTITUTE_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M6 10.5V16c0 1.5 2.5 3 6 3s6-1.5 6-3v-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 8v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     const DEPARTMENT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H12v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M20 5.5C20 4.67 19.33 4 18.5 4H12v16h6.5a1.5 1.5 0 0 0 1.5-1.5v-13Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>';
     const ALL_DEPARTMENT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="2"/></svg>';
 
@@ -2894,10 +2957,6 @@
 
     function renderPublic() {
       const list = records.filter(combinedMatches), wrap = document.getElementById("publicResults");
-      const countBadge = document.getElementById("publicCountBadge");
-      if (countBadge) {
-        countBadge.textContent = `${list.length} টি তথ্য পাওয়া গেছে`;
-      }
       if (!list.length) {
         wrap.innerHTML = `<div class="empty"><div class="empty-icon">⌕</div><strong>কোনো তথ্য পাওয়া যায়নি</strong><span>অন্য Institute, Department অথবা Session দিয়ে আবার চেষ্টা করুন।</span></div>`;
         return;
@@ -3000,9 +3059,270 @@
       }).join("") : `<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--muted);font-size:.92rem">কোনো তথ্য পাওয়া যায়নি</td></tr>`
     }
 
+    function escapeRoutineText(value) {
+      return String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    }
+
+    function dhakaDateKey(now = new Date()) {
+      const parts = Object.fromEntries(dhakaDateFormat.formatToParts(now).map(p => [p.type, p.value]));
+      return `${parts.year}-${parts.month}-${parts.day}`;
+    }
+
+    function validRoutineDate(value) {
+      if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      const timestamp = Date.parse(value + "T00:00:00Z");
+      return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === value;
+    }
+
+    function routineDateLabel(value) {
+      if (!validRoutineDate(value)) return "তারিখ বাছুন";
+      return routineDateFormat.format(new Date(value + "T00:00:00Z"));
+    }
+
+    function refreshRoutineDate(now = new Date()) {
+      const key = dhakaDateKey(now);
+      if (key === lastRoutineDate) return;
+      const input = document.getElementById("adminRoutineDay");
+      if (!input.value || input.value === lastRoutineDate) input.value = key;
+      lastRoutineDate = key;
+      renderRoutineViews();
+    }
+
+    function routineTimeLabel(value) {
+      const [hour, minute] = value.split(":").map(Number);
+      const period = hour < 6 ? "রাত" : hour < 12 ? "সকাল" : hour < 16 ? "দুপুর" : hour < 18 ? "বিকাল" : hour < 20 ? "সন্ধ্যা" : "রাত";
+      return `${period} ${(hour % 12 || 12).toLocaleString("bn-BD")}:${String(minute).padStart(2, "0").replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d])}`;
+    }
+
+    function populateRoutineFilters() {
+      const select = document.getElementById("routineFilterLevel"), previous = select.value;
+      const values = dedupeCI(scheduleRows.map(row => row.level));
+      select.replaceChildren(new Option("সব Level", ""), ...values.map(value => new Option(value, value)));
+      const selected = values.find(value => ciEq(value, previous));
+      if (selected) select.value = selected;
+    }
+
+    function routineAudienceMatches(row) {
+      const level = document.getElementById("routineFilterLevel").value;
+      return !level || ciEq(row.level, level);
+    }
+
+    function routineClassMarkup(row, admin) {
+      const busy = deletingScheduleIds.has(row.id);
+      return `<article class="routine-row"><div class="routine-time">${routineTimeLabel(row.class_time)}</div><div class="routine-details"><h3 class="routine-title">${escapeRoutineText(row.title)}</h3><div class="routine-audience">${escapeRoutineText(row.level)}</div></div>${admin ? `<div class="routine-actions"><button type="button" class="btn-admin-edit" data-schedule-edit="${row.id}"${busy ? " disabled" : ""}>Edit</button><button type="button" class="btn-admin-delete" data-schedule-delete="${row.id}"${busy ? " disabled" : ""}>${busy ? "মুছছে…" : "Remove"}</button></div>` : ""}</article>`;
+    }
+
+    function renderRoutineViews() {
+      const today = dhakaDateKey();
+      const previous = document.getElementById("routinePreviousBtn");
+      previous.textContent = routineShowPrevious ? "আজ ও পরের ক্লাস →" : "← Previous";
+      previous.setAttribute("aria-pressed", String(routineShowPrevious));
+      [false, true].forEach(admin => {
+        const selectedDate = document.getElementById("adminRoutineDay").value;
+        const results = document.getElementById(admin ? "adminRoutineResults" : "routineResults");
+        const count = document.getElementById(admin ? "adminRoutineCount" : "routineCount");
+        document.getElementById(admin ? "adminRoutineDayHeading" : "routineDayHeading").textContent = admin
+          ? routineDateLabel(selectedDate) : routineShowPrevious ? "আগের ক্লাস" : "আজ ও পরের ক্লাস";
+        results.setAttribute("aria-busy", String(schedulesLoading));
+        count.textContent = "";
+        if (schedulesLoading || schedulesError || !schedulesLoaded) {
+          results.innerHTML = `<div class="routine-status"${schedulesError ? ' role="alert"' : ""}><strong>${schedulesError ? "রুটিন দেখা যাচ্ছে না" : "ক্লাস রুটিন লোড হচ্ছে…"}</strong>${schedulesError ? `<p>${escapeRoutineText(schedulesError)}</p><button type="button" class="btn btn-ghost" data-routine-retry>আবার চেষ্টা করুন</button>` : ""}</div>`;
+          return;
+        }
+        const list = scheduleRows.filter(row => admin ? row.class_date === selectedDate
+          : routineAudienceMatches(row) && (routineShowPrevious ? row.class_date < today : row.class_date >= today))
+          .sort((a, b) => {
+            const dateOrder = a.class_date.localeCompare(b.class_date);
+            return (routineShowPrevious && !admin ? -dateOrder : dateOrder) || a.class_time.localeCompare(b.class_time) || a.id - b.id;
+          });
+        count.textContent = `${list.length.toLocaleString("bn-BD")}টি ক্লাস`;
+        if (!list.length) {
+          const message = admin ? "এই তারিখে কোনো ক্লাস নির্ধারিত নেই" : routineShowPrevious ? "আগের কোনো ক্লাস পাওয়া যায়নি" : "আজ বা পরের তারিখে কোনো ক্লাস নির্ধারিত নেই";
+          results.innerHTML = `<div class="routine-status"><strong>${message}</strong><p>${admin ? "এই তারিখে ক্লাস যোগ করুন।" : ""}</p></div>`;
+          return;
+        }
+        if (admin) { results.innerHTML = list.map(row => routineClassMarkup(row, true)).join(""); return; }
+        const groups = new Map();
+        list.forEach(row => {
+          if (!groups.has(row.class_date)) groups.set(row.class_date, []);
+          groups.get(row.class_date).push(row);
+        });
+        results.innerHTML = [...groups].map(([date, rows]) => `<section class="routine-date-group" aria-label="${escapeRoutineText(routineDateLabel(date))}"><h3 class="routine-date-heading">${date === today ? "আজ · " : ""}${escapeRoutineText(routineDateLabel(date))}</h3>${rows.map(row => routineClassMarkup(row, false)).join("")}</section>`).join("");
+      });
+    }
+
+    async function loadSchedules(force = false, background = false) {
+      if (!authRole) return;
+      if (schedulesPending && !force) return schedulesPending;
+      const version = ++scheduleRequestVersion;
+      schedulesLoading = !background;
+      schedulesError = "";
+      renderRoutineViews();
+      const pending = (async () => {
+        try {
+          const rows = await apiFetch("/api/schedules");
+          if (version !== scheduleRequestVersion) return;
+          if (!Array.isArray(rows)) throw new Error("ক্লাস রুটিন পাওয়া যায়নি। আবার চেষ্টা করুন।");
+          if (rows.some(row => !validRoutineDate(row.class_date))) throw new Error("ক্লাস রুটিন এখনো প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
+          scheduleRows = rows;
+          schedulesLoaded = true;
+          schedulesLoadedAt = Date.now();
+          populateRoutineFilters();
+        } catch (error) {
+          if (version === scheduleRequestVersion) schedulesError = error.message;
+        } finally {
+          if (version === scheduleRequestVersion) {
+            schedulesLoading = false;
+            schedulesPending = null;
+            renderRoutineViews();
+          }
+        }
+      })();
+      schedulesPending = pending;
+      return pending;
+    }
+
+    function updateViewRoute(view, replace = false) {
+      currentView = view;
+      if (!handlingViewHistory && (replace || location.hash !== "#" + view)) {
+        history[replace ? "replaceState" : "pushState"]({ view, scrollY: view === "databox" ? databoxScrollY : 0 }, "", "#" + view);
+      }
+    }
+
+    function hideRoutineView() {
+      document.getElementById("routineView").style.display = "none";
+      if (!scheduleSaving) closeScheduleForm(false);
+    }
+
+    function showRoutineView() {
+      if (authRole !== "admin" && authRole !== "user") { showLoginGateway(); return; }
+      if (currentView !== "routine") routineShowPrevious = false;
+      if (currentView === "databox") {
+        databoxScrollY = window.scrollY;
+        if (!handlingViewHistory) history.replaceState({ view: "databox", scrollY: databoxScrollY }, "", location.href);
+      }
+      ["loginGatewayView", "publicView", "adminView"].forEach(id => document.getElementById(id).style.display = "none");
+      document.getElementById("routineView").style.display = "block";
+      updateViewRoute("routine");
+      updateHeaderNav("routine");
+      refreshRoutineDate();
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      loadSchedules();
+    }
+
+    function returnToDatabox() {
+      if (authRole === "admin") adminPreviewPublic();
+      else if (authRole === "user") {
+        showUserView();
+        if (!records.length) loadRecords().then(refreshPublicView);
+      } else { showLoginGateway(); return; }
+      requestAnimationFrame(() => { if (currentView === "databox") window.scrollTo({ top: databoxScrollY, left: 0, behavior: "instant" }); });
+    }
+
+    function applyViewLocation() {
+      handlingViewHistory = true;
+      try {
+        if (!authRole) showLoginGateway();
+        else if (location.hash === "#routine") showRoutineView();
+        else if (location.hash === "#admin" && authRole === "admin") showAdminView();
+        else if (authRole === "admin" && location.hash !== "#databox") showAdminView();
+        else {
+          if (Number.isFinite(history.state?.scrollY)) databoxScrollY = history.state.scrollY;
+          returnToDatabox();
+        }
+      } finally { handlingViewHistory = false; }
+      updateViewRoute(currentView, true);
+    }
+
+    function openScheduleForm(id = null, opener = null) {
+      if (authRole !== "admin" || scheduleSaving) return;
+      const row = id === null ? null : scheduleRows.find(item => item.id === id);
+      if (id !== null && !row) return;
+      const dateInput = document.getElementById("adminRoutineDay");
+      if (!row && (!dateInput.reportValidity() || !validRoutineDate(dateInput.value))) return;
+      scheduleEditingId = id;
+      scheduleFormDate = row ? row.class_date : dateInput.value;
+      scheduleReturnFocus = opener || document.activeElement;
+      document.getElementById("scheduleForm").reset();
+      if (row) {
+        document.getElementById("schedule_level").value = row.level;
+        document.getElementById("schedule_title").value = row.title;
+        document.getElementById("schedule_time").value = row.class_time;
+      }
+      document.getElementById("scheduleFormTitle").textContent = row ? "ক্লাস পরিবর্তন করুন" : "ক্লাস যোগ করুন";
+      document.getElementById("scheduleSaveBtn").textContent = row ? "পরিবর্তন সংরক্ষণ" : "ক্লাস যোগ করুন";
+      document.getElementById("scheduleFormDay").textContent = routineDateLabel(scheduleFormDate);
+      document.getElementById("scheduleFormError").textContent = "";
+      document.getElementById("scheduleOverlay").classList.add("show");
+      document.getElementById(row ? "schedule_title" : "schedule_level").focus();
+    }
+
+    function closeScheduleForm(restoreFocus = true) {
+      if (scheduleSaving) return;
+      const overlay = document.getElementById("scheduleOverlay");
+      const wasOpen = overlay.classList.contains("show");
+      overlay.classList.remove("show");
+      scheduleEditingId = null;
+      if (restoreFocus && wasOpen && scheduleReturnFocus?.isConnected) scheduleReturnFocus.focus();
+    }
+
+    function scheduleFeedback(message, error = false) {
+      const element = document.getElementById("scheduleFeedback");
+      element.textContent = message;
+      element.style.color = error ? "var(--red)" : "#047857";
+    }
+
+    async function saveSchedule(event) {
+      event.preventDefault();
+      if (authRole !== "admin" || scheduleSaving || !document.getElementById("scheduleForm").reportValidity()) return;
+      const error = document.getElementById("scheduleFormError"), title = document.getElementById("schedule_title").value.trim();
+      if (!title) { error.textContent = "ক্লাসের টাইটেল লিখুন।"; document.getElementById("schedule_title").focus(); return; }
+      const level = document.getElementById("schedule_level").value.trim();
+      if (!level) { error.textContent = "কাদের জন্য ক্লাস, তা Level ঘরে লিখুন।"; document.getElementById("schedule_level").focus(); return; }
+      const data = { class_date: scheduleFormDate, level, title, class_time: document.getElementById("schedule_time").value };
+      const editing = scheduleEditingId, session = authSessionVersion;
+      scheduleSaving = true;
+      error.textContent = "";
+      ["scheduleSaveBtn", "scheduleCancelBtn", "scheduleCloseBtn"].forEach(id => document.getElementById(id).disabled = true);
+      document.getElementById("scheduleSaveBtn").textContent = "সংরক্ষণ হচ্ছে…";
+      try {
+        await apiFetch(editing === null ? "/api/schedules" : `/api/schedules/${editing}`, { method: editing === null ? "POST" : "PUT", body: JSON.stringify(data) });
+        if (authRole !== "admin" || session !== authSessionVersion) return;
+        scheduleSaving = false;
+        closeScheduleForm();
+        scheduleFeedback(editing === null ? "নির্বাচিত তারিখে ক্লাস যোগ হয়েছে।" : "ক্লাসের পরিবর্তন সংরক্ষণ হয়েছে।");
+        await loadSchedules(true);
+      } catch (err) {
+        if (authRole === "admin" && session === authSessionVersion) error.textContent = err.message;
+      } finally {
+        if (session === authSessionVersion) {
+          scheduleSaving = false;
+          ["scheduleSaveBtn", "scheduleCancelBtn", "scheduleCloseBtn"].forEach(id => document.getElementById(id).disabled = false);
+          document.getElementById("scheduleSaveBtn").textContent = editing === null ? "ক্লাস যোগ করুন" : "পরিবর্তন সংরক্ষণ";
+        }
+      }
+    }
+
+    async function deleteSchedule(id) {
+      if (authRole !== "admin" || deletingScheduleIds.has(id)) return;
+      if (!confirm("এই তারিখের ক্লাসটি রুটিন থেকে মুছে ফেলবেন?")) return;
+      const session = authSessionVersion;
+      deletingScheduleIds.add(id);
+      renderRoutineViews();
+      try {
+        await apiFetch(`/api/schedules/${id}`, { method: "DELETE" });
+        if (authRole !== "admin" || session !== authSessionVersion) return;
+        scheduleFeedback("ক্লাসটি রুটিন থেকে সরানো হয়েছে।");
+        await loadSchedules(true);
+      } catch (error) {
+        if (authRole === "admin" && session === authSessionVersion) scheduleFeedback(error.message, true);
+      } finally { deletingScheduleIds.delete(id); renderRoutineViews(); }
+    }
+
     function updateHeaderNav(mode) {
       const container = document.getElementById("headerNavBtns");
       if (!container) return;
+      const routineLink = `<button type="button" class="btn btn-outline" onclick="showRoutineView()" aria-label="ক্লাস রুটিন দেখুন"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg><span class="routine-full-label">ক্লাস রুটিন</span><span class="routine-short-label">রুটিন</span></button>`;
 
       if (mode === "gateway") {
         container.innerHTML = `
@@ -3013,13 +3333,10 @@
         `;
       } else if (mode === "user") {
         container.innerHTML = `
-          <span class="auth-status-pill user-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            User Panel
-          </span>
-          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+          ${routineLink}
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন" aria-label="লগআউট করুন">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Logout
+            <span class="header-logout-label">Logout</span>
           </button>
         `;
       } else if (mode === "admin") {
@@ -3030,28 +3347,36 @@
           </span>
           <button type="button" class="btn btn-outline" onclick="adminPreviewPublic()" title="ইউজার হিসেবে হোম পেজ দেখুন">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            হোম পেজ দেখুন
+            <span class="header-admin-label">হোম পেজ দেখুন</span>
           </button>
-          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন" aria-label="লগআউট করুন">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Logout
+            <span class="header-logout-label">Logout</span>
           </button>
         `;
       } else if (mode === "admin-preview") {
         container.innerHTML = `
           <button type="button" class="btn btn-gold" onclick="showAdminView()" title="এডমিন প্যানেলে ফিরে যান">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            এডমিন কন্ট্রোল
+            <span class="header-admin-label">এডমিন কন্ট্রোল</span>
           </button>
-          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন">
+          ${routineLink}
+          <button type="button" class="btn btn-outline" onclick="logout()" title="লগআউট করুন" aria-label="লগআউট করুন">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Logout
+            <span class="header-logout-label">Logout</span>
           </button>
         `;
+      } else if (mode === "routine") {
+        container.innerHTML = `
+          <button type="button" class="btn btn-outline" onclick="returnToDatabox()" aria-label="ডাটাবক্সে ফিরে যান">← ডাটাবক্স</button>
+          ${authRole === "admin" ? '<button type="button" class="btn btn-gold" onclick="showAdminView()" aria-label="এডমিন প্যানেলে ফিরে যান" title="এডমিন প্যানেলে ফিরে যান"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span class="header-admin-label">এডমিন</span></button>' : ""}
+          <button type="button" class="btn btn-outline" onclick="logout()" aria-label="লগআউট করুন" title="লগআউট করুন"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="header-logout-label">Logout</span></button>`;
       }
     }
 
     function showLoginGateway() {
+      hideRoutineView();
+      updateViewRoute("gateway", true);
       const gView = document.getElementById("loginGatewayView");
       const pView = document.getElementById("publicView");
       const aView = document.getElementById("adminView");
@@ -3067,6 +3392,8 @@
     }
 
     function showUserView() {
+      hideRoutineView();
+      updateViewRoute("databox");
       const gView = document.getElementById("loginGatewayView");
       const pView = document.getElementById("publicView");
       const aView = document.getElementById("adminView");
@@ -3077,6 +3404,9 @@
     }
 
     function showAdminView() {
+      if (authRole !== "admin") { authRole === "user" ? showUserView() : showLoginGateway(); return; }
+      hideRoutineView();
+      updateViewRoute("admin");
       const gView = document.getElementById("loginGatewayView");
       const pView = document.getElementById("publicView");
       const aView = document.getElementById("adminView");
@@ -3084,9 +3414,15 @@
       if (pView) pView.style.display = "none";
       if (aView) aView.style.display = "block";
       updateHeaderNav("admin");
+      if (document.getElementById("tab-routine").classList.contains("active")) {
+        refreshRoutineDate();
+        loadSchedules();
+      }
     }
 
     function adminPreviewPublic() {
+      hideRoutineView();
+      updateViewRoute("databox");
       const gView = document.getElementById("loginGatewayView");
       const pView = document.getElementById("publicView");
       const aView = document.getElementById("adminView");
@@ -3136,11 +3472,14 @@
         });
 
         const role = res.role || (res.token ? "admin" : "user");
+        authSessionVersion++;
         authRole = role;
 
         if (role === "admin") {
           adminToken = res.token;
           userToken = null;
+          sessionStorage.removeItem("userToken");
+          localStorage.removeItem("userToken");
           sessionStorage.setItem("authRole", "admin");
           sessionStorage.setItem("adminToken", adminToken);
           localStorage.setItem("authRole", "admin");
@@ -3151,6 +3490,8 @@
         } else {
           userToken = res.token || "user_active";
           adminToken = null;
+          sessionStorage.removeItem("adminToken");
+          localStorage.removeItem("adminToken");
           sessionStorage.setItem("authRole", "user");
           sessionStorage.setItem("userToken", userToken);
           localStorage.setItem("authRole", "user");
@@ -3193,6 +3534,24 @@
     }
 
     function logout() {
+      authSessionVersion++;
+      scheduleRequestVersion++;
+      scheduleRows = [];
+      schedulesLoaded = false;
+      schedulesLoading = false;
+      schedulesPending = null;
+      schedulesError = "";
+      schedulesLoadedAt = 0;
+      databoxScrollY = 0;
+      scheduleSaving = false;
+      ["scheduleSaveBtn", "scheduleCancelBtn", "scheduleCloseBtn"].forEach(id => document.getElementById(id).disabled = false);
+      closeScheduleForm(false);
+      scheduleFeedback("");
+      deletingScheduleIds.clear();
+      document.getElementById("routineFilterLevel").value = "";
+      routineShowPrevious = false;
+      document.getElementById("adminRoutineDay").value = dhakaDateKey();
+      renderRoutineViews();
       adminToken = null;
       userToken = null;
       authRole = null;
@@ -3209,6 +3568,7 @@
     }
 
     function goHome() {
+      if (currentView === "routine") { returnToDatabox(); return; }
       if (authRole === "admin") {
         adminPreviewPublic();
       } else if (authRole === "user") {
@@ -3220,24 +3580,11 @@
       }
     }
 
-    function openLogin() {
-      showLoginGateway();
-    }
-
-    function closeLogin() {
-      if (authRole === "admin") showAdminView();
-      else if (authRole === "user") showUserView();
-      else showLoginGateway();
-    }
-
-    async function login() {
-      await handleGatewayLogin();
-    }
-
     function switchTab(t) {
+      if (!["manage", "add", "routine"].includes(t) || (t === "routine" && authRole !== "admin")) return;
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
-      document.getElementById("tab-manage").classList.toggle("active", t === "manage");
-      document.getElementById("tab-add").classList.toggle("active", t === "add");
+      ["manage", "add", "routine"].forEach(tab => document.getElementById("tab-" + tab).classList.toggle("active", t === tab));
+      if (t === "routine") { refreshRoutineDate(); loadSchedules(); }
     }
 
     function updateLevelFields(prefix) {
@@ -3531,16 +3878,15 @@
       publicSearchInput.focus();
     };
 
-    const openLoginBtnEl = document.getElementById("openLoginBtn");
-    if (openLoginBtnEl) openLoginBtnEl.onclick = openLogin;
-    const cancelLoginBtnEl = document.getElementById("cancelLoginBtn");
-    if (cancelLoginBtnEl) cancelLoginBtnEl.onclick = closeLogin;
-    const cancelLoginCrossBtnEl = document.getElementById("cancelLoginCrossBtn");
-    if (cancelLoginCrossBtnEl) cancelLoginCrossBtnEl.onclick = closeLogin;
-    const submitLoginBtnEl = document.getElementById("submitLoginBtn");
-    if (submitLoginBtnEl) submitLoginBtnEl.onclick = login;
     const pwdToggleBtn = document.getElementById("gatewayPwdToggle");
     if (pwdToggleBtn) pwdToggleBtn.onclick = toggleGatewayPassword;
+
+    // Keep amount fields unchanged when scrolling with the mouse wheel.
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener("wheel", event => {
+        if (document.activeElement === input) event.preventDefault();
+      }, { passive: false });
+    });
 
     adminSearch.oninput = renderAdminTable;
     addSubmitBtn.onclick = addRecord;
@@ -3552,16 +3898,24 @@
     viewerCopyBtn.onclick = copyCourseModalContent;
     viewerOverlay.onclick = e => { if (e.target === viewerOverlay) closeCourseModal() };
     editOverlay.onclick = e => { if (e.target === editOverlay) closeEdit() };
-    if (typeof loginOverlay !== "undefined" && loginOverlay) loginOverlay.onclick = e => { if (e.target === loginOverlay) closeLogin() };
 
     window.addEventListener("keydown", e => {
-      if (e.key === "Escape") {
-        if (viewerOverlay.classList.contains("show")) closeCourseModal();
-        else if (editOverlay.classList.contains("show")) closeEdit();
-        else if (loginOverlay.classList.contains("show")) closeLogin();
+      const scheduleOpen = document.getElementById("scheduleOverlay").classList.contains("show");
+      if (scheduleOpen && e.key === "Tab") {
+        const controls = [...document.getElementById("scheduleOverlay").querySelectorAll('button, input, select')].filter(el => !el.disabled && el.getClientRects().length);
+        const first = controls[0], last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        return;
       }
+      if (e.key === "Escape") {
+        if (scheduleOpen) closeScheduleForm();
+        else if (viewerOverlay.classList.contains("show")) closeCourseModal();
+        else if (editOverlay.classList.contains("show")) closeEdit();
+      }
+      if (scheduleOpen) return;
       // Ctrl+K or / to focus search
-      if ((e.ctrlKey && e.key.toLowerCase() === "k") || (e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA")) {
+      if (currentView === "databox" && ((e.ctrlKey && e.key.toLowerCase() === "k") || (e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA"))) {
         e.preventDefault();
         publicSearchInput.focus();
         publicSearchInput.select();
@@ -3574,8 +3928,32 @@
     edit_level.onchange = () => updateLevelFields("edit");
     updateLevelFields("add");
     document.querySelectorAll(".tab-btn").forEach(b => b.onclick = () => switchTab(b.dataset.tab));
-    const loginPassInput = document.getElementById("loginPass");
-    if (loginPassInput) loginPassInput.onkeydown = e => { if (e.key === "Enter") login() };
+
+    document.getElementById("routinePreviousBtn").onclick = () => { routineShowPrevious = !routineShowPrevious; renderRoutineViews(); };
+    document.getElementById("adminRoutineDay").onchange = () => { scheduleFeedback(""); renderRoutineViews(); };
+    document.getElementById("routineFilterLevel").onchange = renderRoutineViews;
+    ["routineResults", "adminRoutineResults"].forEach(id => document.getElementById(id).addEventListener("click", event => {
+      const retry = event.target.closest("[data-routine-retry]");
+      if (retry) { loadSchedules(true); return; }
+      const edit = event.target.closest("[data-schedule-edit]"), remove = event.target.closest("[data-schedule-delete]");
+      if (edit && !edit.disabled) openScheduleForm(Number(edit.dataset.scheduleEdit), edit);
+      if (remove && !remove.disabled) deleteSchedule(Number(remove.dataset.scheduleDelete));
+    }));
+    document.getElementById("scheduleAddBtn").onclick = () => openScheduleForm();
+    document.getElementById("scheduleForm").onsubmit = saveSchedule;
+    ["scheduleCloseBtn", "scheduleCancelBtn"].forEach(id => document.getElementById(id).onclick = () => closeScheduleForm());
+    document.getElementById("scheduleOverlay").onclick = event => { if (event.target === document.getElementById("scheduleOverlay")) closeScheduleForm(); };
+    window.addEventListener("popstate", applyViewLocation);
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    const syncRoutineClock = () => {
+      refreshRoutineDate();
+      const active = currentView === "routine" || (currentView === "admin" && document.getElementById("tab-routine").classList.contains("active"));
+      if (!document.hidden && authRole && active && !schedulesPending && Date.now() - schedulesLoadedAt > 60000) loadSchedules(false, schedulesLoaded);
+    };
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) syncRoutineClock(); });
+    window.addEventListener("focus", syncRoutineClock);
+    setInterval(syncRoutineClock, 30000);
+    refreshRoutineDate();
 
     /* ---------- Voice Search (Bangla speech -> English keywords) ---------- */
     const BN_DIGIT_MAP = { "০": "0", "১": "1", "২": "2", "৩": "3", "৪": "4", "৫": "5", "৬": "6", "৭": "7", "৮": "8", "৯": "9" };
@@ -3688,16 +4066,23 @@
       };
     }
 
-    // ---------- Authentication Gateway Boot (প্রথম পেজে সবসময় লগইন সেকশন) ----------
+    // ---------- Authentication Gateway Boot ----------
+    const initialView = location.hash;
     if (authRole === "admin" && adminToken) {
       showAdminView();
-      loadRecords().then(renderAdminTable).catch(() => logout());
+      loadRecords().then(() => { renderAdminTable(); if (currentView === "databox") refreshPublicView(); if (schedulesLoaded) populateRoutineFilters(); }).catch(() => logout());
     } else if (authRole === "user") {
       showUserView();
-      loadRecords().then(refreshPublicView);
+      loadRecords().then(() => { refreshPublicView(); if (schedulesLoaded) populateRoutineFilters(); });
     } else {
       showLoginGateway();
     }
+    if ((authRole === "admin" && adminToken) || (authRole === "user" && userToken)) {
+      if (initialView === "#routine") showRoutineView();
+      else if (initialView === "#databox" && authRole === "admin") { showUserView(); updateHeaderNav("admin-preview"); }
+    }
+    handlingViewHistory = false;
+    updateViewRoute(currentView, true);
   </script>
 </body>
 

@@ -300,15 +300,17 @@
       margin: 0 auto
     }
 
-    /* Use the desktop width while keeping the existing single-column cards. */
+    /* Keep existing content widths; leave the outer page available for additions. */
     #publicView {
       width: 100%;
       max-width: none;
-      padding-inline: clamp(14px, 2vw, 32px);
+      padding-inline: 24px;
     }
 
     #publicView .hero { padding: 16px 0 10px; }
     #publicView .hero-content { max-width: none; }
+    #publicView #publicResults { width: 100%; max-width: 992px; margin-inline: auto; }
+    #publicView #updateNotices, #publicView .voice-status { max-width: 760px; margin-inline: auto; }
 
     /* ---------- Filter Bar ---------- */
     .filter-bar {
@@ -484,10 +486,11 @@
       font-weight: 600
     }
 
-    /* Four equal filters and a search field about twice as wide, on one row. */
-    #publicView .public-controls { align-items: center; flex-wrap: nowrap; margin-bottom: 0; }
-    #publicView .public-controls select { flex: 1 1 0; }
-    #publicView .public-search { flex: 2 1 0; min-width: 0; height: 42px; border-radius: 11px; box-shadow: var(--shadow-sm); }
+    /* Preserve the original filter widths; search occupies two filter widths. */
+    #publicView .public-controls { width: fit-content; max-width: 100%; align-items: center; justify-content: center; flex-wrap: wrap; margin: 0 auto; }
+    #publicView .public-filter-group { display: flex; flex: 0 1 760px; width: 760px; max-width: 100%; min-width: 0; gap: 8px; }
+    #publicView .public-filter-group select { flex: 1 1 0; width: 0; }
+    #publicView .public-search { flex: 0 1 376px; min-width: 0; height: 42px; border-radius: 11px; box-shadow: var(--shadow-sm); }
     #publicView .public-search input { flex: 1; width: 0; min-width: 0; height: 100%; padding: 0 6px; font-size: .88rem; }
     #publicView .public-search input::placeholder { font-size: .84rem; }
     #publicView .public-search .search-icon { width: 34px; height: 100%; }
@@ -2102,8 +2105,10 @@
         background-size: 11px
       }
 
+      #publicView { padding-inline: 14px; }
       #publicView .hero { padding: 12px 0 8px; }
-      #publicView .public-controls { flex-wrap: wrap; }
+      #publicView .public-controls { width: 100%; }
+      #publicView .public-filter-group { flex-basis: 100%; gap: 5px; }
       #publicView .public-search { flex-basis: 100%; height: 38px; }
 
       .card {
@@ -2361,6 +2366,7 @@
         <div class="update-notices" id="updateNotices"></div>
 
         <div class="filter-bar public-controls">
+          <div class="public-filter-group">
           <select id="filterLevel">
             <option value="">Level</option>
           </select>
@@ -2373,6 +2379,7 @@
           <select id="filterInstitute">
             <option value="">Institute</option>
           </select>
+          </div>
 
         <div class="search-box public-search">
           <span class="search-icon" aria-hidden="true">

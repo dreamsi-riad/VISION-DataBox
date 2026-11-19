@@ -487,10 +487,11 @@
     }
 
     /* Preserve the original filter widths; search occupies two filter widths. */
-    #publicView .public-controls { width: fit-content; max-width: 100%; align-items: center; justify-content: center; flex-wrap: wrap; margin: 0 auto; }
-    #publicView .public-filter-group { display: flex; flex: 0 1 760px; width: 760px; max-width: 100%; min-width: 0; gap: 8px; }
+    #publicView .public-controls { width: max-content; max-width: 100%; align-items: center; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; margin: 0 auto; }
+    #publicView .public-controls::-webkit-scrollbar { height: 4px; }
+    #publicView .public-filter-group { display: flex; flex: 0 0 760px; width: 760px; max-width: none; min-width: 0; gap: 8px; }
     #publicView .public-filter-group select { flex: 1 1 0; width: 0; }
-    #publicView .public-search { flex: 0 1 376px; min-width: 0; height: 42px; border-radius: 11px; box-shadow: var(--shadow-sm); }
+    #publicView .public-search { flex: 0 0 376px; width: 376px; min-width: 0; height: 42px; border-radius: 11px; box-shadow: var(--shadow-sm); }
     #publicView .public-search input { flex: 1; width: 0; min-width: 0; height: 100%; padding: 0 6px; font-size: .88rem; }
     #publicView .public-search input::placeholder { font-size: .84rem; }
     #publicView .public-search .search-icon { width: 34px; height: 100%; }
@@ -2108,8 +2109,8 @@
       #publicView { padding-inline: 14px; }
       #publicView .hero { padding: 12px 0 8px; }
       #publicView .public-controls { width: 100%; }
-      #publicView .public-filter-group { flex-basis: 100%; gap: 5px; }
-      #publicView .public-search { flex-basis: 100%; height: 38px; }
+      #publicView .public-filter-group { flex-basis: calc(100vw - 28px); width: calc(100vw - 28px); gap: 5px; }
+      #publicView .public-search { flex-basis: calc((100vw - 33px) / 2); width: calc((100vw - 33px) / 2); height: 38px; }
 
       .card {
         grid-template-columns: 1fr
